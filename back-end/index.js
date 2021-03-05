@@ -15,6 +15,18 @@ var accoundSchema = new Schema(
 
 var datas = MongoClient.model('test', accoundSchema, 'accounts')
 
+// 8. Student 객체를 new 로 생성해서 값을 입력
+var newDatas = new datas({id:'Hong Gil Dong', account_id:'서울시 강남구 논현동', limit:"man", prodcts:'22'});
+
+// 9. 데이터 저장
+newDatas.save(function(error, data){
+    if(error){
+        console.log(error);
+    }else{
+        console.log('Saved!')
+    }
+});
+
 datas.find(function(error, test){
     console.log('--- Read all ---');
     if(error){

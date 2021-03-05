@@ -2,6 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  componentDidMount() {
+    fetch('http://localhost:3000')
+    .then(console.log(res))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
