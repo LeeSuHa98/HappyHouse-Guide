@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Main from "./source/Main"
+import Marker from "./source/marker"
+import axios from 'axios';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  state = {
+    isLoading: true,
+    data: [],
+}
+getData = async () => {
+    const{ data: {
+        dataListResult:
+        {dataList}}
+    } = await axios.get('https://data.myhome.go.kr/rentalHouseList?brtcCode=11&signguCode=140&ServiceKey=1Vjb85Toni3AxZhaHs78nbBGNPfb8fhLLVkXP9EcUqJ7VPcg5SIXBGBZfkU1hiOp%2F8JjmzOzQx%2FbVpXa7tqOLg%3D%3D')
+    this.setState({data: dataList, isLoading: false})
+}
+componentDidMount(){
+    this.getData();
+}
+render(){
+    const { isLoading, data } = this.state;
+    return(
+        <div>
+            {isLoading ? "Loading...." : data.map((markers)=>{
+                console.log(markers);
+                return(
+                    <Marker>
+                      btrcCode={markers.brtcCode}
+                      signguCode={markers.signguCode}
+                      numOfRows={markers.numOfRows}
+                      pageNo={markers.pageNo}
+                    </Marker>
+                )
+            })}
+        </div>
+    )
+}
 }
 
 export default App;

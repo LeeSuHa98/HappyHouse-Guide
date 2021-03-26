@@ -4,15 +4,25 @@ const app = express();
 var test1;
 
 const MongoClient = require('mongoose')
-MongoClient.connect("mongodb+srv://admin:emm05235@cluster0.umzeh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", 
-    { useNewUrlParser: true, useUnifiedTopology: true, dbName:"sample_analytics" }).then(() => console.log('mongodb connected...')).catch(err => console.log(err))
+
+MongoClient.connect("mongodb+srv://admin:emm05235@cluster0.umzeh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true, 
+        dbName:"sample_analytics" 
+    }).then(() => console.log('mongodb connected...')).catch(err => console.log(err))
 
 var Schema = MongoClient.Schema;
 
-var accoundSchema = new Schema(
-    {id: String, account_id: String, limit: String, prodcts : String}
+//define Schema
+var accoundSchema = new Schema({
+        id: String, 
+        account_id: String, 
+        limit: String, 
+        prodcts : String}
 )
 
+
+//create model
 var datas = MongoClient.model('test', accoundSchema, 'accounts')
 
 datas.find(function(error, test){
