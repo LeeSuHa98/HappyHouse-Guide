@@ -9,8 +9,9 @@
     transition: 0.8s ease;
 }
 .toggle-menu {
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    left: 380px;
+    width: 20px;
     display: inline-block;
     position:fixed;
     background-color: rgba(64, 194, 133, 0.693);

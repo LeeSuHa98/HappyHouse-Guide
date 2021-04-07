@@ -14,6 +14,15 @@ export const MapMarkers = (props) => {
     const history = useHistory();
     const location = useLocation();
 
+    // 첫 랜더링에 값이 안들어가서 오류가 나서 일단은 props로 연결 시켜주고 location으로 값 들어가게 했지만.. 고쳐야함 
+    // 이거 첫번째로 주석 풀고 돌린다음에
+    // const address = props.address;
+    // const danjiName =props.danjiName;
+    // const bassMonthlyRentCharge = props.bassMonthlyRentCharge;
+    // const suplyCommuseArea = props.suplyCommuseArea;
+    // const suplyPrivateArea = props.suplyPrivateArea;
+
+    //얘 주석 풀어서 두번째로 돌리면 일단은 됨
     const address = location.state.address;
     const danjiName = location.state.danjiName;
     const bassMonthlyRentCharge = location.state.bassMonthlyRentCharge;
@@ -105,13 +114,7 @@ export const MapMarkers = (props) => {
             minHeight: '100vh'
           }}
         >
-          <button
-            onClick={() => toggleMenu()}
-            className="toggle-menu"
-            style={{
-              transform: `translate(${400}px, 20vh)`
-            }}>
-          </button>
+          <button onClick={() => toggleMenu()} className="toggle-menu"></button>
           <div className="content">
             <div>주소 : {address}</div>
             <div>단지명 : {danjiName}</div>
