@@ -1,9 +1,18 @@
-
-import Main from "./source/Main"
-import Marker from "./source/marker"
-import axios from 'axios';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MapMarkers from './source/MapMarkers'
 
 function App() {
+  return (
+    <div>
+    <BrowserRouter>
+    <Switch>
+    <Route exact path={"/"} component={MapMarkers} />
+    <MapMarkers/>
+    </Switch>
+    </BrowserRouter>
+    </div>
+  )
+  
   
 }
 
