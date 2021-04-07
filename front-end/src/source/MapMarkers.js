@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
 import image from '../Image/apartment.png'
+import deleteSidebar from '../Image/cancel.png'
 
 export const MapMarkers = (props) => {
     var windowOuterSize = window.outerWidth;
@@ -58,13 +59,15 @@ export const MapMarkers = (props) => {
     }
     const displayMarkers = () => {
         return item.map((data) => (
-            <Marker className='marker-image' key={data._id} position={{lat:data.lat, lng:data.lng}}
+            <Marker className='marker-image' 
+            key={data._id} 
+            position={{lat:data.lat, lng:data.lng}}
             icon={{
               url: image,
-              scaledSize: new props.google.maps.Size(40,50),
+              scaledSize: new props.google.maps.Size(33,43),
             }}
             onClick={() => handClick(
-              setHouseDetail(data),
+              setHouseDetail(data)
               )}
             />
             ))
@@ -97,7 +100,12 @@ export const MapMarkers = (props) => {
             minHeight: '100vh'
           }}
         >
-          <button onClick={() => toggleMenu()} className="toggle-menu"></button>
+          <img 
+          alt="delete sidebar button" 
+          src={deleteSidebar}
+          onClick={() => toggleMenu()} 
+          className="toggle-menu" 
+          />
           <div className="content">
             <div>주소 : {houseDetail.address}</div>
             <div>단지명 : {houseDetail.danjiName}</div>
