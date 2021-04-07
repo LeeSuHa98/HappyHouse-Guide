@@ -1,28 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import React, {useState} from 'react'
 
 function App() {
-  componentDidMount() {
-    fetch('http://localhost:3000')
-    .then(console.log(res))
+
+  const [item, getItem] = useState([])
+
+  function getPost() {
+    axios.get("https://n72s3qi251.execute-api.us-east-1.amazonaws.com/happyhouse/houseInfo")
+    .then(response => { 
+      const houseInfoList = response.data[0];
+      getItem(houseInfoList)
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {getPost()}
+      {item}
     </div>
   );
 }
