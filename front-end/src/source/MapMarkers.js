@@ -1,33 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-import {useHistory, useLocation} from "react-router";
 import './Sidebar.css'
 
 export const MapMarkers = (props) => {
-  var windowOuterSize = window.outerWidth;
+    var windowOuterSize = window.outerWidth;
 
     const [item, setItem] = useState([]);
+    const [houseDetail, setHouseDetail] = useState([]);
+
     const [xPosition, setX] = useState(windowOuterSize);
     const [isToggleOn, setIsToggleOn] = useState(true);
 
-    const history = useHistory();
-    const location = useLocation();
-
-    // 첫 랜더링에 값이 안들어가서 오류가 나서 일단은 props로 연결 시켜주고 location으로 값 들어가게 했지만.. 고쳐야함 
-    // 이거 첫번째로 주석 풀고 돌린다음에
-    // const address = props.address;
-    // const danjiName =props.danjiName;
-    // const bassMonthlyRentCharge = props.bassMonthlyRentCharge;
-    // const suplyCommuseArea = props.suplyCommuseArea;
-    // const suplyPrivateArea = props.suplyPrivateArea;
-
-    //얘 주석 풀어서 두번째로 돌리면 일단은 됨
-    const address = location.state.address;
-    const danjiName = location.state.danjiName;
-    const bassMonthlyRentCharge = location.state.bassMonthlyRentCharge;
-    const suplyCommuseArea = location.state.suplyCommuseArea;
-    const suplyPrivateArea = location.state.suplyPrivateArea;
 
     const toggleMenu = () => {
       if(isToggleOn.false) {
@@ -47,7 +31,7 @@ export const MapMarkers = (props) => {
       }
     };
 
-  const handClick = () => {
+  const handClick = (item) => {
     setIsToggleOn( prevState => ({
       isToggleOn: !prevState.isToggleOn
     }))
@@ -74,17 +58,10 @@ export const MapMarkers = (props) => {
     const displayMarkers = () => {
         return item.map((data) => (
             <Marker key={data._id} position={{lat:data.lat, lng:data.lng}}
-            onClick={() => handClick(history.push({
-                    state: {
-                        address: data.address,
-                        danjiName: data.danjiName,
-                        bassMonthlyRentCharge: data.bassMonthlyRentCharge,
-                        suplyCommuseArea: data.suplyCommuseArea,
-                        suplyPrivateArea: data.suplyPrivateArea
-                    }
-                }
-                ))
-              }/>
+            onClick={() => handClick(
+              setHouseDetail(data),
+              )}
+            />
             ))
     }
 
@@ -92,6 +69,7 @@ export const MapMarkers = (props) => {
         width: '100%',
         height: '100%',
     };
+    
     return(
         <div>
         <React.Fragment>
@@ -116,11 +94,15 @@ export const MapMarkers = (props) => {
         >
           <button onClick={() => toggleMenu()} className="toggle-menu"></button>
           <div className="content">
-            <div>주소 : {address}</div>
-            <div>단지명 : {danjiName}</div>
-            <div>월세 : {bassMonthlyRentCharge}</div>
-            <div>공공면적 : {suplyCommuseArea}</div>
-            <div>개인면적 : {suplyPrivateArea}</div>
+            <div>주소 : {houseDetail.address}</div>
+            <div>단지명 : {houseDetail.danjiName}</div>
+            <div>세대 수 : {houseDetail.houseHoldNum}</div>
+            <div>주택 유형 : {houseDetail.houseType}</div>
+            <div>기본 임대보증금 : {houseDetail.bassConversionDeposit}</div>
+            <div>기본 전환보증금 : {houseDetail.bassRentDeposit}</div>
+            <div>월 임대료 : {houseDetail.bassMonthlyRentCharge}</div>
+            <div>공공 공용 면적 : {houseDetail.suplyCommuseArea}</div>
+            <div>개인 전용 면적 : {houseDetail.suplyPrivateArea}</div>
           </div>
         </div>
         </React.Fragment>
