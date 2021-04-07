@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
+import image from '../Image/apartment.png'
 
 export const MapMarkers = (props) => {
     var windowOuterSize = window.outerWidth;
@@ -57,7 +58,11 @@ export const MapMarkers = (props) => {
     }
     const displayMarkers = () => {
         return item.map((data) => (
-            <Marker key={data._id} position={{lat:data.lat, lng:data.lng}}
+            <Marker className='marker-image' key={data._id} position={{lat:data.lat, lng:data.lng}}
+            icon={{
+              url: image,
+              scaledSize: new props.google.maps.Size(40,50),
+            }}
             onClick={() => handClick(
               setHouseDetail(data),
               )}
@@ -69,7 +74,7 @@ export const MapMarkers = (props) => {
         width: '100%',
         height: '100%',
     };
-    
+
     return(
         <div>
         <React.Fragment>
