@@ -4,6 +4,7 @@
 }
 
 .side-bar {
+    /*menubar_height만큼 side-bar top위치 조정*/
     top:10%;
     left:80%;
     position: absolute;

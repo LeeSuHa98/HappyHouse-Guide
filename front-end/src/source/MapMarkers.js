@@ -3,10 +3,11 @@ import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
 import './Menubar.css'
-import image from '../Image/apartment.png'
+
+import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
-import logo from '../Image/houseLogo.png'
-import testLogo from '../Image/testLogo.png'
+import logo from '../Image/testLogo.png'
+import testLogo from '.../Image/houseLogo.png'
 
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
@@ -86,7 +87,7 @@ export const MapMarkers = (props) => {
               className="logoImage" 
             />
             </div>
-            
+            s
             <div className = "menuGroup">
              <div className = "reviewButton">REVIEW</div>
              <div className = "communityButton">COMMUNITY</div>
@@ -98,12 +99,12 @@ export const MapMarkers = (props) => {
         </div>
       </div>
 
-        <div className="side-bar-wrap">
-          <div
-            className="side-bar"
-            id="sideBar"
-          >
 
+        <div className="side-bar-wrap">
+        <div
+          className="side-bar"
+          id="sideBar"
+        >
           <img 
           alt="sidebar hide" 
           src={cancel}
@@ -123,8 +124,8 @@ export const MapMarkers = (props) => {
             <div>공공 공용 면적 : {houseDetail.suplyCommuseArea}</div>
             <div>개인 전용 면적 : {houseDetail.suplyPrivateArea}</div>
           </div>
-          </div>
-         </div>
+        </div>
+      </div>
       
 
         </React.Fragment>
