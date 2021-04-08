@@ -3,49 +3,30 @@ import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
 import './Menubar.css'
-import image from '../Image/apartment.png'
-import deleteSidebar from '../Image/cancel.png'
+import image from '../Image/apartment_.png'
+import cancel from '../Image/cancel.png'
 import logo from '../Image/testLogo.png'
 
 export const MapMarkers = (props) => {
-    var windowOuterSize = window.outerWidth;
-
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
 
-    const [xPosition, setX] = useState(windowOuterSize);
-    const [isToggleOn, setIsToggleOn] = useState(true);
-
-
-    const toggleMenu = () => {
-      if(isToggleOn.false) {
-        setX(400);
-      }
-      else{
-        setX(0);
+    const sidebarHide = () => {
+      var con = document.getElementById("sideBar");
+      if(con.style.display==='block'){
+      con.style.display='none';
       }
     }
 
-    const toggleMarker = () => {
-      if ( xPosition < windowOuterSize) {
-        setX(-400);
-      }
-      else if(isToggleOn.false) {
-        setX(-400);
-      }
-    };
-
-  const handClick = (item) => {
-    setIsToggleOn( prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }))
-    return (
-      <div>{toggleMarker()}</div>
-    )
+  const sidebarShow = () => {
+    var con = document.getElementById("sideBar");
+    if(con.style.display==='none'){
+      con.style.display='block';
+    }else{
+      con.style.display='block';
+    }
   }
-    React.useEffect(() => {
-      setX(400);
-    }, []);
+    React.useEffect(() => {}, []);
 
     useEffect(() => {
         loadAsyncData();
@@ -66,9 +47,9 @@ export const MapMarkers = (props) => {
             position={{lat:data.lat, lng:data.lng}}
             icon={{
               url: image,
-              scaledSize: new props.google.maps.Size(33,43),
+              scaledSize: new props.google.maps.Size(50,50),
             }}
-            onClick={() => handClick(
+            onClick={() => sidebarShow(
               setHouseDetail(data)
               )}
             />
@@ -101,6 +82,7 @@ export const MapMarkers = (props) => {
           className = "menu-bar">
             <div className = "logo">
             <img 
+              alt='logo'
               src={logo}
               className="logoImage" 
             />
@@ -116,17 +98,13 @@ export const MapMarkers = (props) => {
       
         <div
           className="side-bar"
-          style={{
-            transform: `translatex(${xPosition}px)`,
-            left: windowOuterSize,
-            width: 400,
-            minHeight: '100vh'
-          }}
+          id="sideBar"
         >
           <img 
-          alt="delete sidebar button" 
-          src={deleteSidebar}
-          onClick={() => toggleMenu()} 
+          alt="sidebar hide" 
+          src={cancel}
+          id="sidebarHide"
+          onClick={() => sidebarHide()} 
           className="toggle-menu" 
           />
           <div className="content">

@@ -31,29 +31,27 @@
 
 .reviewButton{
     margin-top:1.5%;
-    height:70%;
+    height:50%;
     width:10%;
-    font-size:35px;
+    font-size:25px;
     text-align: center;
     float:right;
 }
 
 .communityButton{
     margin-top:1.5%;
-    height:70%;
+    height:50%;
     width:10%;
-    font-size:35px;
+    font-size:25px;
     text-align: center; 
-    
     float:right;
 }
 
 .login-join{
-    margin-top:1.2%;
-    height:70%;
+    margin-top:1.5%;
+    height:50%;
     width:15%;
-    font-size:35px;
+    font-size:25px;
     text-align: center; 
-    
     float:right;
 }

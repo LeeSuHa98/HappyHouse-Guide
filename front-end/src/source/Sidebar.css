@@ -2,13 +2,14 @@
     /*menubar_height만큼 side-bar top위치 조정*/
     top:10.5%;
     position: absolute;
-    height: 100% !important;
+    width: 400px;
+    height: 89.5%;
     flex-direction: column;
     border-right: 1px solid;
     border-radius: 0;
     border-color: rgba(199, 199, 199, 0.693);
     background-color: rgb(255, 255, 255);
-    transition: 0.8s ease;
+    display: none;
 }
 .toggle-menu {
     margin-top: 10px;
