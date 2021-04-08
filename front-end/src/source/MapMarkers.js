@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
+import './Menubar.css'
 import image from '../Image/apartment.png'
 import deleteSidebar from '../Image/cancel.png'
+import logo from '../Image/testLogo.png'
 
 export const MapMarkers = (props) => {
     var windowOuterSize = window.outerWidth;
@@ -81,6 +83,7 @@ export const MapMarkers = (props) => {
     return(
         <div>
         <React.Fragment>
+
         <Map
           google = {props.google}
           zoom = {15}
@@ -91,6 +94,26 @@ export const MapMarkers = (props) => {
         >
         {displayMarkers()}
         </Map>
+
+        <div menu-bar-content>
+
+        <div
+          className = "menu-bar">
+            <div className = "logo">
+            <img 
+              src={logo}
+              className="logoImage" 
+            />
+            </div>
+            <div className = "login-join">LOGIN / JOIN</div>
+            <div className = "communityButton">COMMUNITY</div>
+            <div className = "reviewButton">REVIEW</div>
+        </div>
+        <div class="divisionLine">
+      </div>
+      </div>
+      
+      
         <div
           className="side-bar"
           style={{
@@ -123,6 +146,7 @@ export const MapMarkers = (props) => {
 
     );
 }
+
 export default GoogleApiWrapper({
     apiKey: "AIzaSyCvljxDf0P6qv5kvTo5WIYRlWU3VZn3hks"
 })(MapMarkers);

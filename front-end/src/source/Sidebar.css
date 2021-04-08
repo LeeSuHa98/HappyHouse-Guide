@@ -1,4 +1,6 @@
 .side-bar {
+    /*menubar_height만큼 side-bar top위치 조정*/
+    top:10.5%;
     position: absolute;
     height: 100% !important;
     flex-direction: column;
