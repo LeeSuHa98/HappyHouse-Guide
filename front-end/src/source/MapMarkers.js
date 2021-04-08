@@ -4,48 +4,30 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import './Sidebar.css'
 import './Menubar.css'
 import image from '../Image/apartment.png'
-import deleteSidebar from '../Image/cancel.png'
-import logo from '../Image/testLogo.png'
+import cancel from '../Image/cancel.png'
+import logo from '../Image/houseLogo.png'
+import testLogo from '../Image/testLogo.png'
 
 export const MapMarkers = (props) => {
-    var windowOuterSize = window.outerWidth;
-
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
 
-    const [xPosition, setX] = useState(windowOuterSize);
-    const [isToggleOn, setIsToggleOn] = useState(true);
-
-
-    const toggleMenu = () => {
-      if(isToggleOn.false) {
-        setX(400);
-      }
-      else{
-        setX(0);
+    const sidebarHide = () => {
+      var con = document.getElementById("sideBar");
+      if(con.style.display==='block'){
+      con.style.display='none';
       }
     }
 
-    const toggleMarker = () => {
-      if ( xPosition < windowOuterSize) {
-        setX(-400);
-      }
-      else if(isToggleOn.false) {
-        setX(-400);
-      }
-    };
-
-  const handClick = (item) => {
-    setIsToggleOn( prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }))
-    return (
-      <div>{toggleMarker()}</div>
-    )
+  const sidebarShow = () => {
+    var con = document.getElementById("sideBar");
+    if(con.style.display==='none'){
+      con.style.display='block';
+    }else{
+      con.style.display='block';
+    }
   }
-    React.useEffect(() => {
-      setX(400);
-    }, []);
+    React.useEffect(() => {}, []);
 
     useEffect(() => {
         loadAsyncData();
@@ -66,9 +48,9 @@ export const MapMarkers = (props) => {
             position={{lat:data.lat, lng:data.lng}}
             icon={{
               url: image,
-              scaledSize: new props.google.maps.Size(33,43),
+              scaledSize: new props.google.maps.Size(50,50),
             }}
-            onClick={() => handClick(
+            onClick={() => sidebarShow(
               setHouseDetail(data)
               )}
             />
@@ -83,7 +65,6 @@ export const MapMarkers = (props) => {
     return(
         <div>
         <React.Fragment>
-
         <Map
           google = {props.google}
           zoom = {15}
@@ -95,40 +76,42 @@ export const MapMarkers = (props) => {
         {displayMarkers()}
         </Map>
 
-        <div menu-bar-content>
-
+        <div menu-bar-wrap>
         <div
           className = "menu-bar">
             <div className = "logo">
             <img 
+              alt='logo'
               src={logo}
               className="logoImage" 
             />
             </div>
-            <div className = "login-join">LOGIN / JOIN</div>
-            <div className = "communityButton">COMMUNITY</div>
-            <div className = "reviewButton">REVIEW</div>
+            
+            <div className = "menuGroup">
+             <div className = "reviewButton">REVIEW</div>
+             <div className = "communityButton">COMMUNITY</div>
+             <div className = "loginButton">LOGIN</div>
+             <div className = "text">/</div>
+             <div className = "joinButton">JOIN</div>
+           </div>
+
         </div>
-        <div class="divisionLine">
       </div>
-      </div>
-      
-      
-        <div
-          className="side-bar"
-          style={{
-            transform: `translatex(${xPosition}px)`,
-            left: windowOuterSize,
-            width: 400,
-            minHeight: '100vh'
-          }}
-        >
+
+        <div className="side-bar-wrap">
+          <div
+            className="side-bar"
+            id="sideBar"
+          >
+
           <img 
-          alt="delete sidebar button" 
-          src={deleteSidebar}
-          onClick={() => toggleMenu()} 
+          alt="sidebar hide" 
+          src={cancel}
+          id="sidebarHide"
+          onClick={() => sidebarHide()} 
           className="toggle-menu" 
           />
+
           <div className="content">
             <div>주소 : {houseDetail.address}</div>
             <div>단지명 : {houseDetail.danjiName}</div>
@@ -140,8 +123,12 @@ export const MapMarkers = (props) => {
             <div>공공 공용 면적 : {houseDetail.suplyCommuseArea}</div>
             <div>개인 전용 면적 : {houseDetail.suplyPrivateArea}</div>
           </div>
-        </div>
+          </div>
+         </div>
+      
+
         </React.Fragment>
+        
         </div>
 
     );
