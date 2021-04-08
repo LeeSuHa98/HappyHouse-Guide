@@ -6,8 +6,7 @@ import './Menubar.css'
 
 import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
-import logo from '../Image/testLogo.png'
-import testLogo from '.../Image/houseLogo.png'
+import logo from '../Image/houseLogo.png'
 
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
@@ -87,7 +86,7 @@ export const MapMarkers = (props) => {
               className="logoImage" 
             />
             </div>
-            s
+            
             <div className = "menuGroup">
              <div className = "reviewButton">REVIEW</div>
              <div className = "communityButton">COMMUNITY</div>
