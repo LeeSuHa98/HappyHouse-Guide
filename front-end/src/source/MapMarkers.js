@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
+import Moment from 'react-moment'
+
 import './Sidebar.css'
 import './Menubar.css'
 
@@ -11,6 +13,9 @@ import logo from '../Image/houseLogo.png'
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
+    const [type, setType] = useState([]);
+    const info = [];
+    
 
     const sidebarHide = () => {
       var con = document.getElementById("sideBar");
@@ -27,7 +32,6 @@ export const MapMarkers = (props) => {
       con.style.display='block';
     }
   }
-    React.useEffect(() => {}, []);
 
     useEffect(() => {
         loadAsyncData();
@@ -62,6 +66,15 @@ export const MapMarkers = (props) => {
         height: '100%',
     };
 
+    const countFunction = () => {
+      const info = item.reduce((infoData, {_id, address, typeName}) => {
+        (infoData[address] = infoData[address] || []).push(typeName);
+        return infoData
+      }, {});
+
+      console.log(houseDetail.address + " : " + info[houseDetail.address])
+    }
+
     return(
         <div>
         <React.Fragment>
@@ -74,6 +87,7 @@ export const MapMarkers = (props) => {
           }
         >
         {displayMarkers()}
+        
         </Map>
 
         <div menu-bar-wrap>
@@ -113,15 +127,23 @@ export const MapMarkers = (props) => {
           />
 
           <div className="content">
+
+            {countFunction()}
             <div>주소 : {houseDetail.address}</div>
             <div>단지명 : {houseDetail.danjiName}</div>
             <div>세대 수 : {houseDetail.houseHoldNum}</div>
             <div>주택 유형 : {houseDetail.houseType}</div>
+            <div>형 명 : {houseDetail.typeName}</div>
             <div>기본 임대보증금 : {houseDetail.bassConversionDeposit}</div>
             <div>기본 전환보증금 : {houseDetail.bassRentDeposit}</div>
             <div>월 임대료 : {houseDetail.bassMonthlyRentCharge}</div>
             <div>공공 공용 면적 : {houseDetail.suplyCommuseArea}</div>
             <div>개인 전용 면적 : {houseDetail.suplyPrivateArea}</div>
+            <div>준공일자 : 
+              <Moment format="YYYY/MM/DD">
+              {houseDetail.competeDate}
+              </Moment>
+            </div>
           </div>
         </div>
       </div>
