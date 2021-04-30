@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
@@ -21,12 +20,16 @@ export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
     const [type, setType] = useState([]);
+    const [selectedIndex, setSelectedIndex] = useState(null);
 
     const [convenience, setConvenience] = useState([]);
     const [medical, setMedical] = useState([]);
     const [safety, setSafety] = useState([]);
 
-    let detailResult = [];
+    let suplyPrivateArea = [];
+    let suplyCommuseArea = [];
+    let bassRentDeposit = [];
+    let bassMonthlyRentCharge = [];
 
     let houseDto = class{
       constructor(typeName, suplyCommuseArea, suplyPrivateArea, bassRentDeposit, bassMonthlyRentCharge, danjiCode){
@@ -41,6 +44,12 @@ export const MapMarkers = (props) => {
       toString() {
         return `${this.typeName}`
       }
+      
+      getTypeName() { return this.typeName; }
+      getSuplyCommuseArea() { return this.suplyCommuseArea; }
+      getSuplyPrivateArea() { return this.suplyPrivateArea; }
+      getBassRentDeposit() { return this.bassRentDeposit; }
+      getBassMonthlyRentCharge() { return this.bassMonthlyRentCharge; }
 
       toDetail() {
         return `
@@ -125,33 +134,42 @@ export const MapMarkers = (props) => {
         width: '100%',
         height: '100%',
     };
-    
+
     const countFunction = () => {
       let result = [];
 
       if(type[houseDetail.address] && type[houseDetail.address].length > 0){
         for(let i = 0; i < type[houseDetail.address].length; i++){
           result[i] = type[houseDetail.address][i].toString();
-          detailResult[i] = type[houseDetail.address][i].toDetail();
+          suplyCommuseArea[i] = type[houseDetail.address][i].getSuplyCommuseArea();
+          suplyPrivateArea[i] = type[houseDetail.address][i].getSuplyPrivateArea();
+          bassRentDeposit[i] = type[houseDetail.address][i].getBassRentDeposit();
+          bassMonthlyRentCharge[i] = type[houseDetail.address][i].getBassMonthlyRentCharge();
         }
       }
+
       return(
         <div>
           {result.map((data, i) => {
             return (
-            <div>
-            <button key={i} onClick={countFunctionDetail(i)}>{data}</button>
-            </div>
-
+              <button key={i} onClick={() => setSelectedIndex(i) }>{data}</button>
             )
           })}
         </div>
       )
     }
 
-    const countFunctionDetail = (i) => {
-      console.log(i);
-      console.log(detailResult[i]);
+    const countFunctionDetail = () => {
+        if (selectedIndex === null) return;
+
+      return(
+          <div>
+              <div>공공 공용 면적 : {suplyCommuseArea[selectedIndex]}</div>
+              <div>개인 전용 면적 : {suplyPrivateArea[selectedIndex]}</div>
+              <div>기본 전환 보증금 : {bassRentDeposit[selectedIndex]}</div>
+              <div>기본 임대 보증금 : {bassMonthlyRentCharge[selectedIndex]}</div>
+          </div>
+      )
     }
 
 
@@ -200,6 +218,7 @@ export const MapMarkers = (props) => {
                     <div>세대 수 : {houseDetail.houseHoldNum}</div>
                     <div>주택 유형 : {houseDetail.houseType}</div>
                     <div>형명 : {countFunction()}</div>
+                    {countFunctionDetail()}
                     <br />
                     <div>준공일자 :
                         <Moment format="YYYY.MM.DD">
