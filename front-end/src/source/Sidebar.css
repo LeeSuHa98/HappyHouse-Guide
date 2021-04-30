@@ -16,17 +16,43 @@
     background-color: rgb(255, 255, 255);
     display:none;
 }
-
+.chatbot-button {
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    left: 20px;
+    bottom: 30px;
+    outline: none;
+    z-index: 2;
+}
+.chatbot-show {
+    text-align: center;
+    bottom: 10%;
+    left: 40%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
 .toggle-menu {
     height: 15px;
     width: 15px;
     margin-top:10px;
     margin-left:92%;
-    
     display: inline-block;
 }
 
 
 .content {
     display: inline-block;
+}
+
+.react-chatbot-kit-chat-container {
+    width: 400px
+}
+.react-chatbot-kit-chat-bot-message {
+    width: 300px !important
+}
+span {
+    word-break:break-all;
 }

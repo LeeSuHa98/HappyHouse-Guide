@@ -1,7 +1,9 @@
+
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import Moment from 'react-moment'
+import Chatbot from "react-chatbot-kit"
 
 import './Sidebar.css'
 import './Menubar.css'
@@ -9,14 +11,47 @@ import './Menubar.css'
 import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
 import logo from '../Image/houseLogo.png'
+import chatbot from '../Image/faq2.png'
+
+import MessageParser from '../chatbot/MessageParser';
+import ActionProvider from '../chatbot/ActionProvider';
+import config from '../chatbot/config';
 
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
     const [type, setType] = useState([]);
-    const info = [];
-    
 
+    const [convenience, setConvenience] = useState([]);
+    const [medical, setMedical] = useState([]);
+    const [safety, setSafety] = useState([]);
+
+    let detailResult = [];
+
+    let houseDto = class{
+      constructor(typeName, suplyCommuseArea, suplyPrivateArea, bassRentDeposit, bassMonthlyRentCharge, danjiCode){
+        this.typeName = typeName;
+        this.suplyCommuseArea = suplyCommuseArea;
+        this.suplyPrivateArea = suplyPrivateArea;
+        this.bassRentDeposit = bassRentDeposit;
+        this.bassMonthlyRentCharge = bassMonthlyRentCharge;
+        this.danjiCode = danjiCode;
+      }
+
+      toString() {
+        return `${this.typeName}`
+      }
+
+      toDetail() {
+        return `
+         공공 공용 면적 : ${this.suplyCommuseArea}
+         개인 전용 면적 : ${this.suplyPrivateArea}
+         기본 전환보증금 : ${this.bassRentDeposit}
+         기본 임대보증금 : ${this.bassMonthlyRentCharge}
+         단지코드 : ${this.danjiCode}
+        `
+      }
+    }
     const sidebarHide = () => {
       var con = document.getElementById("sideBar");
       if(con.style.display==='block'){
@@ -24,26 +59,51 @@ export const MapMarkers = (props) => {
       }
     }
 
-  const sidebarShow = () => {
-    var con = document.getElementById("sideBar");
-    if(con.style.display==='none'){
-      con.style.display='block';
-    }else{
-      con.style.display='block';
+    const sidebarShow = () => {
+      var con = document.getElementById("sideBar");
+      if(con.style.display==='none'){
+        con.style.display='block';
+      }else{
+        con.style.display='block';
+      }
     }
-  }
+
+    const chatbotFAQ = () => {
+      var con = document.getElementById("chatbot");
+      if(con.style.display==='none'){
+        con.style.display='block';
+      }else{
+        con.style.display='none';
+      }
+    }
 
     useEffect(() => {
         loadAsyncData();
     }, [])
 
     const loadAsyncData = () => {
-        let url = `https://n72s3qi251.execute-api.us-east-1.amazonaws.com/happyhouse/houseInfos`;
+        let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos`;
 
         axios.get(url).then(({data}) => {
             data = data.houseInfoList
             setItem(data);
+            setType(data.reduce((infoData, curHouse) => {
+              (infoData[curHouse.address] = infoData[curHouse.address] || [])
+              .push(new houseDto(curHouse.typeName, curHouse.suplyCommuseArea, curHouse.suplyPrivateArea, curHouse.bassRentDeposit, curHouse.bassMonthlyRentCharge, curHouse.danjiCode));
+              return infoData;
+            }, {}));
         })
+    }
+
+    const loadAsyncHouseGradeData = () => {
+      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseGrade/${houseDetail.danjiCode}`;
+
+      axios.get(url).then(({data}) => {
+        data = data.grade;
+        setConvenience(data.convenience);
+        setSafety(data.safety);
+        setMedical(data.medical);
+      })
     }
     const displayMarkers = () => {
         return item.map((data) => (
@@ -65,94 +125,97 @@ export const MapMarkers = (props) => {
         width: '100%',
         height: '100%',
     };
-
+    
     const countFunction = () => {
-      const info = item.reduce((infoData, {_id, address, typeName}) => {
-        (infoData[address] = infoData[address] || []).push(typeName);
-        return infoData
-      }, {});
+      let result = [];
 
-      console.log(houseDetail.address + " : " + info[houseDetail.address])
+      if(type[houseDetail.address] && type[houseDetail.address].length > 0){
+        for(let i = 0; i < type[houseDetail.address].length; i++){
+          result[i] = type[houseDetail.address][i].toString();
+          detailResult[i] = type[houseDetail.address][i].toDetail();
+        }
+      }
+      return(
+        <div>
+          {result.map((data, i) => {
+            return (
+            <div>
+            <button key={i} onClick={countFunctionDetail(i)}>{data}</button>
+            </div>
+
+            )
+          })}
+        </div>
+      )
     }
 
+    const countFunctionDetail = (i) => {
+      console.log(i);
+      console.log(detailResult[i]);
+    }
+
+
     return(
-        <div>
-        <React.Fragment>
-        <Map
-          google = {props.google}
-          zoom = {15}
-          style = {mapStyles}
-          initialCenter = {
-              {lat: 37.5, lng: 127}
-          }
-        >
-        {displayMarkers()}
-        
+<div>
+    <React.Fragment>
+        <Map google={props.google} zoom={15} style={mapStyles} initialCenter={ {lat: 37.5, lng: 127} }>
+            {displayMarkers()}
         </Map>
-
         <div menu-bar-wrap>
-        <div
-          className = "menu-bar">
-            <div className = "logo">
-            <img 
-              alt='logo'
-              src={logo}
-              className="logoImage" 
-            />
+            <div className="menu-bar">
+                <div className="logo">
+                    <img alt='logo' src={logo} className="logoImage" />
+                </div>
+
+                <div className="menuGroup">
+                    <div className="reviewButton">REVIEW</div>
+                    <div className="communityButton">COMMUNITY</div>
+                    <div className="loginButton">LOGIN</div>
+                    <div className="text">/</div>
+                    <div className="joinButton">JOIN</div>
+                </div>
+
+
             </div>
-            
-            <div className = "menuGroup">
-             <div className = "reviewButton">REVIEW</div>
-             <div className = "communityButton">COMMUNITY</div>
-             <div className = "loginButton">LOGIN</div>
-             <div className = "text">/</div>
-             <div className = "joinButton">JOIN</div>
-           </div>
-
         </div>
-      </div>
-
-
-        <div className="side-bar-wrap">
-        <div
-          className="side-bar"
-          id="sideBar"
-        >
-          <img 
-          alt="sidebar hide" 
-          src={cancel}
-          id="sidebarHide"
-          onClick={() => sidebarHide()} 
-          className="toggle-menu" 
-          />
-
-          <div className="content">
-
-            {countFunction()}
-            <div>주소 : {houseDetail.address}</div>
-            <div>단지명 : {houseDetail.danjiName}</div>
-            <div>세대 수 : {houseDetail.houseHoldNum}</div>
-            <div>주택 유형 : {houseDetail.houseType}</div>
-            <div>형 명 : {houseDetail.typeName}</div>
-            <div>기본 임대보증금 : {houseDetail.bassConversionDeposit}</div>
-            <div>기본 전환보증금 : {houseDetail.bassRentDeposit}</div>
-            <div>월 임대료 : {houseDetail.bassMonthlyRentCharge}</div>
-            <div>공공 공용 면적 : {houseDetail.suplyCommuseArea}</div>
-            <div>개인 전용 면적 : {houseDetail.suplyPrivateArea}</div>
-            <div>준공일자 : 
-              <Moment format="YYYY/MM/DD">
-              {houseDetail.competeDate}
-              </Moment>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-
-        </React.Fragment>
         
+        <div id="chatbot" className="chatbot-show">
+          <Chatbot 
+          config={config} 
+          actionProvider={ActionProvider} 
+          messageParser={MessageParser}/>
+        </div>
+        <img alt="chatbot" src={chatbot} className="chatbot-button" onClick={() => chatbotFAQ()}/>
+
+
+        <div className="side-bar-wrap" >
+            <div className="side-bar" id="sideBar">
+              {loadAsyncHouseGradeData()}
+                <img alt="sidebar hide" src={cancel} id="sidebarHide" onClick={()=> sidebarHide()}
+                className="toggle-menu"
+                />
+                <div className="content">
+                    <div>주소 : {houseDetail.address}</div>
+                    <div>단지명 : {houseDetail.danjiName}</div>
+                    <div>세대 수 : {houseDetail.houseHoldNum}</div>
+                    <div>주택 유형 : {houseDetail.houseType}</div>
+                    <div>형명 : {countFunction()}</div>
+                    <br />
+                    <div>준공일자 :
+                        <Moment format="YYYY.MM.DD">
+                            {houseDetail.competeDate}
+                        </Moment>
+                    </div>
+                    <div>
+                        <li>편의 : {convenience}</li>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
+    </React.Fragment></div>
     );
 }
 
