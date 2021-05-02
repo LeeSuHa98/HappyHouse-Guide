@@ -35,7 +35,7 @@ const Header = ({match, history}) => {
 
                     <div className="menuGroup">
                         <div className="reviewButton">
-                        <a href = "/reviews" className="reviewButton">REVIEW</a>
+                        <a href = "/review" className="reviewButton">REVIEW</a>
                         </div>
                         <div className="communityButton">
                         <a href = "/communities" className="reviewButton">COMMUNITY</a>
