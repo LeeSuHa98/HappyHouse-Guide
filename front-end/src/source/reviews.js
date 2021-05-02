@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 import {
     Button,
@@ -7,6 +6,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios'
 import './reviews.css';
+
 const Reviews =(props)=>{
     useEffect(() => {
             readActivityHistory()
@@ -27,7 +27,7 @@ const Reviews =(props)=>{
     
     function readActivityHistory () {
         axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews').then(({data}) => {
-            data = data.reviewsList
+            data = data.reviewList
             setActivityHistoryList(data.map(reviewsList))
           })
     }

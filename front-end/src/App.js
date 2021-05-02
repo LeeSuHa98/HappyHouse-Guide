@@ -3,7 +3,7 @@ import MapMarkers from './source/MapMarkers'
 import Communities from './source/communities'
 import Reviews from './source/reviews'
 import Header from './source/Header';
-import Review from './source/Review'
+import './App.css'
 
 function App() {
   return (
@@ -12,15 +12,12 @@ function App() {
       <BrowserRouter>
       <Switch>
         <Route exact path={"/"} component={MapMarkers} />
-        <Route path={"/communities"} component={Communities} />
         <Route path={"/reviews"} component={Reviews} />
-        <Route path={"/review"} component={Review}></Route>
+        <Route path={"/communities"} component={Communities} />
       </Switch>
       </BrowserRouter>
     </div>
   )
-  
-  
 }
 
 export default App;
