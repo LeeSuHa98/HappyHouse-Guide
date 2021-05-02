@@ -29,13 +29,12 @@ const Header = ({match, history}) => {
             <div menu-bar-wrap>
                 <div className="menu-bar">
                     <div className="logo">
-                        <img alt='logo' src={logo} className="logoImage" />
-                        <a href = "/">Home/test</a>
+                        <a href = "/"> <img alt='logo' src={logo} className="logoImage" /></a>
                     </div>
 
                     <div className="menuGroup">
                         <div className="reviewButton">
-                        <a href = "/reviews" className="reviewButton">REVIEW</a>
+                        <a href = "/review" className="reviewButton">REVIEW</a>
                         </div>
                         <div className="communityButton">
                         <a href = "/communities" className="reviewButton">COMMUNITY</a>
