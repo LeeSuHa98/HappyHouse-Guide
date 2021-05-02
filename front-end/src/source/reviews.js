@@ -15,7 +15,7 @@ const Reviews =(props)=>{
     
     const [activityHistoryList, setActivityHistoryList] = useState();
     const reviewsList = (reviews) => (
-        <tr key={reviews.id} id={reviews.id}>
+        <tr key={reviews._id} id={reviews._id}>
         <td>{reviews.userId}</td>                          
         <td>{reviews.regon}</td>  
         <td>{reviews.houseType}</td>                  
