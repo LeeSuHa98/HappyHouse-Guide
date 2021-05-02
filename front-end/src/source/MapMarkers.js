@@ -20,6 +20,13 @@ import star2 from '../Image/star2.PNG'
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
+import Header from './Header'
+
+import{
+Modal,
+ModalBody
+} from 'reactstrap';
+import Login from'./Login'
 
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
@@ -30,6 +37,14 @@ export const MapMarkers = (props) => {
     const [convenience, setConvenience] = useState([]);
     const [medical, setMedical] = useState([]);
     const [safety, setSafety] = useState([]);
+
+
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
+    const [token, setToken] = useState(); // -> testID
+
+
 
     let typeName = [];
     let suplyPrivateArea = [];
@@ -213,23 +228,8 @@ export const MapMarkers = (props) => {
         <Map google={props.google} zoom={15} style={mapStyles} initialCenter={ {lat: 37.5, lng: 127} }>
             {displayMarkers()}
         </Map>
-        <div menu-bar-wrap>
-            <div className="menu-bar">
-                <div className="logo">
-                    <img alt='logo' src={logo} className="logoImage" />
-                </div>
-
-                <div className="menuGroup">
-                    <div className="reviewButton">REVIEW</div>
-                    <div className="communityButton">COMMUNITY</div>
-                    <div className="loginButton">LOGIN</div>
-                    <div className="text">/</div>
-                    <div className="joinButton">JOIN</div>
-                </div>
-
-
-            </div>
-        </div>
+      
+        <Header/>
         
         <div id="chatbot" className="chatbot-show">
           <Chatbot 

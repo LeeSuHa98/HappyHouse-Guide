@@ -1,60 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
-.menu-bar-wrap{
-    width:100%;
+.menu-bar-wrap {
+  width: 100%;
 }
 
-.menu-bar{
-    font-family: 'Do Hyeon', sans-serif;
-    position:absolute;
-    height:10%;
-    width:100%;
-    background-color:rgb(36, 72, 105);
+.menu-bar {
+  font-family: "Do Hyeon", sans-serif;
+  position: absolute;
+  height: 10%;
+  width: 100%;
+  background-color: rgb(36, 72, 105);
 }
 
-.logo{
-    float:left;
-    height:100%;
-    width:5%;
+.logo {
+  float: left;
+  height: 100%;
+  width: 5%;
 }
 
-.logoImage{
-    margin-top:20%;
-    margin-left:30%;
-    width: 50%;
-    height:50%;
+.logoImage {
+  margin-top: 20%;
+  margin-left: 30%;
+  width: 50%;
+  height: 50%;
 }
 
-.menuGroup{
-    width:50%;
-    float:right;
-    height:100%;   
-    display: flex;
+.menuGroup {
+  width: 50%;
+  float: right;
+  height: 100%;
+  display: flex;
 }
 
-.reviewButton,.communityButton,.joinButton,.loginButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color:white;
-    height:100%;
-    width:23%;
-    font-size:25px;
+.reviewButton,
+.communityButton,
+.joinButton,
+.loginButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100%;
+  width: 23%;
+  font-size: 25px;
 }
 
-.reviewButton{
-    margin-left:24%;
+.reviewButton {
+  margin-left: 24%;
 }
 
-.joinButton,.loginButton{ 
-    width:12%;
+.joinButton,
+.loginButton {
+  width: 24%;
 }
 
-.text{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color:white;
-    height:100%;
-    font-size:150%;
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100%;
+  font-size: 150%;
+}
+
+.a {
+  margin: 0%;
+  padding: 0%;
 }
