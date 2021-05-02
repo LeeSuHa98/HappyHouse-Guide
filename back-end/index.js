@@ -32,4 +32,3 @@ app.use('/happyhouse', require('./router/router'))
 app.get('/', function (req, res) {
     res.send('Hello World!');
   });
-  
