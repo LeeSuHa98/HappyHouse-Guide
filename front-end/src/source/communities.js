@@ -1,11 +1,9 @@
-
 import React, {useState, useEffect} from 'react';
 import {
     Button,
     Table
 } from 'reactstrap';
 import axios from 'axios'
-import Header from './Header';
 import './communities.css';
 const Communities =(props)=>{
     useEffect(() => {
