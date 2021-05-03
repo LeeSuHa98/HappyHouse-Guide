@@ -4,6 +4,7 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios'
+import './community.css'
 
 const Communities =(props)=>{
     useEffect(() => {

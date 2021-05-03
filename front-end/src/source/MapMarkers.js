@@ -213,8 +213,6 @@ export const MapMarkers = (props) => {
     }
 
 
-
-
     return(
 <div>
     <React.Fragment>
