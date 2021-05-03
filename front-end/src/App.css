@@ -3,11 +3,11 @@
 }
 
 .header_container {
-  position: fixed;
-  height: 70px;
+  position:fixed;
+  height: 10%;
   width: 100%;
   z-index: 100;
 }
 .body_container {
-  padding-top: 70px;
+  padding-top: 0px;
 }
