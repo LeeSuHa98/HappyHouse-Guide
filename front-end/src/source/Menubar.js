@@ -17,8 +17,15 @@ const Menubar = (props) => {
         if(!localStorage.getItem("userToken")){
             localStorage.setItem("userToken", "bearer: ");
         }
+        
+        if(localStorage.getItem("userToken") === "bearer: "){
+            setIsLogin(false);
+        }else{
+            setIsLogin(true);
+        }
     });
     
+    const [isLogin, setIsLogin] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
@@ -38,10 +45,10 @@ const Menubar = (props) => {
                         </div>
                         <div className="loginButton">
                         {
-                            localStorage.getItem("userToken") === "bearer: " ?
-                            <div onClick = {() => toggle()}> LOGIN / JOIN </div>
+                            isLogin === true?
+                            <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); setIsLogin(false); window.location.replace('/')}}> LOGOUT </div>
                             : 
-                            <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); window.location.href ='/'}}> LOGOUT </div>
+                            <div onClick = {() => {toggle(); setIsLogin(true)}}> LOGIN / JOIN </div>
                         }
                         </div>
                     </div>
