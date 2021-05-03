@@ -10,8 +10,9 @@
 .toggle-menu {
     height: 15px;
     width: 15px;
-    margin-top:10px;
-    margin-left:92.5%;
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-left:94.5%;
     display: inline-block;
 }
 
@@ -170,6 +171,7 @@
 }
 
 #moreReview{
+    font-family: 'Nanum Barun Gothic', sans-serif;
     float:right;
     margin-right:15px;
     background-color: white;
