@@ -23,8 +23,8 @@ router.get('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-    user.create(req.body)
-    .then(users => res.send(user))
+    users.create(req.body)
+    .then(users => res.send(users))
     .catch(err => res.status(500).send(err));
 });
 
@@ -37,7 +37,7 @@ router.put('/:id', (req, res) => {
 
 // Delete by id
 router.delete('/:id', (req, res) => {
-    user.deleteById(req.params.id)
+    users.deleteById(req.params.id)
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).send(err));
 });

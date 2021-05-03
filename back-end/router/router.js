@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+router.use('/login', require('./loginController'));
 router.use('/houseInfos', require('./houseInfoController'));
 router.use('/reviews', require('./reviewsController'));
 router.use('/users', require('./userController'));

@@ -7,7 +7,7 @@ const reviewSchema = new mongoose.Schema({
   houseId: { type: String, required: true },
   userId: { type: String, required: true },
   region: { type: String, required: true },
-  houseType: { type: Number, required: true },
+  typeName: { type: String, required: true },
   monthlyRentCharge: { type: Number, required: true },
   adminCharge: { type: Number, required: true },
   title: { type: String, required: true },
