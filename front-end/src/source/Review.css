@@ -1,12 +1,17 @@
 @import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
+.dv {
+  padding-top:7%;
+  padding-bottom:3%;
+  height:100%;
+} 
+
 .review-wrap{
     width:80%;
     height:90%;
 
     margin-left:10%;
-    margin-top:1.3em;
 }
 
 /* review-title */
@@ -70,11 +75,9 @@
   flex-direction: row;
 }
 
-#second{
-  margin-left:2%;
-}
 
 .review-block {
+  margin: 0px 5px;
   flex-basis:49%;
   border:solid 1px black;
   box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.1);

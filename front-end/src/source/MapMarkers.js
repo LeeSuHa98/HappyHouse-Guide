@@ -16,6 +16,7 @@ import chatbot from '../Image/faq2.png'
 import like from '../Image/like.png'
 import star1 from '../Image/star1.PNG'
 import star2 from '../Image/star2.PNG'
+import room1 from'../Image/room1.PNG'
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
@@ -213,8 +214,6 @@ export const MapMarkers = (props) => {
     }
 
 
-
-
     return(
 <div>
     <React.Fragment>
@@ -240,6 +239,8 @@ export const MapMarkers = (props) => {
                  
                 {loadAsyncHouseGradeData()}                  
               <div className="content">
+              <img src={room1} id="roomImage"></img>
+
               <div id = "houseInfoSection1">
               <table className ="houseInfoTable1">
                 <tr> 
