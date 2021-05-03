@@ -11,7 +11,7 @@ const Options = (props) => {
         },
         {
             text: "입주조건",
-            handler: props.conditionOptions,
+            handler: props.actionProvider.handleCondition,
             id: 2,
         },
         {

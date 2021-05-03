@@ -4,22 +4,14 @@ class ActionProvider {
       this.setState = setStateFunc;
       this.createClientMessage = createClientMessage;
     }
-
     
-    greet = () => {
-      const message = this.createChatBotMessage("hello friend.");
-      this.addMessageToState(message);
-    }
+    //Options Function
 
     handleNotice = () => {
       const message = this.createChatBotMessage(
         "모집공고 조회를 원하는 단지명 또는 건물명을 입력하세요.",
       );
       this.addMessageToState(message);
-    }
-
-    handleCondition = () => {
-      const message = this.createChatBotMessage()
     }
 
     answerAddress = () => {
@@ -31,6 +23,86 @@ class ActionProvider {
       );
       this.addMessageToState(message);
       this.addMessageToState(message2);
+    }
+
+    handleCondition = () => {
+      const message = this.createChatBotMessage("신청하고자 하는 유형을 선택해주세요.", { widget: "conditions" });
+      this.addMessageToState(message);
+    }
+
+    handleReview = () => {
+      const message = this.createChatBotMessage("궁금하신 거주후기의 유형을 선택해주세요.", { widget: "reviews"});
+      this.addMessageToState(message);
+    }
+
+    //Conditions Function
+
+    studentCondition = () => {
+      const message = this.createChatBotMessage(
+        "대학생 계층의 신청자격에 관한 정보입니다.",
+        { widget: "student", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    youthCondition = () => {
+      const message = this.createChatBotMessage(
+        "청년 계층의 신청자격에 관한 정보입니다.",
+        { widget: "youth", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    familyCondition = () => {
+      const message = this.createChatBotMessage(
+        "신혼부부 & 한부모가족 계층의 신청자격에 관한 정보입니다.",
+        { widget: "family", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    oldCondition = () => {
+      const message = this.createChatBotMessage(
+        "고령자 계층의 신청자격에 관한 정보입니다.",
+        { widget: "old", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    benefitCondition = () => {
+      const message = this.createChatBotMessage(
+        "주거급여수급자 계층의 신청자격에 관한 정보입니다.",
+        { widget: "benefit", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    workerCondition = () => {
+      const message = this.createChatBotMessage(
+        "산업단지근로자 계층의 신청자격에 관한 정보입니다.",
+        { widget: "worker", withAvatar: true }
+      );
+      
+      this.addMessageToState(message);
+    }
+
+    //Reviews Function 
+
+    newestReviews = () => {
+      
+    }
+
+    highstRatedReviews = () => {
+
+    }
+
+    searchRegionReviews = () => {
+
     }
 
     addMessageToState = (message) => {
