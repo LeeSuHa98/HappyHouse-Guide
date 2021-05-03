@@ -5,7 +5,6 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios'
-import './reviews.css';
 
 const Reviews =(props)=>{
     useEffect(() => {

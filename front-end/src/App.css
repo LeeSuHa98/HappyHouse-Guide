@@ -1,0 +1,13 @@
+.App {
+  display: block;
+}
+
+.header_container {
+  position: fixed;
+  height: 70px;
+  width: 100%;
+  z-index: 100;
+}
+.body_container {
+  padding-top: 70px;
+}

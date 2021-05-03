@@ -9,11 +9,9 @@ import{
     ModalBody
 } from 'reactstrap';
 import Login from'./Login'
-import Communities from './communities'
-import Reviews from './reviews'
 
 
-const Header = ({match, history}) => {
+const Menubar = (props) => {
     
     useEffect(() => {
         if(!localStorage.getItem("userToken")){
@@ -25,41 +23,37 @@ const Header = ({match, history}) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div className = "header">
             <div menu-bar-wrap>
                 <div className="menu-bar">
-                    <div className="logo">
+                    <div className="logo" onClick = {()=>{window.location.href ='/'}}>
                         <img alt='logo' src={logo} className="logoImage" />
-                        <a href = "/">Home/test</a>
                     </div>
 
                     <div className="menuGroup">
-                        <div className="reviewButton">
-                        <a href = "/reviews" className="reviewButton">REVIEW</a>
+                        <div className="reviewButton" onClick = {()=>{window.location.href ='/reviews'}}>
+                            REVIEW
                         </div>
-                        <div className="communityButton">
-                        <a href = "/communities" className="reviewButton">COMMUNITY</a>
+                        <div className="communityButton" onClick = {()=>{window.location.href ='/communities'}}>
+                            COMMUNITY
                         </div>
                         <div className="loginButton">
                         {
                             localStorage.getItem("userToken") === "bearer: " ?
                             <div onClick = {() => toggle()}> LOGIN / JOIN </div>
                             : 
-                            <div onClick = {() => {localStorage.setItem("userToken", "bearer: "); }}> LOGOUT </div>
+                            <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); window.location.href ='/'}}> LOGOUT </div>
                         }
                         </div>
                     </div>
                 </div>
+                        
+                <Modal isOpen={isOpen} toggle={toggle}>
+                    <ModalBody>
+                        <Login toggle={toggle}/>
+                    </ModalBody>
+                </Modal>
             </div>
-
-        
-        <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalBody>
-                <Login toggle={toggle}/>
-            </ModalBody>
-        </Modal>
-    </div>
     );
 }
 
-export default Header;
+export default Menubar;

@@ -20,13 +20,6 @@ import star2 from '../Image/star2.PNG'
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
-import Header from './Header'
-
-import{
-Modal,
-ModalBody
-} from 'reactstrap';
-import Login from'./Login'
 
 export const MapMarkers = (props) => {
     const [item, setItem] = useState([]);
@@ -228,9 +221,7 @@ export const MapMarkers = (props) => {
         <Map google={props.google} zoom={15} style={mapStyles} initialCenter={ {lat: 37.5, lng: 127} }>
             {displayMarkers()}
         </Map>
-      
-        <Header/>
-        
+
         <div id="chatbot" className="chatbot-show">
           <Chatbot 
           config={config} 

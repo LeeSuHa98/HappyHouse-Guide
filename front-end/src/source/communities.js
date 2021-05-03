@@ -4,7 +4,7 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios'
-import './communities.css';
+
 const Communities =(props)=>{
     useEffect(() => {
             readActivityHistory()
