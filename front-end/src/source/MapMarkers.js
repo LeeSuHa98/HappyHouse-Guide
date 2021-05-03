@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import Moment from 'react-moment'
 import Chatbot from "react-chatbot-kit"
 import numeral from 'numeral'
 import {Bar} from 'react-chartjs-2';
+import Carousel from "react-bootstrap-carousel"
 
 import './Sidebar.css'
 import './Menubar.css'
@@ -17,13 +18,26 @@ import like from '../Image/like.png'
 import star1 from '../Image/star1.PNG'
 import star2 from '../Image/star2.PNG'
 import room1 from'../Image/room1.PNG'
+import room3 from '../Image/room3.PNG'
+import room4 from '../Image/room4.PNG'
+import room5 from '../Image/room5.PNG'
+
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
 
 export const MapMarkers = (props) => {
-    const [item, setItem] = useState([]);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
+
+  const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
     const [type, setType] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -213,6 +227,21 @@ export const MapMarkers = (props) => {
       );
     }
 
+    const AboutForm = () => {
+      const settings = {
+        dots: false,
+        infinite: true,
+        speed: 1500,
+        autoplay: true,
+        autoplaySpeed: 4500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      };
+    }
+
+
+
+
 
     return(
 <div>
@@ -239,9 +268,11 @@ export const MapMarkers = (props) => {
                  
                 {loadAsyncHouseGradeData()}                  
               <div className="content">
-              <img src={room1} id="roomImage"></img>
+               <div className = "imageSection">
+                 <img src={room4} id="roomImage"></img> 
+               </div>
+               <div id = "houseInfoSection1">
 
-              <div id = "houseInfoSection1">
               <table className ="houseInfoTable1">
                 <tr> 
                   <td class = "houseName" colspan="2">{houseDetail.danjiName}</td>
@@ -293,13 +324,10 @@ export const MapMarkers = (props) => {
 
                        
                       </table>
-                    </div>
-                    
-                    <div id = "houseInfoSection3">
-                      <div class = "test2">그래프</div>
+
                       {drawGraph()}
                     </div>
-
+                     
                       <div id = "houseInfoSection4">
                       <div class = "test2">거주후기<button id = "moreReview">더보기</button></div>
                       

@@ -42,10 +42,10 @@ const Review =(props)=>{
                                     <td>아파트</td>
                                 </tr>
                                 <tr>
-                                    <td id="a">Type</td>
-                                    <td>{reviews.houseType}</td>
-                                    <td id="a">세대수</td>
-                                    <td>32</td>
+                                    <td id="a">주택형</td>
+                                    <td>{reviews.typeName}</td>
+                                    <td id="a">공급수</td>
+                                    <td>32 세대</td>
                                 </tr>
                                 <tr>
                                     <td id="a">월세</td>
@@ -61,8 +61,8 @@ const Review =(props)=>{
                         </div>
 
                         <div class="review-content">
-                            <div id="merit">장점 : {reviews.merit}</div>
-                            <div id="demerit">단점 : {reviews.demerit}</div>
+                            <div id="merit"><div id="b">장점</div>{reviews.merit}</div>
+                            <div id="demerit"><div id="b">단점</div>{reviews.demerit}</div>
                         </div>
                     </div>
     );
