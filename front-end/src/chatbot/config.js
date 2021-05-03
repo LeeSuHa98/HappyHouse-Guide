@@ -4,6 +4,8 @@ import { createChatBotMessage } from "react-chatbot-kit";
 import Options from "../components/Options/Options";
 import Conditions from '../components/Conditions/Conditions'
 import Reviews from '../components/Reviews/Reviews'
+import FAQ from '../components/FAQ/FAQ'
+import FAQApply from '../components/FAQ/FAQApply'
 
 import Student from '../components/Conditions/StudentOptions'
 import Youth from '../components/Conditions/YouthOptions'
@@ -29,6 +31,18 @@ const config = {
     {
       widgetName: "conditions",
       widgetFunc: (props) => <Conditions {...props}/>,
+      mapStateToProps: ["gist"],
+      props: {}
+    },
+    {
+      widgetName: "faq",
+      widgetFunc: (props) => <FAQ {...props}/>,
+      mapStateToProps: ["gist"],
+      props: {}
+    },
+    {
+      widgetName: "apply",
+      widgetFunc: (props) => <FAQApply {...props}/>,
       mapStateToProps: ["gist"],
       props: {}
     },

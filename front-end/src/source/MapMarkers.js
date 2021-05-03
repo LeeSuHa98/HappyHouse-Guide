@@ -5,7 +5,6 @@ import Moment from 'react-moment'
 import Chatbot from "react-chatbot-kit"
 import numeral from 'numeral'
 import {Bar} from 'react-chartjs-2';
-
 import './Sidebar.css'
 import './Menubar.css'
 
@@ -16,13 +15,14 @@ import chatbot from '../Image/faq2.png'
 import like from '../Image/like.png'
 import star1 from '../Image/star1.PNG'
 import star2 from '../Image/star2.PNG'
-import room1 from'../Image/room1.PNG'
+import room4 from '../Image/room4.PNG'
+
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
 
-export const MapMarkers = (props) => {
+export const MapMarkers = (props) => { 
     const [item, setItem] = useState([]);
     const [houseDetail, setHouseDetail] = useState([]);
     const [type, setType] = useState([]);
@@ -213,9 +213,8 @@ export const MapMarkers = (props) => {
       );
     }
 
-
     return(
-<div>
+    <div>
     <React.Fragment>
         <Map google={props.google} zoom={15} style={mapStyles} initialCenter={ {lat: 37.5, lng: 127} }>
             {displayMarkers()}
@@ -239,9 +238,10 @@ export const MapMarkers = (props) => {
                  
                 {loadAsyncHouseGradeData()}                  
               <div className="content">
-              <img src={room1} id="roomImage"></img>
-
-              <div id = "houseInfoSection1">
+               <div className = "imageSection">
+                 <img src={room4} id="roomImage"></img> 
+               </div>
+               <div id = "houseInfoSection1">
               <table className ="houseInfoTable1">
                 <tr> 
                   <td class = "houseName" colspan="2">{houseDetail.danjiName}</td>
@@ -293,15 +293,12 @@ export const MapMarkers = (props) => {
 
                        
                       </table>
-                    </div>
-                    
-                    <div id = "houseInfoSection3">
-                      <div class = "test2">그래프</div>
+
                       {drawGraph()}
                     </div>
-
+                     
                       <div id = "houseInfoSection4">
-                      <div class = "test2">거주후기<button id = "moreReview">더보기</button></div>
+                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
                       
 
                           <div class = "reviewGroup">

@@ -66,9 +66,16 @@
     height:25px;
     margin-top:15px;
 }
-#roomImage{
-    border-top:solid 7px rgba(199, 199, 199, 0.693);
+
+.imageSection{
     width:100%;
+    
+    border-top:solid 7px rgba(199, 199, 199, 0.693);
+}
+#roomImage{
+    width:100%;
+    margin-top:1%;
+    margin-bottom:1%;
     height:250px;
 }
 
