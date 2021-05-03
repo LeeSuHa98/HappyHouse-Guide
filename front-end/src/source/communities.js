@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios'
 import './community.css'
+import Moment from 'react-moment'
 
 const Communities =(props)=>{
     useEffect(() => {
@@ -18,7 +19,9 @@ const Communities =(props)=>{
         <td>{community.userId}</td>                          
         <td>{community.title}</td>  
         <td>{community.content}</td>                  
-        <td>{community.writeDate}</td>
+        <td>
+        <Moment format="MM/DD hh:mm">{community.writeDate}</Moment>
+        </td>
         <td>{community.numberOfView}</td>
         </tr>
     );
