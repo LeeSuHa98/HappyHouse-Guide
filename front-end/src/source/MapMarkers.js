@@ -18,6 +18,8 @@ import star2 from '../Image/star2.PNG'
 import room4 from '../Image/room4.PNG'
 
 
+import chatbot2 from '../Image/help.png'
+
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
@@ -226,7 +228,7 @@ export const MapMarkers = (props) => {
           actionProvider={ActionProvider} 
           messageParser={MessageParser}/>
         </div>
-        <img alt="chatbot" src={chatbot} className="chatbot-button" onClick={() => chatbotFAQ()}/>
+        <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQ()}/>
 
 
         <div className="side-bar-wrap" >
