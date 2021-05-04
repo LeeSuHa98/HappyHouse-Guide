@@ -66,9 +66,16 @@
     height:25px;
     margin-top:15px;
 }
-#roomImage{
-    border-top:solid 7px rgba(199, 199, 199, 0.693);
+
+.imageSection{
     width:100%;
+    
+    border-top:solid 7px rgba(199, 199, 199, 0.693);
+}
+#roomImage{
+    width:100%;
+    margin-top:1%;
+    margin-bottom:1%;
     height:250px;
 }
 
@@ -193,28 +200,27 @@
     height: 100px;
     width: 100px;
     position: fixed;
-    left: 20px;
-    bottom: 30px;
+    left: 37px;
+    bottom: 60px;
     outline: none;
     z-index: 2;
 }
 .chatbot-show {
     text-align: center;
-    bottom: 10%;
-    left: 40%;
+    bottom: 18%;
+    left: 8%;
     position: absolute;
     justify-content: center;
     align-items: center;
     display: none;
 }
 
-.react-chatbot-kit-chat-container {
+/* .react-chatbot-kit-chat-container {
     width: 400px
 }
 .react-chatbot-kit-chat-bot-message {
     width: 300px !important
-}
+} */
 span {
     word-break:break-all;
 }
-

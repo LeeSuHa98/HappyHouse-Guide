@@ -45,6 +45,10 @@
     font-size:12px;
 }
 
+#b{font-weight: 950;
+  font-size:12px;
+}
+
 #review-search{
     width:250px;
     height:29px;
@@ -53,6 +57,10 @@
     
     font-family: 'Nanum Barun Gothic', sans-serif;
     font-size:12px;
+}
+
+#demerit{
+  margin-top:10px;
 }
 
 #review-upload{
