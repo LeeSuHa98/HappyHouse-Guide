@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MapMarkers from './source/MapMarkers'
-import communities from './source/Communities'
+import communities from './source/communities'
 import Reviews from './source/reviewTest'
 import Menubar from './source/Menubar';
 import './App.css'

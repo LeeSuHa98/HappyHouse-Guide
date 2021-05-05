@@ -27,14 +27,14 @@ const CreateCommunity = (props) => {
             title : title,
             content : content
         };
-        axios.post('https://localhost:8080/happyhouse/communities', form).then((res) => {
+        axios.post('http://localhost:8080/happyhouse/communities', form).then((res) => {
             if(res.data.token){
                 alert("게시글 등록 완료!")
                 localStorage.setItem("userToken", res.data.token)
                 props.toggle()
             }
         }).catch(function (error){
-            
+            alert("잘못된 입력 값입니다.")
         })
     }
 
@@ -56,6 +56,7 @@ const CreateCommunity = (props) => {
                         <Input type="title" name="title" id="title"  onChange={handlChangeTitle}/>
                     </InputGroup>
                     </FormGroup>
+                    
                     <FormGroup>
                     <InputGroup
                         style={{
