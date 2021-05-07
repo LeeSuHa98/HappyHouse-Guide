@@ -3,6 +3,7 @@ import {Route, Switch, Link} from 'react-router-dom';
 
 import './Menubar.css';
 import logo from '../Image/houseLogo.png'
+import logoutLogo from '../Image/logout.png'
 
 import{
     Modal,
@@ -28,6 +29,7 @@ const Menubar = (props) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+    const [userId, setUserID] = useState(" ")
 
     return (
             <div menu-bar-wrap>
@@ -46,7 +48,12 @@ const Menubar = (props) => {
                         <div className="loginButton">
                         {
                             isLogin === true?
-                            <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); setIsLogin(false); window.location.replace('/')}}> LOGOUT </div>
+                            <div className = "user-container">
+                                <div> {userId} 님 </div>
+                                <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); setIsLogin(false); window.location.replace('/')}}>
+                                    <img alt='logo' src={logoutLogo} className="logoutImage" />
+                                </div>
+                            </div>
                             : 
                             <div onClick = {() => {toggle(); setIsLogin(true)}}> LOGIN / JOIN </div>
                         }
@@ -54,9 +61,9 @@ const Menubar = (props) => {
                     </div>
                 </div>
                         
-                <Modal isOpen={isOpen} toggle={toggle}>
+                <Modal isOpen={isOpen} toggle={toggle} >
                     <ModalBody>
-                        <Login toggle={toggle}/>
+                        <Login toggle={toggle} setUserID = {setUserID}/>
                     </ModalBody>
                 </Modal>
             </div>

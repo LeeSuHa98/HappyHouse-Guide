@@ -51,6 +51,7 @@ const Login = (props) => {
                 alert("환영합니다!")
                 localStorage.setItem("userToken", res.data.token)
                 props.toggle()
+                props.setUserID(res.data.userID)
             }
         }).catch(function (error){
             alert("등록된 회원이 아닙니다")

@@ -67,3 +67,14 @@
   margin: 0%;
   padding: 0%;
 }
+
+.user-container {
+  display: flex;
+  font-size: 80%;
+}
+
+.logoutImage {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+}
