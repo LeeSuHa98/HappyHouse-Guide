@@ -5,23 +5,29 @@ import {
 } from 'reactstrap';
 import axios from 'axios'
 import './community.css'
-import Moment from 'react-moment'
+import $ from 'jquery';
+import{
+    Modal,
+    ModalHeader,
+    ModalBody
+} from 'reactstrap';
+import CreateCommunity from './CreateCommunity'
 
 const Communities =(props)=>{
-    useEffect(() => {
-            readActivityHistory()
-        }
-    );
-    
+   
+    const [modalCreateCommunity, setModalCreateCommunity] = useState(false); 
+    const [modalReadCommunityInfo, setModalReadCommunityInfo] = useState(false);
+    const toggleCreateCommunity = () => setModalCreateCommunity(!modalCreateCommunity);
+    const toggleReadCommunityInfo = () => setModalReadCommunityInfo(!modalReadCommunityInfo);
+    const [modalInput, setModalInput] = useState("default");
     const [activityHistoryList, setActivityHistoryList] = useState();
+
     const postsList = (community) => (
         <tr key={community.communityId} id={community.communityId}>
         <td>{community.userId}</td>                          
         <td>{community.title}</td>  
         <td>{community.content}</td>                  
-        <td>
-        <Moment format="MM/DD hh:mm">{community.writeDate}</Moment>
-        </td>
+        <td>{community.writeDate}</td>
         <td>{community.numberOfView}</td>
         </tr>
     );
@@ -32,9 +38,43 @@ const Communities =(props)=>{
             setActivityHistoryList(data.map(postsList))
           })
     }
+    useEffect(() => {
+        readActivityHistory()
+    }
+);
+    $(function() { 
+        $(".readCommunityInfo").off("click")
+            $(".createCommunityButton").on("click",function(){
+      
+                var Button = $(this);
+    
+                var tr = Button.parent();
+                var td = tr.children();
+                setModalInput(td.eq(0).text());
+                toggleCreateCommunity();
+            }
+            ) 
+            $(".readCommunityInfo").on("click",function(){
+                
+                var Button = $(this);
+    
+                var tr = Button.parent();
+                var td = tr.children();
+                console.log("row데이터 : "+td.eq(0).text());
+                setModalInput(td.eq(0).text());
+                toggleReadCommunityInfo();
+            }
+            )       
+        }
+        )
     return (
         <div className="dv">
-            <Button  color={"primary"}  style={{float: 'right'}} >{"게시글 작성"}</Button>
+            <div className="createCommunity">
+                      
+                            <Button className={"createCommunityButton"}  style={{float: 'right'}} > 게시글 작성 </Button>
+                    
+                        </div>
+      
                 <Table class="tg" >
                     <thead>
                         <tr >
@@ -49,6 +89,11 @@ const Communities =(props)=>{
                         {activityHistoryList}
                     </tbody>
                 </Table>
+
+                <Modal isOpen={modalCreateCommunity}>
+                         <ModalHeader toggle={toggleCreateCommunity}>게시글 작성</ModalHeader>
+                         <CreateCommunity postId={modalInput}></CreateCommunity>                         
+            </Modal>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MapMarkers from './source/MapMarkers'
-import Communities from './source/communities'
+import communities from './source/communities'
 import Reviews from './source/reviewTest'
 import Menubar from './source/Menubar';
 import './App.css'
@@ -18,7 +18,7 @@ function App() {
         <Switch>
           <Route exact path={"/"} component={MapMarkers} />
           <Route path={"/reviews"} component={Reviews} />
-          <Route path={"/communities"} component={Communities} />
+          <Route path={"/communities"} component={communities} />
         </Switch>
         </BrowserRouter>
       </div>
