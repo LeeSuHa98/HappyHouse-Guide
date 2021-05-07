@@ -3,7 +3,6 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const communitySchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   userId: { type: String, required: true },
   groupId: { type: Number, required: true },
   replyOrder: { type: Number, required: true },

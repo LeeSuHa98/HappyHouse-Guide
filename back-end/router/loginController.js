@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
         console.log(users[0].userID)
         if (users[0].userID) {
              const token = jwt.sign({userID: users[0].userID}, YOUR_SECRET_KEY, {expiresIn: '1h'});
-             res.send({ token : token, name : users[0].name})
+             res.send({ token : token, name : users[0].name, userID : users[0].userID})
         }else{
             res.status(400).json({ error: 'invalid user' });
         }

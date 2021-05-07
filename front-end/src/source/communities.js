@@ -8,24 +8,23 @@ import './community.css'
 import $ from 'jquery';
 import{
     Modal,
-    ModalHeader,
-    ModalBody
+    ModalHeader
 } from 'reactstrap';
 import CreateCommunity from './CreateCommunity'
-
+import ReadCommunity from './ReadCommunity';
 const Communities =(props)=>{
-   
+    const [modalInput, setModalInput] = useState("default"); 
     const [modalCreateCommunity, setModalCreateCommunity] = useState(false); 
-    const [modalReadCommunityInfo, setModalReadCommunityInfo] = useState(false);
+    const [modalReadCommunity, setModalReadCommunity] = useState(false);
     const toggleCreateCommunity = () => setModalCreateCommunity(!modalCreateCommunity);
-    const toggleReadCommunityInfo = () => setModalReadCommunityInfo(!modalReadCommunityInfo);
-    const [modalInput, setModalInput] = useState("default");
+    const toggleReadCommunity = () => setModalReadCommunity(!modalReadCommunity);
     const [activityHistoryList, setActivityHistoryList] = useState();
 
     const postsList = (community) => (
-        <tr key={community.communityId} id={community.communityId}>
+        <tr key={community._id} id={community._id}>
+        <td>{community._id}</td>
         <td>{community.userId}</td>                          
-        <td>{community.title}</td>  
+        <td className={"readCommunity"}>{community.title}</td>  
         <td>{community.content}</td>                  
         <td>{community.writeDate}</td>
         <td>{community.numberOfView}</td>
@@ -33,7 +32,7 @@ const Communities =(props)=>{
     );
     
     function readActivityHistory () {
-        axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities').then(({data}) => {
+        axios.get('/happyhouse/communities').then(({data}) => {
             data = data.communitysList
             setActivityHistoryList(data.map(postsList))
           })
@@ -54,7 +53,7 @@ const Communities =(props)=>{
                 toggleCreateCommunity();
             }
             ) 
-            $(".readCommunityInfo").on("click",function(){
+            $(".readCommunity").on("click",function(){
                 
                 var Button = $(this);
     
@@ -62,7 +61,7 @@ const Communities =(props)=>{
                 var td = tr.children();
                 console.log("row데이터 : "+td.eq(0).text());
                 setModalInput(td.eq(0).text());
-                toggleReadCommunityInfo();
+                toggleReadCommunity();
             }
             )       
         }
@@ -78,6 +77,7 @@ const Communities =(props)=>{
                 <Table class="tg" >
                     <thead>
                         <tr >
+                            <th >id</th>
                             <th >작성자</th>                              
                             <th >제목</th>      
                             <th >내용</th>     
@@ -92,8 +92,13 @@ const Communities =(props)=>{
 
                 <Modal isOpen={modalCreateCommunity}>
                          <ModalHeader toggle={toggleCreateCommunity}>게시글 작성</ModalHeader>
-                         <CreateCommunity postId={modalInput}></CreateCommunity>                         
-            </Modal>
+                         <CreateCommunity></CreateCommunity>                         
+                </Modal>
+
+                <Modal isOpen={modalReadCommunity}>
+                         <ModalHeader toggle={toggleReadCommunity}>게시글 상세조회</ModalHeader>
+                         <ReadCommunity _id={modalInput}></ReadCommunity>                         
+                </Modal>
         </div>
     );
 }

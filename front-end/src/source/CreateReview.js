@@ -3,9 +3,9 @@ import { FormGroup, Input, Button,InputGroup,InputGroupAddon, InputGroupText} fr
 import axios from 'axios'
 
 
-const CreateCommunity = (props) => {
+const CreateReview = (props) => {
     
-    
+
    
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
@@ -22,24 +22,14 @@ const CreateCommunity = (props) => {
     
 
     const handCommunity = () => {
-        let newDate = new Date();
         var form={
             title : title,
-            content : content,
-            userId : localStorage.getItem("userID"),
-            groupId : 0,
-            replyOrder: 0,
-            replyStep: 0,
-            writeDate: newDate,
-            numberOfView: 0
+            content : content
         };
-        axios.post('/happyhouse/communities', form).then((res) => {
-            alert("게시글이 작성 완료")
-            window.location.reload();
-            props.toggle()
+        axios.post('http://localhost:8080/happyhouse/reviews', form).then((res) => {
+           console.log(res.data);
         }).catch(function (error){
-            console.log(error)
-            
+            alert("잘못된 입력 값입니다.")
         })
     }
 
@@ -83,4 +73,4 @@ const CreateCommunity = (props) => {
     );
 }
 
-export default CreateCommunity;
+export default CreateReview;

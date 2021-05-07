@@ -23,6 +23,7 @@ router.get('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
+    
     communitys.create(req.body)
     .then(communitys => res.send(communitys))
     .catch(err => res.status(500).send(err));
