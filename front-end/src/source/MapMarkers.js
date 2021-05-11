@@ -22,6 +22,7 @@ import chatbot2 from '../Image/help.png'
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
+import SearchBar from './SearchBar'
 import config from '../chatbot/config';
 
 export const MapMarkers = (props) => { 
@@ -108,6 +109,8 @@ export const MapMarkers = (props) => {
     }
 
     useEffect(() => {
+      setCenter({lat: 37.5, lng: 127})
+      setZoom(15)
         loadAsyncData();
     }, [])
 
@@ -215,12 +218,18 @@ export const MapMarkers = (props) => {
       );
     }
 
+    const [center, setCenter] = useState()
+    const [zoom, setZoom] = useState()
+
     return(
     <div>
     <React.Fragment>
-        <Map google={props.google} zoom={15} style={mapStyles} initialCenter={ {lat: 37.5, lng: 127} }>
+        <Map google={props.google} zoom={zoom} style={mapStyles} center={center}>
             {displayMarkers()}
+          <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
+
+
 
         <div id="chatbot" className="chatbot-show">
           <Chatbot 
