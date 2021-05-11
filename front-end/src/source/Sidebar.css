@@ -1,7 +1,17 @@
 @import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
-
+.label{
+    border: 1px solid dimgray;
+    background-color: white;
+    text-align: center;
+    padding: 3px;
+    font-family: 'Do Hyeon', sans-serif;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 70px;
+}
 .side-bar-wrap{
     top:10%;
     float:right;

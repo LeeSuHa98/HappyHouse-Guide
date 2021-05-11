@@ -139,20 +139,26 @@ export const MapMarkers = (props) => {
       })
     }
     const displayMarkers = () => {
-        return item.map((data) => (
-            <Marker className='marker-image' 
-            key={data._id} 
-            position={{lat:data.lat, lng:data.lng}}
-            icon={{
-              url: image,
-              scaledSize: new props.google.maps.Size(50,50),
-            }}
-            onClick={() => sidebarShow(
-              setHouseDetail(data)
-              )}
-            />
-            ))
-    }
+      return item.map((data) => (
+          <Marker className='marker-image' 
+          key={data._id} 
+          position={{lat:data.lat, lng:data.lng}}
+          icon={{
+            url: image,
+            scaledSize: new props.google.maps.Size(50,50),
+            //labelOrigin: new props.google.maps.Size(50, 115),
+          }}
+          label={{
+            text: `${numeral(data.bassRentDeposit).format('0,0')} 원 `,
+            fontSize: "12px",
+            className: 'label'
+          }}
+          onClick={() => sidebarShow(
+            setHouseDetail(data)
+            )}
+          />
+          ))
+  }
 
     const mapStyles = {
         width: '100%',
