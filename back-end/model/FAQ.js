@@ -3,7 +3,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const FAQSchema = new mongoose.Schema({
-  faqId: { type: Number, required: true, unique: true },
+  faqId: { type: String, required: true, unique: true },
   category: { type: String, required: true },
   question: { type: String, required: true },
   answer: { type: String, required: true }

@@ -3,22 +3,21 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const houseInfoSchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   sidoCode: { type: String, required: true },
   sidoName: { type: String, required: true },
   sigunguCode: { type: String, required: true },
   sigunguName: { type: String, required: true },
-  danjiCode: { type: Number, required: true },
+  danjiCode: { type: String, required: true },
   danjiName: { type: String, required: true },
   address: { type: String, required: true },
   competeDate: { type: Date, required: true },
-  houseHoldNum: { type: Number, required: true },
+  houseHoldNum: { type: String, required: true },
   houseType: { type: String, required: true },
   bassRentDeposit: { type: String, required: true },
-  bassMonthlyRentCharge: { type: Number, required: true },
-  bassConversionDeposit: { type: Number, required: true },
-  suplyPrivateArea: { type: Number, required: true },
-  suplyCommuseArea: { type: Number, required: true },
+  bassMonthlyRentCharge: { type: String, required: true },
+  bassConversionDeposit: { type: String, required: true },
+  suplyPrivateArea: { type: String, required: true },
+  suplyCommuseArea: { type: String, required: true },
   insttName: { type: String, required: true },
 });
 

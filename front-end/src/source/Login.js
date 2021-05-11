@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, FormGroup, Input, Button, Form, InputGroup} from 'reactstrap';
 import classnames from 'classnames';
 import axios from 'axios'
+import LoginKakao from './KakaoLogin';
+import GoogleLogin from './GoogleLogin';
 
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');
@@ -50,8 +52,9 @@ const Login = (props) => {
             if(res.data.token){
                 alert("환영합니다!")
                 localStorage.setItem("userToken", res.data.token)
-                props.toggle()
+                localStorage.setItem("userID", res.data.userID)
                 props.setUserID(res.data.userID)
+                props.toggle()
             }
         }).catch(function (error){
             alert("등록된 회원이 아닙니다")
@@ -114,10 +117,10 @@ const Login = (props) => {
                         <Button color="primary" block="block" onClick = {()=> handLogin()}>로그인</Button>
                     </div>
                     <div className="form-group">
-                        <Button color="warning" block="block">카카오 로그인</Button>
+                        <LoginKakao setUserID = {props.setUserID} toggle = {props.toggle}/>
                     </div>
                     <div className="form-group">
-                        <Button color="secondary" block="block">Google 로그인</Button>
+                        <GoogleLogin setUserID = {props.setUserID} toggle = {props.toggle}/>
                     </div>
                 </TabPane>
 

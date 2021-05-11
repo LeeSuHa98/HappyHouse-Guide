@@ -1,2 +1,2 @@
-[0mPOST /happyhouse/login [31m500[0m 233.082 ms - 2[0m
-[0mPOST /happyhouse/login [32m200[0m 227.025 ms - 231[0m
+[0mPOST /happyhouse/dibs [32m200[0m 291.336 ms - 114[0m
+[0mDELETE /happyhouse/dibs [32m200[0m 239.815 ms - 2[0m

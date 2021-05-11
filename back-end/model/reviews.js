@@ -3,7 +3,6 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const reviewSchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   houseId: { type: String, required: true },
   userId: { type: String, required: true },
   region: { type: String, required: true },

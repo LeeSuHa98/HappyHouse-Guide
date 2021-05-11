@@ -50,7 +50,7 @@ const Menubar = (props) => {
                             isLogin === true?
                             <div className = "user-container">
                                 <div> {userId} 님 </div>
-                                <div onClick = {() => {alert("안녕히 가세요!"); localStorage.removeItem("userToken"); setIsLogin(false); window.location.replace('/')}}>
+                                <div onClick = {() => {alert("안녕히 가세요!"); localStorage.clear(); setIsLogin(false); window.location.replace('/')}}>
                                     <img alt='logo' src={logoutLogo} className="logoutImage" />
                                 </div>
                             </div>
