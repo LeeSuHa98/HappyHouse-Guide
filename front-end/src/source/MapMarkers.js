@@ -145,12 +145,14 @@ export const MapMarkers = (props) => {
           position={{lat:data.lat, lng:data.lng}}
           icon={{
             url: image,
-            scaledSize: new props.google.maps.Size(50,50),
+            scaledSize: new props.google.maps.Size(40,40),
             //labelOrigin: new props.google.maps.Size(50, 115),
           }}
           label={{
-            text: `${numeral(data.bassRentDeposit).format('0,0')} 원 `,
-            fontSize: "12px",
+            text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
+            fontSize: "13px",
+            fontFamily: "Do Hyeon",
+            color: "white",
             className: 'label'
           }}
           onClick={() => sidebarShow(
