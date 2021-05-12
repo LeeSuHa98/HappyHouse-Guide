@@ -10,14 +10,11 @@ import './Menubar.css'
 
 import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
-import logo from '../Image/houseLogo.png'
-import chatbot from '../Image/faq2.png'
-import like from '../Image/like.png'
+import like1 from '../Image/like.png'
+import like2 from '../Image/like-toggle.png'
 import star1 from '../Image/star1.PNG'
 import star2 from '../Image/star2.PNG'
 import room4 from '../Image/room4.PNG'
-
-
 import chatbot2 from '../Image/help.png'
 
 import MessageParser from '../chatbot/MessageParser';
@@ -229,6 +226,38 @@ export const MapMarkers = (props) => {
     const [center, setCenter] = useState()
     const [zoom, setZoom] = useState()
 
+    /* Dibs */
+    var cnt = 1;
+
+    function changeImage(){
+      var tmpCheck = document.getElementById("tmp");
+      
+      var form={
+        userId : "admin123",
+        danjiCode : houseDetail.danjiCode,
+        danjiName : houseDetail.danjiName
+        };
+     
+       if(cnt%2==1){
+        tmpCheck.src = like2;   
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', form).then((res) => {
+        alert("좋아요 등록 완료")
+        window.location.reload();
+        props.toggle()
+        }).catch(function (error){
+        console.log(error)  
+       })
+      }
+      else{
+        tmpCheck.src = like1;
+      }
+      cnt++;
+    }
+
+
+
+
+
     return(
     <div>
     <React.Fragment>
@@ -264,7 +293,7 @@ export const MapMarkers = (props) => {
               <table className ="houseInfoTable1">
                 <tr> 
                   <td class = "houseName" colspan="2">{houseDetail.danjiName}</td>
-                  <td class="likeButton"> <img alt='like' src={like} className="likeImage"/></td>
+                  <td class="likeButton"> <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/></td>
                 </tr>
                 <tr>
                 <td className ="houseAddress">{houseDetail.address}</td>
