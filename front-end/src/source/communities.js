@@ -8,7 +8,7 @@ import ReadCommunity from './ReadCommunity';
 import Moment from 'react-moment'
 
 const Communities = (props) => {
-    const [modalInput, setModalInput] = useState("default");
+    const [modalInput, setModalInput] = useState("0");
     const [modalCreateCommunity, setModalCreateCommunity] = useState(false);
     const [modalReadCommunity, setModalReadCommunity] = useState(false);
     const toggleCreateCommunity = () => setModalCreateCommunity(
@@ -64,7 +64,11 @@ const Communities = (props) => {
     }
     function move(){
         localStorage.setItem("community_id",modalInput);
-        window.location.href ='/communities/detail'
+        localStorage.setItem("community_id",modalInput);
+        if(localStorage.getItem("community_id")!="0"){
+            window.location.href ='/communities/detail'
+        }
+       
     }
     $(function () {
         $(".readCommunity").off("click")

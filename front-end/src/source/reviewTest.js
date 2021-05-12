@@ -20,7 +20,7 @@ const Review =(props)=>{
             readReview()
         }
     );
-    const [modalInput, setModalInput] = useState();
+    const [modalInput, setModalInput] = useState("0");
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const [modalReadReview, setModalReadReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
@@ -101,8 +101,12 @@ const Review =(props)=>{
     }
 
     function move(){
+        
         localStorage.setItem("review_id",modalInput);
-        window.location.href ='/reviews/detail'
+
+        if(localStorage.getItem("review_id")!="0"){
+            window.location.href ='/reviews/detail'
+        }
     }
     $(function () {     
         
