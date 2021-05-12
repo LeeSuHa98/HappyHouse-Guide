@@ -82,7 +82,13 @@
   display:flex;
   flex-direction: row;
 }
-
+.create-review-container{
+  margin-top:1.3em;
+  display:flex;
+  flex-direction: row;
+  height:100%;
+  width:100%;
+}
 
 .review-block {
   margin: 0px 5px;

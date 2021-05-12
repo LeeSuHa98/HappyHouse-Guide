@@ -4,7 +4,8 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const fs = require('fs');
 const app = express();
-
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 //body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,8 +17,9 @@ app.use(helmet());
 
 //connerct db
 const MongoClient = require('mongoose');
+
 MongoClient.connect("mongodb+srv://admin:emm05235@cluster0.umzeh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", 
-    { useNewUrlParser: true, useUnifiedTopology: true, dbName:"HappyHouse" }).then(() => console.log('mongodb connected...')).catch(err => console.log(err))
+    { useNewUrlParser: true, useFindAndModify: false , useUnifiedTopology: true, dbName:"HappyHouse" }).then(() => console.log('mongodb connected...')).catch(err => console.log(err))
 
 
 var server = app.listen(8080, function () {

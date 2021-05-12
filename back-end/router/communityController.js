@@ -12,9 +12,12 @@ router.get('/', (req, res) => {
 });
 
 // Find One by id
-router.get('/:id', (req, res) => {
-    communitys.findOneById(req.params.id)
+router.post('/:id', (req, res) => {
+
+    const id = req.body._id;
+    communitys.findOneById(id)    
     .then((communitys) => {
+
       if (!communitys) return res.status(404).send({ err: 'communitys not found' });
       res.send({communitys});
     })
@@ -23,7 +26,9 @@ router.get('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-    
+
+    const groupId = req.body.groupId;
+    req.body.groupId= groupId;  
     communitys.create(req.body)
     .then(communitys => res.send(communitys))
     .catch(err => res.status(500).send(err));
@@ -38,7 +43,8 @@ router.put('/:id', (req, res) => {
 
 // Delete by id
 router.delete('/:id', (req, res) => {
-    communitys.deleteById(req.params.id)
+    var id = req.body._id;
+    communitys.deleteOne({_id: id})
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).send(err));
 });
