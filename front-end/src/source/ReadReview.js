@@ -40,23 +40,23 @@ function ReadReview(props) {
     const [tableData, setTableData] = useState(); //댓글 목록 조회
     const [isReadOnly, setIsReadOnly] = useState(true); //댓글 수정활성화
    
-    const handlChangeTitle = (e) => {
+    const handleChangeTitle = (e) => {
         e.preventDefault();
         setTitle(e.target.value);
     };
-    const handlChangeMonthlyRentCharge = (e) => {
+    const handleChangeMonthlyRentCharge = (e) => {
         e.preventDefault();
         setMonthlyRentCharge(e.target.value);
     };
-    const handlChangeAdminCharge = (e) => {
+    const handleChangeAdminCharge = (e) => {
         e.preventDefault();
         setAdminCharge(e.target.value);
     };
-    const handlChangeRegion = (e) => {
+    const handleChangeRegion = (e) => {
         e.preventDefault();
         setRegion(e.target.value);
     };
-    const handlChangeTypeName = (e) => {
+    const handleChangeTypeName = (e) => {
         e.preventDefault();
         setTypeName(e.target.value);
     };
@@ -64,7 +64,7 @@ function ReadReview(props) {
         e.preventDefault();
         setMerit(e.target.value);
     };
-    const handlChangeDemerit = (e) => {
+    const handleChangeDemerit = (e) => {
         e.preventDefault();
         setDemerit(e.target.value);
     };
@@ -173,7 +173,7 @@ function ReadReview(props) {
                                 <h4>
                                             <Input
                                                 name="title"
-                                                onChange={handlChangeTitle}
+                                                onChange={handleChangeTitle}
                                                 value={title}
                                             ></Input>
                                         </h4>
@@ -194,7 +194,7 @@ function ReadReview(props) {
                                         <td id="a">
                                             <Input
                                                 name="content"
-                                                onChange={handlChangeRegion}
+                                                onChange={handleChangeRegion}
                                                 value={region}
                                             ></Input>
                                         </td>
@@ -215,7 +215,7 @@ function ReadReview(props) {
                                         <td id="a">
                                             <Input
                                                 name="content"
-                                                onChange={handlChangeTypeName}
+                                                onChange={handleChangeTypeName}
                                                 value={typeName}
                                             ></Input>
                                         </td>
@@ -230,7 +230,7 @@ function ReadReview(props) {
                                         <td id="a">
                                             <Input
                                                 name="monthlyRentCharge"
-                                                onChange={handlChangeMonthlyRentCharge}
+                                                onChange={handleChangeMonthlyRentCharge}
                                                 value={numeral(monthlyRentCharge).format('0,0')}
                                             ></Input>
                                         </td>
@@ -239,7 +239,7 @@ function ReadReview(props) {
                                         <td id="a">
                                             <Input
                                                 name="adminCharge"
-                                                onChange={handlChangeAdminCharge}
+                                                onChange={handleChangeAdminCharge}
                                                 value={numeral(adminCharge).format('0,0')}
                                             ></Input>
                                         </td>
@@ -272,7 +272,7 @@ function ReadReview(props) {
                                         name="demerit"
                                         cols="50"
                                         rows="20"                                    
-                                        onChange={handlChangeDemerit}
+                                        onChange={handleChangeDemerit}
                                         value={demerit}
                                         ></Input>
                                 </div>
