@@ -66,6 +66,7 @@
     "react": "^17.0.1",
     "react-anim-kit": "^1.0.19",
     "react-app-polyfill": "^2.0.0",
+    "react-bootstrap": "^1.6.0",
     "react-bootstrap-carousel": "^4.1.1",
     "react-chartjs-2": "^3.0.3",
     "react-chatbot-kit": "^1.1.20",
