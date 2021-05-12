@@ -1,5 +1,5 @@
 import KakaoLogin from 'react-kakao-login';
-
+import './Login.css'
 const token = '081bccbedbe006325ef66fd79eeb49e0'
 
 
@@ -21,6 +21,14 @@ const LoginKakao = (props) => {
         onSuccess={result => loginSuccess(result)}
         onFailure={result => alert(result)}
         getProfile={true}
+        style={{
+          width: '100%',
+          backgroundColor: '#fef01b',
+          borderRadius: '5px',
+          borderColor:  '#fef01b',
+          border: 0,
+          height: '40px'
+        }}
       />
     </div>
   );
