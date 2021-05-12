@@ -50,7 +50,7 @@ const Login = (props) => {
             userID : id,
             password : password
         };
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/login', form).then((res) => {
+        axios.post('/happyhouse/login', form).then((res) => {
             if(res.data.token){
                 alert("환영합니다!")
                 localStorage.setItem("userToken", res.data.token)

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 var ObjectId = require('mongoose').Types.ObjectId;
-
+mongoose.set('useCreateIndex', true)
 // Define Schemes
 const reviewSchema = new mongoose.Schema({
   houseId: { type: String, required: true },
@@ -12,7 +12,7 @@ const reviewSchema = new mongoose.Schema({
   title: { type: String, required: true },
   merit: { type: String, required: true },
   demerit: { type: String, required: true },
-  picture: { type: Buffer, required: true },
+  picture: { data: Buffer},
   writeDate: { type: Date, required: true },
   star: { type: Number, required: true }
 });
@@ -20,9 +20,9 @@ const reviewSchema = new mongoose.Schema({
 // Create new todo document
 reviewSchema.statics.create = function (payload) {
   // this === Model
-  const houseInfo = new this(payload);
+  const review = new this(payload);
   // return Promise
-  return houseInfo.save();
+  return review.save();
 };
 
 // Find All

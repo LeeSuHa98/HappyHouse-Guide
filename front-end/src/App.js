@@ -5,7 +5,9 @@ import Reviews from './source/reviewTest'
 import Menubar from './source/Menubar';
 import SearchBar from './source/SearchBar'
 import './App.css'
-
+import ReadCommunity from './source/ReadCommunity'
+import CreateReview from './source/CreateReview';
+import ReadReview from './source/ReadReview'
 function App() {
   return (
     <div className = "App">
@@ -17,8 +19,11 @@ function App() {
         <BrowserRouter>
         <Switch>
           <Route exact path={"/"} component={MapMarkers} />
-          <Route path={"/reviews"} component={Reviews} />
-          <Route path={"/communities"} component={communities} />
+          <Route exact path={"/reviews"} component={Reviews} />
+          <Route exact path={"/communities"} component={communities} />
+          <Route exact path={"/communities/detail"} component={ReadCommunity} />
+          <Route exact path={"/reviews/detail"} component={ReadReview} />
+          <Route exact path={"/reviews/create"} component={CreateReview} />
         </Switch>
         </BrowserRouter>
       </div>
