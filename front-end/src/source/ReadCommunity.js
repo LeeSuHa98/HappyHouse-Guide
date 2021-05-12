@@ -53,7 +53,7 @@ function ReadCommunity(props) {
             _id: localStorage.getItem("community_id")
         };
         axios
-            .post('/happyhouse/communities/:id', form)
+            .post('/happyhouse/communities/detail', form)
             .then((res) => {
 
                 console.log(res.data);
@@ -79,21 +79,23 @@ function ReadCommunity(props) {
 //         });
 // }
 const updateCommunity = () => {
-    let newDate = new Date();
+   // let newDate = new Date();
     var form = {
-        userId: userId,
+        userId: localStorage.getItem("userID"),
         _id: localStorage.getItem("community_id"),
         title: title,
         content: content,
-        writeDate: writeDate
+       // writeDate: writeDate
     };
+    
     console.log('수정커뮤니티', form);
+    
     axios
-        .post('/happyhouse/communities/update', form)
-        .then((res) => {
-            alert("커뮤니티 수정 완료");
-            window.location.href = '/communities'
-        })
+    .post('/happyhouse/communities/update', form).then((res) => {
+       
+        alert("게시글 수정 완료")
+        window.location.href ='/communities'
+    })
 }
 const deleteCommunity = () => {
     var form = {
@@ -142,7 +144,7 @@ const deleteCommunity = () => {
             
                 <div class="community-block">
                    
-                    <td id="header" className={"readCommunity"}>
+                    <td id="header">
                         <h4>
                             <Input name="title" onChange={handleChangeTitle} value={title}></Input>
                         </h4>

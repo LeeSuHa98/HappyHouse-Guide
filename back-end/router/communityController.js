@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 // Find One by id
-router.post('/:id', (req, res) => {
+router.post('/detail', (req, res) => {
 
     const id = req.body._id;
     communitys.findOneById(id)    
@@ -26,7 +26,7 @@ router.post('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-
+    
     const groupId = req.body.groupId;
     req.body.groupId= groupId;  
     communitys.create(req.body)
@@ -36,12 +36,15 @@ router.post('/', (req, res) => {
 
 // Update by id
 router.post('/update', (req, res) => {
-    console.log('수정받은커뮤니티',req.body)
-    communitys.updateById(req.params.id, req.body)
-    .then(communitys => res.send(communitys))
-    .catch(err => res.status(500).send(err));
-});
-
+    console.log('수정받은커뮤니티',req.body);
+    communitys.findOneAndUpdate({_id: req.body._id},{    
+      title: req.body.title,
+      content: req.body.content
+    } 
+  ).then(communitys => res.send(communitys))
+  .catch(err => res.status(500).send(err));
+      
+  });
 // Delete by id
 router.post('/delete', (req, res) => {
     var id = req.body._id;
