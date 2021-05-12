@@ -272,12 +272,36 @@ const SearchBar = (props) => {
         props.setZoom(15)
     }
 
+    const customStyles = {
+        option: (provided, state) => ({
+          ...provided,
+          borderBottom: '1px solid lightgray',
+          color: 'rgb(51, 51, 51)',
+          padding: 20,
+          ":hover": {
+            // Overwrittes the different states of border
+            backgroundColor: 'lightgray',
+          },
+          fontFamily: 'Do Hyeon',
+        }),
+      }
+
     return(
         <div className = "search-bar">
                 <Select
                 options={options} 
                 value={options.find(op => {return op.value === choice })} 
-                placeholder="선택해주세요." 
+                placeholder={<div className="select-placeholder-text">시, 군, 구 검색</div>}
+                theme={(theme) => ({
+                    ...theme,
+                    borderRadius: '5px',
+                    colors: {
+                    ...theme.colors,
+                      primary25: 'lightgray',
+                      primary: 'lightgray',
+                    },
+                  })}
+                styles={customStyles}
                 onChange={(value) => { onChange(value.state); }}/>
         </div>
     )

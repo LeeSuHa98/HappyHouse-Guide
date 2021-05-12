@@ -1,7 +1,13 @@
 .search-bar {
   position: absolute;
-  width: 50%;
-  left: 3%;
-  top: 13%;
+  width: 17%;
+  left: 2%;
+  top: 15%;
   background-color: white;
+  font-family: 'Do Hyeon';
+  border-radius: 5px;
+}
+.select-placeholder-text {
+  font-family: 'Do Hyeon';
+  color: rgb(51, 51, 51);
 }
