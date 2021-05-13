@@ -232,17 +232,25 @@ export const MapMarkers = (props) => {
     function changeImage(){
       var tmpCheck = document.getElementById("tmp");
       
-      var form={
+      var insertForm={
         userId : "admin123",
         danjiCode : houseDetail.danjiCode,
         danjiName : houseDetail.danjiName
         };
+
+        var deleteForm={
+          userId : "admin123",
+          danjiCode : houseDetail.danjiCode
+          };
      
        if(cnt%2==1){
         tmpCheck.src = like2;   
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', form).then((res) => {
+
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', insertForm).then((res) => {
+        // alert(insertForm.userId)
+        // alert(insertForm.danjiCode)
         alert("좋아요 등록 완료")
-        window.location.reload();
+        // window.location.reload();
         props.toggle()
         }).catch(function (error){
         console.log(error)  
@@ -250,13 +258,19 @@ export const MapMarkers = (props) => {
       }
       else{
         tmpCheck.src = like1;
+
+        axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', deleteForm).then((res) => {
+          // alert(deleteForm.userId)
+          // alert(deleteForm.danjiCode)
+          alert("좋아요 취소 완료")
+        // window.location.reload();
+        props.toggle()
+        }).catch(function (error){
+        console.log(error)  
+       })
       }
       cnt++;
     }
-
-
-
-
 
     return(
     <div>
