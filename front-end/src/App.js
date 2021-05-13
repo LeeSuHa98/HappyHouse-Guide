@@ -3,11 +3,12 @@ import MapMarkers from './source/MapMarkers'
 import communities from './source/communities'
 import Reviews from './source/reviewTest'
 import Menubar from './source/Menubar';
-import SearchBar from './source/SearchBar'
-import './App.css'
 import ReadCommunity from './source/ReadCommunity'
 import CreateReview from './source/CreateReview';
 import ReadReview from './source/ReadReview'
+import HappyChatbot from './source/Chatbot'
+
+import './App.css'
 function App() {
   return (
     <div className = "App">
@@ -26,6 +27,7 @@ function App() {
           <Route exact path={"/reviews/create"} component={CreateReview} />
         </Switch>
         </BrowserRouter>
+        <HappyChatbot/>
       </div>
     </div>
   )

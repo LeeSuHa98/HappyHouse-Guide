@@ -67,7 +67,6 @@ const Menubar = (props) => {
     return (
             <div menu-bar-wrap>
                 <div className="menu-bar">
-                    {loadDibsData()}
                     <div className="logo" onClick = {()=>{window.location.href ='/'}}>
                         <img alt='logo' src={logo} className="logoImage" />
                     </div>
@@ -83,7 +82,7 @@ const Menubar = (props) => {
                         {
                             isLogin === true?
                             <div className = "user-container">
-                                <div> {userId} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> likeShow()}/></div>
+                                <div> {userId} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> {likeShow();loadDibsData()}}/></div>
                                 <div onClick = {() => {alert("안녕히 가세요!"); localStorage.clear(); setIsLogin(false); window.location.replace('/')}}>
                                     <img alt='logo' src={logoutLogo} className="logoutImage" />
                                 </div>
