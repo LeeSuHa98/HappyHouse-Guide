@@ -1,7 +1,6 @@
 import GoogleLogin from 'react-google-login';
-import './Login.css'
+import './Menubar.css'
 const token = '16301779236-cu5jqqh23f4fa748ft5420nfqrinf1vc.apps.googleusercontent.com'
-
 
 
 const LoginGoogle = (props) => {
@@ -22,7 +21,6 @@ const LoginGoogle = (props) => {
         buttonText="구글로 로그인하기"
         onSuccess={result => loginSuccess(result)}
         onFailure={result => alert(result)}
-
       />
     </div>
   );

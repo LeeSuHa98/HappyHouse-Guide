@@ -5,8 +5,6 @@ import axios from 'axios'
 import LoginKakao from './KakaoLogin';
 import GoogleLogin from './GoogleLogin';
 
-import './Login.css'
-
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');
 

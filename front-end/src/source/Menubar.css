@@ -148,5 +148,7 @@
   margin-bottom:3px;
 }
 
-
-
+.google-login button{
+  width: 100%;
+  text-align: center;
+}

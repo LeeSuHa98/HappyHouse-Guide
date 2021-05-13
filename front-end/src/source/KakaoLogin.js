@@ -1,8 +1,5 @@
 import KakaoLogin from 'react-kakao-login';
-import './Login.css'
 const token = '081bccbedbe006325ef66fd79eeb49e0'
-
-
 
 const LoginKakao = (props) => {
 
