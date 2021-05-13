@@ -96,7 +96,7 @@ const CreateReview = (props) => {
              writeDate: newDate     
          };
  
-         axios.post('/happyhouse/reviews', form).then((res) => {
+         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews', form).then((res) => {
              alert("거주후기 작성 완료")
              window.location.href ='/reviews'
          })

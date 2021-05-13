@@ -53,7 +53,7 @@ function ReadCommunity(props) {
             _id: localStorage.getItem("community_id")
         };
         axios
-            .post('/happyhouse/communities/detail', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/detail', form)
             .then((res) => {
 
                 console.log(res.data);
@@ -91,7 +91,7 @@ const updateCommunity = () => {
     console.log('수정커뮤니티', form);
     
     axios
-    .post('/happyhouse/communities/update', form).then((res) => {
+    .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/update', form).then((res) => {
        
         alert("게시글 수정 완료")
         window.location.href ='/communities'
@@ -102,7 +102,7 @@ const deleteCommunity = () => {
         _id: localStorage.getItem("community_id")
     };
     axios
-        .post('/happyhouse/communities/delete', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
         .then((res) => {
             alert("커뮤니티 삭제 완료");
             window.location.href = '/communities'
