@@ -1,98 +1,40 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-import Moment from 'react-moment'
 import numeral from 'numeral'
-import {Bar} from 'react-chartjs-2';
-import './Sidebar.css'
 import './Menubar.css'
 
 import image from '../Image/apartment_.png'
-import cancel from '../Image/cancel.png'
-import like1 from '../Image/like.png'
-import like2 from '../Image/like-toggle.png'
-import star1 from '../Image/star1.PNG'
-import star2 from '../Image/star2.PNG'
-import room4 from '../Image/room4.PNG'
 
 import SearchBar from './SearchBar'
+import SideBar from './SideBar';
 
 export const MapMarkers = (props) => { 
     const [item, setItem] = useState([]);
-    const [houseDetail, setHouseDetail] = useState([]);
-    const [type, setType] = useState([]);
-    const [selectedIndex, setSelectedIndex] = useState(null);
-
-    const [convenience, setConvenience] = useState([]);
-    const [medical, setMedical] = useState([]);
-    const [safety, setSafety] = useState([]);
-
-
-
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
-
-    
+    const [houseDetail, setHouseDetail] = useState({
+      danjiCode: "",
+      danjiName: "",
+      address: "",
+      competeDate: "",
+      houseHoldNum: "",
+      houseType: "",
+      houseDetailInfo : [{
+        typeName:"",
+        bassRentDeposit: "",
+        bassMonthlyRentCharge: "",
+        bassConversionDeposit: "",
+        suplyPrivateArea: "",
+        suplyCommuseArea: ""}],
+      insttName: "",
+      convenience: "",
+      safety: "",
+      medical: ""
+    });
     const [center, setCenter] = useState()
     const [zoom, setZoom] = useState()
 
-    let typeName = [];
-    let suplyPrivateArea = [];
-    let suplyCommuseArea = [];
-    let bassRentDeposit = [];
-    let bassConversionDeposit = [];
-    let bassMonthlyRentCharge = [];
-
-    let houseDto = class{
-      constructor(typeName, suplyCommuseArea, suplyPrivateArea, bassRentDeposit, bassConversionDeposit,bassMonthlyRentCharge, danjiCode){
-        this.typeName = typeName;
-        this.suplyCommuseArea = suplyCommuseArea;
-        this.suplyPrivateArea = suplyPrivateArea;
-        this.bassRentDeposit = bassRentDeposit;
-        this.bassConversionDeposit = bassConversionDeposit;
-        this.bassMonthlyRentCharge = bassMonthlyRentCharge;
-        this.danjiCode = danjiCode;
-      }
-
-      toString() {
-        return `${this.typeName}`
-      }
-      
-      getTypeName() { return this.typeName; }
-      getSuplyCommuseArea() { return this.suplyCommuseArea; }
-      getSuplyPrivateArea() { return this.suplyPrivateArea; }
-      getBassRentDeposit() { return this.bassRentDeposit; }
-      getBassConversionDeposit() {return this.bassConversionDeposit;}
-      getBassMonthlyRentCharge() { return this.bassMonthlyRentCharge; }
-
-      toDetail() {
-        return `
-         공공 공용 면적 : ${this.suplyCommuseArea}
-         개인 전용 면적 : ${this.suplyPrivateArea}
-         기본 전환보증금 : ${this.bassRentDeposit}
-         기본 임대보증금 : ${this.bassMonthlyRentCharge}
-         월 임대료 : ${this.bassConversionDeposit}
-         단지코드 : ${this.danjiCode}
-        `
-      }
-    }
-    const sidebarHide = () => {
-      var con = document.getElementById("sideBar");
-      if(con.style.display==='block'){
-      con.style.display='none';
-      }
-    }
-
-    const sidebarShow = () => {
-      var con = document.getElementById("sideBar");
-      if(con.style.display==='none'){
-        con.style.display='block';
-      }else{
-        con.style.display='block';
-      }
-    }
-
-    
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
 
     useEffect(() => {
       setCenter({lat: 37.5, lng: 127})
@@ -101,30 +43,14 @@ export const MapMarkers = (props) => {
     }, [])
 
     const loadAsyncData = () => {
-        let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos`;
+        let url = `/happyhouse/houseinfos/address`;
 
         axios.get(url).then(({data}) => {
             data = data.houseInfoList
             setItem(data);
-            setType(data.reduce((infoData, curHouse) => {
-              (infoData[curHouse.address] = infoData[curHouse.address] || [])
-              .push(new houseDto(curHouse.typeName, curHouse.suplyCommuseArea, curHouse.suplyPrivateArea, curHouse.bassRentDeposit, curHouse.bassConversionDeposit,curHouse.bassMonthlyRentCharge, curHouse.danjiCode));
-              return infoData;
-            }, {}));
         })
     }
 
-    const loadAsyncHouseGradeData = (danjiCode) => {     
-      console.log(danjiCode) 
-      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseGrade/${danjiCode}`;
-
-      axios.get(url).then(({data}) => {
-        data = data.grade;
-        setConvenience(data.convenience);
-        setSafety(data.safety);
-        setMedical(data.medical);
-      })
-    }
     const displayMarkers = () => {
       return item.map((data) => (
           <Marker className='marker-image' 
@@ -142,9 +68,9 @@ export const MapMarkers = (props) => {
             color: "white",
             className: 'label'
           }}
-          onClick={() => {sidebarShow(
-            setHouseDetail(data)
-            ); loadAsyncHouseGradeData(data.danjiCode)}}
+          onClick = {()=>{
+            sidebarShow();
+          setHouseDetail(data);}}
           />
           ))
   }
@@ -154,203 +80,35 @@ export const MapMarkers = (props) => {
         height: '100%',
     };
 
-    const countFunction = () => {
-           if(type[houseDetail.address] && type[houseDetail.address].length > 0){
-        for(let i = 0; i < type[houseDetail.address].length; i++){
-          typeName[i] = type[houseDetail.address][i].toString();
-          suplyCommuseArea[i] = type[houseDetail.address][i].getSuplyCommuseArea();
-          suplyPrivateArea[i] = type[houseDetail.address][i].getSuplyPrivateArea();
-          bassRentDeposit[i] = type[houseDetail.address][i].getBassRentDeposit();
-          bassConversionDeposit[i] = type[houseDetail.address][i].getBassConversionDeposit();
-          bassMonthlyRentCharge[i] = type[houseDetail.address][i].getBassMonthlyRentCharge();
-        }
+    const sidebarHide = () => {
+      var con = document.getElementById("sideBar");
+      if(con.style.display==='block'){
+      con.style.display='none';
       }
-
-      return(
-        <div class = "typeGroup">
-          {typeName.map((data, i) => {
-            return (
-              <button id = "typeButton" key={i} onClick={() => setSelectedIndex(i) }>{data}</button>
-            )
-          })}
-        </div>
-      )
     }
 
-    const countFunctionDetail = () => {
-        if (selectedIndex === null) return;
-
-      return(
-          console.log("check")
-      )
-    }
-
-    // Chart
-    const data = {
-      labels: ['Convenience', 'Safety', 'Medical'],
-      datasets: [
-        {
-          label: houseDetail.danjiName,
-          backgroundColor: ['rgba(255,99,132,0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)'],
-          borderColor: ['rgba(255,99,132,1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)'],
-          borderWidth: 1,
-          hoverBackgroundColor: ['rgba(255,99,132,0.4)','rgba(54, 162, 235, 0.4)','rgba(255, 206, 86, 0.4)'],
-          hoverBorderColor: ['rgba(255,99,132,1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)'],
-          data: [convenience,safety,medical]
-        }
-      ]
-    };
-    function drawGraph() {
-      return (
-        <div className = "chart"> 
-            <Bar
-              data={data}
-              options={{
-                maintainAspectRatio: false
-              }}
-            />
-        </div>
-      );
-    }
-
-
-    /* Dibs */
-    var cnt = 1;
-
-    function changeImage(){
-      var tmpCheck = document.getElementById("tmp");
-      
-      var form={
-        userId : "admin123",
-        danjiCode : houseDetail.danjiCode,
-        danjiName : houseDetail.danjiName
-        };
-     
-       if(cnt%2==1){
-        tmpCheck.src = like2;   
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', form).then((res) => {
-        alert("좋아요 등록 완료")
-        window.location.reload();
-        props.toggle()
-        }).catch(function (error){
-        console.log(error)  
-       })
+    const sidebarShow = () => {
+      var con = document.getElementById("sideBar");
+      if(con.style.display!=='block'){
+        con.style.display='block';
+      }else{
+        con.style.display='block';
       }
-      else{
-        tmpCheck.src = like1;
-      }
-      cnt++;
     }
-
-
-
 
 
     return(
     <div>
-    <React.Fragment>
+      <React.Fragment>
         <Map google={props.google} zoom={zoom} style={mapStyles} center={center}>
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
-
-
-        <div className="side-bar-wrap" >
-            <div className="side-bar" id="sideBar">
-             
-                <img alt="sidebar hide" src={cancel} id="sidebarHide" onClick={()=> sidebarHide()}
-                className="toggle-menu"
-                />
-                                   
-              <div className="content">
-               <div className = "imageSection">
-                 <img src={room4} id="roomImage"></img> 
-               </div>
-               <div id = "houseInfoSection1">
-              <table className ="houseInfoTable1">
-                <tr> 
-                  <td class = "houseName" colspan="2">{houseDetail.danjiName}</td>
-                  <td class="likeButton"> <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/></td>
-                </tr>
-                <tr>
-                <td className ="houseAddress">{houseDetail.address}</td>
-                </tr>
-                </table>
-                </div>
-
-                <div id = "houseInfoSection2">
-                  <div class = "test2">주택정보</div>
-                      {countFunction()}
-                      {countFunctionDetail()}
-
-                      <table class="houseInfoTable2">
-                      <tr>
-                          <td id = "td1">공급세대</td>
-                          <td colspan="2">{houseDetail.houseHoldNum} 세대</td>
-                        </tr>
-                        <tr>
-                          <td id = "td1">준공일자</td>
-                          <td colspan = "2">
-                            <Moment format="YYYY / MM / DD">{houseDetail.competeDate}</Moment>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td id="td1">주택형</td>
-                          <td id="td1">공공 공용면적</td>
-                          <td id="td1"> 개인 공용면적</td>
-                        </tr>
-                        <tr>
-                          <td>{typeName[selectedIndex]}</td>
-                          <td>{suplyCommuseArea[selectedIndex]}(㎡)</td>
-                          <td>{suplyPrivateArea[selectedIndex]}(㎡)</td>
-                        </tr>
-                        <tr>
-                          <td id="td1">임대 보증금</td>
-                          <td id="td1">전환 보증금</td>
-                          <td id="td1">월 임대료</td>
-                        </tr>
-                        <tr>
-                          <td>{numeral(bassRentDeposit[selectedIndex]).format('0,0')}</td>
-                          <td>{numeral(bassConversionDeposit[selectedIndex]).format('0,0')}</td>
-                          <td>{numeral(bassMonthlyRentCharge[selectedIndex]).format('0,0')}</td>
-                        </tr>
-
-                       
-                      </table>
-
-                      {drawGraph()}
-                    </div>
-                     
-                      <div id = "houseInfoSection4">
-                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
-                      
-
-                          <div class = "reviewGroup">
-
-                          <div class = "review"> 
-                          <img src={star1} id="starImage" />
-                          <p>교통여건이 우수하며 대중교통 노선도 다양하다.<br></br>
-                            또한 월세도 다른 임대주택에 비해 저렴해서 좋다.</p>
-                          </div>
-                          <div class = "review"> 
-                          <img src={star2} id="starImage" />
-                          <p>주변에 버스나 지하철역이 가까이 있어서 편했고요, <br></br>
-                          생각보다도 집이  더 깔끔하고 좋습니다 !</p>
-                          </div>
-                          <div class = "review"> 
-                          <img src={star2} id="starImage" />
-                          <p>거주후기3</p>
-                          </div>
-
-                      </div>
-                      </div>
-                </div>
-                </div>
-
+        <div id = "sideBar" style = {{display : "none"}}>
+          <SideBar  houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
         </div>
-
-    </React.Fragment></div>
+      </React.Fragment>
+    </div>
     );
 }
 

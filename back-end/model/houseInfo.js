@@ -10,7 +10,7 @@ const houseInfoSchema = new mongoose.Schema({
   danjiCode: { type: String, required: true },
   danjiName: { type: String, required: true },
   address: { type: String, required: true },
-  competeDate: { type: Date, required: true },
+  competeDate: { type: String, required: true },
   houseHoldNum: { type: String, required: true },
   houseType: { type: String, required: true },
   bassRentDeposit: { type: String, required: true },
@@ -46,6 +46,13 @@ houseInfoSchema.statics.findBySidoCode = function (sidoCode) {
   return this.find({"sidoCode" : sidoCode});
 };
 
+houseInfoSchema.statics.findAddress = function () {
+  return this.find({},{_id:1 , lat:1, lng:1 , houseHoldNum:1});
+};
+
+houseInfoSchema.statics.findTest = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode},{_id:0 ,typeName:1 , suplyCommuseArea:1, suplyPrivateArea:1 , bassRentDeposit:1, bassConversionDeposit:1, bassMonthlyRentCharge:1});
+};
 // Find sidoCode and sigunguCode
 houseInfoSchema.statics.findBySidoCodeAndSigunguCode = function (sidoCode, sigunguCode) {
   return this.find({"sidoCode" : sidoCode, "sigunguCode": sigunguCode});

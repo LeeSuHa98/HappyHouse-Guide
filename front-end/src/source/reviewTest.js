@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Button,
-    Progress,
-    Table
+    Progress
 } from 'reactstrap';
 import axios from 'axios'
 import Moment from 'react-moment'
@@ -10,10 +8,8 @@ import numeral from 'numeral'
 import './Review.css'
 import $ from 'jquery';
 import room1 from'../Image/room1.PNG'
-import room2 from'../Image/room2.PNG'
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
-import ReadReview from './ReadReview';
 
 const Review =(props)=>{
     useEffect(() => {
@@ -22,7 +18,6 @@ const Review =(props)=>{
     );
     const [modalInput, setModalInput] = useState();
     const [modalCreateReview, setModalCreateReview] = useState(false);
-    const [modalReadReview, setModalReadReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
   //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
@@ -69,9 +64,6 @@ const Review =(props)=>{
 
         <div class="review-image">
             <img src={room1} id="reviewImage"></img>
-            {/*
-            <div>{reviews.picture}</div>
-            */}
         </div>
 
         <div class="review-content">
@@ -141,9 +133,6 @@ const Review =(props)=>{
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
                 </div>
 
-                {/* <div class="review-container">
-                    {review_list}
-                </div> */}
                 {review_list}
             </div>
 
