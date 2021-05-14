@@ -9,7 +9,7 @@ const LoginGoogle = (props) => {
     const loginSuccess = (result) => {
         localStorage.setItem("userID",result.profileObj.email)
         localStorage.setItem("userToken", result.accessToken)
-        props.setUserID(result.profileObj.name)
+        localStorage.setItem("userName",result.profileObj.name)
         props.toggle()
         alert(result.profileObj.name + "님 환영합니다.")
     }

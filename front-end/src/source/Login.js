@@ -51,9 +51,10 @@ const Login = (props) => {
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/login', form).then((res) => {
             if(res.data.token){
                 alert("환영합니다!")
+                console.log(res.data)
                 localStorage.setItem("userToken", res.data.token)
                 localStorage.setItem("userID", res.data.userID)
-                props.setUserID(res.data.userID)
+                localStorage.setItem("userName",res.data.name)
                 props.toggle()
             }
         }).catch(function (error){
@@ -117,10 +118,10 @@ const Login = (props) => {
                         <Button color="primary" block="block" onClick = {()=> handLogin()}>로그인</Button>
                     </div>
                     <div className="form-group">
-                        <LoginKakao setUserID = {props.setUserID} toggle = {props.toggle}/>
+                        <LoginKakao toggle = {props.toggle}/>
                     </div>
                     <div className="form-group">
-                        <GoogleLogin setUserID = {props.setUserID} toggle = {props.toggle}/>
+                        <GoogleLogin toggle = {props.toggle}/>
                     </div>
                 </TabPane>
 
