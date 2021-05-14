@@ -28,7 +28,6 @@
 
 /* SideBar */
 .side-bar-wrap {
-  display: block;
   height: 100%;
 }
 
@@ -45,7 +44,6 @@
   border-radius: 0;
   border-color: rgba(199, 199, 199, 0.693);
   background-color: rgb(255, 255, 255);
-  display: none;
 }
 
 .content {
@@ -67,10 +65,6 @@
   width: 100%;
   border-top: solid 7px rgba(199, 199, 199, 0.693);
   border-bottom: solid 7px rgba(199, 199, 199, 0.693);
-}
-
-#sidebar-container {
-  display: block;
 }
 
 .likeImage {
