@@ -104,9 +104,7 @@ export const MapMarkers = (props) => {
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
-        <div id = "sideBar" style = {{display : "none"}}>
-          <SideBar  houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
-        </div>
+        <SideBar  houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
       </React.Fragment>
     </div>
     );

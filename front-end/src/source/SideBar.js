@@ -16,9 +16,7 @@ const SideBar = (props) => {
 
     const typeButton = (list) =>{
         return list.map((data, index)=>(
-            <div>
                 <button id = "typeButton" onClick = {()=>SetTypeIndex(index)}>{data.typeName}</button>
-          </div>
         ))
     }
 
@@ -48,7 +46,9 @@ const SideBar = (props) => {
 
              <div id = "houseInfoSection2">
                <div class = "test2">주택정보</div>
-                    {typeButton(props.houseDetail.houseDetailInfo)}
+                    <div className = "typeGroup">
+                        {typeButton(props.houseDetail.houseDetailInfo)}
+                    </div>
                    <table class="houseInfoTable2">
                         <tr>
                             <td id = "td1">공급세대</td>
