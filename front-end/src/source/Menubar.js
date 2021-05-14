@@ -34,7 +34,6 @@ const Menubar = (props) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    const [userId, setUserID] = useState(" ")
 
     const likeHide = () => {
         var con = document.getElementById("check");
@@ -58,6 +57,8 @@ const Menubar = (props) => {
     );
 
     function loadDibsData () {
+        console.log(1)
+        var userId = localStorage.getItem("userID")
         axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
             data = data.dibs
             setDibs(data.map(dibs))
@@ -82,7 +83,7 @@ const Menubar = (props) => {
                         {
                             isLogin === true?
                             <div className = "user-container">
-                                <div> {userId} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> {likeShow();loadDibsData()}}/></div>
+                                <div> {localStorage.getItem("userName")} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> {likeShow();loadDibsData()}}/></div>
                                 <div onClick = {() => {alert("안녕히 가세요!"); localStorage.clear(); setIsLogin(false); window.location.replace('/')}}>
                                     <img alt='logo' src={logoutLogo} className="logoutImage" />
                                 </div>
@@ -105,7 +106,7 @@ const Menubar = (props) => {
                         
                 <Modal isOpen={isOpen} toggle={toggle} >
                     <ModalBody>
-                        <Login toggle={toggle} setUserID = {setUserID}/>
+                        <Login toggle={toggle}/>
                     </ModalBody>
                 </Modal>
             </div>

@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import numeral from 'numeral'
-import './Menubar.css'
 
 import image from '../Image/apartment_.png'
 
+import './Menubar.css'
+import './Sidebar.css'
 import SearchBar from './SearchBar'
 import SideBar from './SideBar';
 
@@ -37,6 +38,7 @@ export const MapMarkers = (props) => {
     const toggle = () => setIsOpen(!isOpen);
 
     useEffect(() => {
+      sidebarHide()
       setCenter({lat: 37.5, lng: 127})
       setZoom(15)
       loadAsyncData();
@@ -104,7 +106,7 @@ export const MapMarkers = (props) => {
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
-        <SideBar  houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
+        <SideBar houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
       </React.Fragment>
     </div>
     );

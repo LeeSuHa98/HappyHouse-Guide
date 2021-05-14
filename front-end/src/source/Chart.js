@@ -30,4 +30,4 @@ const HappyChart = (props) => {
   );
 };
 
-export default HappyChart;
+export default React.memo(HappyChart);

@@ -55,7 +55,7 @@ const Login = (props) => {
                 alert("환영합니다!")
                 localStorage.setItem("userToken", res.data.token)
                 localStorage.setItem("userID", res.data.userID)
-                props.setUserID(res.data.userID)
+                localStorage.setItem("userName", res.data.name)
                 props.toggle()
             }
         }).catch(function (error){

@@ -22,7 +22,7 @@ const SideBar = (props) => {
 
   return (
     <div className="side-bar-wrap">
-        <div className="side-bar" id="sideBar">
+        <div className="side-bar" id="sideBar" style ={{display : "none"}}>
              
              <img alt="sidebar hide" src={cancel} id="sidebarHide" onClick ={() => {props.toggle()}}
              className="toggle-menu"

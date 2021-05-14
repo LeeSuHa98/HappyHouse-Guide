@@ -9,7 +9,7 @@ const LoginKakao = (props) => {
     const loginSuccess = (result) => {
         localStorage.setItem("userID",result.profile.kakao_account.email)
         localStorage.setItem("userToken", result.response.access_token)
-        props.setUserID(result.profile.kakao_account.profile.nickname)
+        localStorage.setItem("userName",result.profile.kakao_account.profile.nickname)
         props.toggle()
         alert(result.profile.kakao_account.profile.nickname + "님 환영합니다.")
     }
