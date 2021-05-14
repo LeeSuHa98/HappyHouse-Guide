@@ -6,8 +6,8 @@ import './Menubar.css';
 import logo from '../Image/houseLogo.png'
 import logoutLogo from '../Image/logout.png'
 import like from '../Image/like-toggle.png'
-import list from '../Image/check.png'
 import cancel from '../Image/cancel.png'
+import list from '../Image/check.png'
 
 
 import{
@@ -18,7 +18,20 @@ import Login from'./Login'
 
 
 const Menubar = (props) => {
+    const [dibs_list, setDibs] = useState();
     
+    const dibs = (dib) => (
+        <li><img id = "listImage" alt="" src={list}/>{dib.danjiName}</li>
+    );
+
+    const loadDibsData = () => {
+      console.log(1)
+        var userId = localStorage.getItem("userID")
+        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
+            data = data.dibs
+            setDibs(data.map(dibs))
+        })
+    }
     useEffect(() => {
         if(!localStorage.getItem("userToken")){
             localStorage.setItem("userToken", "bearer: ");
@@ -51,20 +64,7 @@ const Menubar = (props) => {
           con.style.display='block';
         }
     }
-    const [dibs_list, setDibs] = useState();
-    const dibs = (dib) => (
-        <li><img id = "listImage" alt="" src={list}/>{dib.danjiName}</li>
-    );
-
-    function loadDibsData () {
-        console.log(1)
-        var userId = localStorage.getItem("userID")
-        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
-            data = data.dibs
-            setDibs(data.map(dibs))
-        })
-    }
-
+    
     return (
             <div menu-bar-wrap>
                 <div className="menu-bar">
@@ -83,7 +83,7 @@ const Menubar = (props) => {
                         {
                             isLogin === true?
                             <div className = "user-container">
-                                <div> {localStorage.getItem("userName")} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> {likeShow();loadDibsData()}}/></div>
+                                <div> {localStorage.getItem("userName")} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> {likeShow();loadDibsData();}}/></div>
                                 <div onClick = {() => {alert("안녕히 가세요!"); localStorage.clear(); setIsLogin(false); window.location.replace('/')}}>
                                     <img alt='logo' src={logoutLogo} className="logoutImage" />
                                 </div>

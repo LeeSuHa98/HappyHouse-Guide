@@ -9,10 +9,56 @@ import room4 from '../Image/room4.PNG'
 import Moment from 'react-moment'
 import HappyChart from './Chart';
 import numeral from 'numeral'
+import axios from 'axios';
 
 const SideBar = (props) => {
 
     const [typeIndex, SetTypeIndex] = useState(0)
+
+    var cnt = 1;
+
+    function changeImage(){
+      var tmpCheck = document.getElementById("tmp");
+      
+      var insertForm={
+        userId : localStorage.getItem("userID"),
+        danjiCode : props.houseDetail.danjiCode,
+        danjiName : props.houseDetail.danjiName
+        };
+
+        var deleteForm={
+          userId : localStorage.getItem("userID"),
+          danjiCode : props.houseDetail.danjiCode
+          };
+     
+       if(cnt%2==1){
+        tmpCheck.src = like2;   
+
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', insertForm).then((res) => {
+        // alert(insertForm.userId)
+        // alert(insertForm.danjiCode)
+        alert("좋아요 등록 완료")
+        // window.location.reload();
+        props.toggle()
+        }).catch(function (error){
+        console.log(error)  
+       })
+      }
+      else{
+        tmpCheck.src = like1;
+
+        axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', {data:deleteForm}).then((res) => {
+          // alert(deleteForm.userId)
+          // alert(deleteForm.danjiCode)
+          alert("좋아요 취소 완료")
+        // window.location.reload();
+        props.toggle()
+        }).catch(function (error){
+        console.log(error)  
+       })
+      }
+      cnt++;
+    }
 
     const typeButton = (list) =>{
         return list.map((data, index)=>(
@@ -36,7 +82,7 @@ const SideBar = (props) => {
            <table className ="houseInfoTable1">
              <tr> 
                <td class = "houseName" colSpan="2">{props.houseDetail.danjiName}</td>
-               <td class="likeButton"> <img id = "tmp"alt='like' src={like1} className="likeImage"/></td>
+               <td class="likeButton"> <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/></td>
              </tr>
              <tr>
              <td className ="houseAddress">{props.houseDetail.address}</td>

@@ -119,10 +119,10 @@ const Login = (props) => {
                         <Button color="primary" block="block" onClick = {()=> handLogin()}>로그인</Button>
                     </div>
                     <div className="form-group">
-                        <LoginKakao setUserID = {props.setUserID} toggle = {props.toggle}/>
+                        <LoginKakao setUserID = {props.setUserID} toggle = {props.toggle} loadDibsData = {props.loadDibsData}/>
                     </div>
                     <div className="form-group">
-                        <GoogleLogin setUserID = {props.setUserID} toggle = {props.toggle}/>
+                        <GoogleLogin setUserID = {props.setUserID} toggle = {props.toggle} loadDibsData = {props.loadDibsData}/>
                     </div>
                 </TabPane>
 

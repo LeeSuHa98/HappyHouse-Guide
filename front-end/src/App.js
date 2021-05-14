@@ -7,11 +7,13 @@ import ReadCommunity from './source/ReadCommunity'
 import CreateReview from './source/CreateReview';
 import ReadReview from './source/ReadReview'
 import HappyChatbot from './source/Chatbot'
-
 import './App.css'
+
 function App() {
+    
   return (
     <div className = "App">
+      
       <div className = "header_container">
         <Menubar/>
       </div>
@@ -19,7 +21,7 @@ function App() {
       <div className = "body_container">
         <BrowserRouter>
         <Switch>
-          <Route exact path={"/"} component={MapMarkers} />
+          <Route exact path={"/"} component={MapMarkers}/>
           <Route exact path={"/reviews"} component={Reviews} />
           <Route exact path={"/communities"} component={communities} />
           <Route exact path={"/communities/detail"} component={ReadCommunity} />
