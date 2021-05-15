@@ -7,6 +7,7 @@ import numeral from 'numeral'
 import {Bar} from 'react-chartjs-2';
 import './Sidebar.css'
 import './Menubar.css'
+import './Menubar.js'
 
 import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
@@ -32,13 +33,9 @@ export const MapMarkers = (props) => {
     const [medical, setMedical] = useState([]);
     const [safety, setSafety] = useState([]);
 
-
-
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const [token, setToken] = useState(); // -> testID
-
-
 
     let typeName = [];
     let suplyPrivateArea = [];
@@ -108,8 +105,15 @@ export const MapMarkers = (props) => {
     useEffect(() => {
       setCenter({lat: 37.5, lng: 127})
       setZoom(15)
-        loadAsyncData();
+      loadAsyncData();
     }, [])
+
+
+    
+    const [dibsList, setDibsList] = useState();
+    const dibs = (dib) => (
+      <li>{dib.danjiCode}</li>
+    );
 
     const loadAsyncData = () => {
         let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos`;
@@ -123,6 +127,12 @@ export const MapMarkers = (props) => {
               return infoData;
             }, {}));
         })
+
+        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${localStorage.getItem("userID")}`).then(({data}) => {
+          data = data.dibs
+          setDibsList(data.map(dibs))
+      })
+
     }
 
     const loadAsyncHouseGradeData = () => {      
@@ -135,6 +145,8 @@ export const MapMarkers = (props) => {
         setMedical(data.medical);
       })
     }
+
+   
     const displayMarkers = () => {
       return item.map((data) => (
           <Marker className='marker-image' 
@@ -145,16 +157,14 @@ export const MapMarkers = (props) => {
             scaledSize: new props.google.maps.Size(40,40),
             //labelOrigin: new props.google.maps.Size(50, 115),
           }}
-          label={{
-            text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
-            fontSize: "13px",
-            fontFamily: "Do Hyeon",
-            color: "white",
-            className: 'label'
-          }}
-          onClick={() => sidebarShow(
-            setHouseDetail(data)
-            )}
+          // label={{
+          //   text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
+          //   fontSize: "13px",
+          //   fontFamily: "Do Hyeon",
+          //   color: "white",
+          //   className: 'label'
+          // }}
+          onClick={() => sidebarShow(setHouseDetail(data))}
           />
           ))
   }
@@ -229,40 +239,35 @@ export const MapMarkers = (props) => {
     /* Dibs */
     var cnt = 1;
 
-    function changeImage(){
+    function changeImage(props){
       var tmpCheck = document.getElementById("tmp");
       
       var insertForm={
-        userId : "admin123",
+        userId : localStorage.getItem("userID"),
         danjiCode : houseDetail.danjiCode,
         danjiName : houseDetail.danjiName
         };
 
         var deleteForm={
-          userId : "admin123",
-          danjiCode : houseDetail.danjiCode
+          userId : localStorage.getItem("userID"),
+          danjiCode : houseDetail.danjiCode,
           };
-     
+
        if(cnt%2==1){
         tmpCheck.src = like2;   
-
+        
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', insertForm).then((res) => {
-        // alert(insertForm.userId)
-        // alert(insertForm.danjiCode)
-        alert("좋아요 등록 완료")
         // window.location.reload();
         props.toggle()
         }).catch(function (error){
         console.log(error)  
        })
       }
+
       else{
         tmpCheck.src = like1;
-
-        axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', deleteForm).then((res) => {
-          // alert(deleteForm.userId)
-          // alert(deleteForm.danjiCode)
-          alert("좋아요 취소 완료")
+        
+        axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', {data:deleteForm}).then((res) => {
         // window.location.reload();
         props.toggle()
         }).catch(function (error){
@@ -272,6 +277,10 @@ export const MapMarkers = (props) => {
       cnt++;
     }
 
+    
+
+
+
     return(
     <div>
     <React.Fragment>
@@ -279,8 +288,6 @@ export const MapMarkers = (props) => {
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
-
-
 
         <div id="chatbot" className="chatbot-show">
           <Chatbot 
@@ -298,11 +305,14 @@ export const MapMarkers = (props) => {
                 className="toggle-menu"
                 />
                  
-                {loadAsyncHouseGradeData()}                  
+                {loadAsyncHouseGradeData()}
+                     
+
               <div className="content">
                <div className = "imageSection">
                  <img src={room4} id="roomImage"></img> 
                </div>
+
                <div id = "houseInfoSection1">
               <table className ="houseInfoTable1">
                 <tr> 
@@ -355,32 +365,11 @@ export const MapMarkers = (props) => {
 
                        
                       </table>
-
+                      
                       {drawGraph()}
                     </div>
                      
                       <div id = "houseInfoSection4">
-                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
-                      
-
-                          <div class = "reviewGroup">
-
-                          <div class = "review"> 
-                          <img src={star1} id="starImage" />
-                          <p>교통여건이 우수하며 대중교통 노선도 다양하다.<br></br>
-                            또한 월세도 다른 임대주택에 비해 저렴해서 좋다.</p>
-                          </div>
-                          <div class = "review"> 
-                          <img src={star2} id="starImage" />
-                          <p>주변에 버스나 지하철역이 가까이 있어서 편했고요, <br></br>
-                          생각보다도 집이  더 깔끔하고 좋습니다 !</p>
-                          </div>
-                          <div class = "review"> 
-                          <img src={star2} id="starImage" />
-                          <p>거주후기3</p>
-                          </div>
-
-                      </div>
                       </div>
                 </div>
                 </div>
