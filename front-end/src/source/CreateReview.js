@@ -25,11 +25,13 @@ const CreateReview = (props) => {
     const [typeName, setTypeName] = useState()
     const [merit, setMerit] = useState()
     const [demerit, setDemerit] = useState()
-    const [picture, setPicture] = useState('')
+    const [picture, setPicture] = useState()
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [star, setStar] = useState()
     const [writeDate, setWriteDate] = useState()
     const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
+    const [file, setFile] = useState()
+    const [filename,setFilename] = useState()
 
     let $imagePreview = null;
 
@@ -61,18 +63,18 @@ const CreateReview = (props) => {
         e.preventDefault();
         setDemerit(e.target.value);
     };
-    const handleChangePicture = (e) => {
+    const handleChangeFile = (e) => {
         e.preventDefault();
-
-        let reader = new FileReader();
-        let picture = e
-            .target
-            .files[0];
-        reader.onloadend = () => {
-            setPicture(picture);
-            setImagePreviewUrl(reader.result);
-        }
-       // reader.readAsDataURL(picture);
+        setFilename(e.target.value);
+         let reader = new FileReader();
+         let file = e
+             .target
+             .files[0];
+         reader.onloadend = () => {
+             setFile(file);
+             setImagePreviewUrl(reader.result);
+         }
+         reader.readAsDataURL(file);
     }
     const handlChangeStar = (e) => {
         e.preventDefault();
@@ -91,15 +93,22 @@ const CreateReview = (props) => {
              adminCharge : adminCharge,           
              merit : merit,
              demerit : demerit,
-            // picture : picture, 
+             file : file, 
              star : star,  
              writeDate: newDate     
          };
- 
-         axios.post('/happyhouse/reviews', form).then((res) => {
-             alert("거주후기 작성 완료")
-             window.location.href ='/reviews'
-         })
+        console.log('insert : ',form);
+        //alert("  거주후기 작성 완료1"+file)
+        //  axios.post('/happyhouse/reviews', form).then((res) => {
+        //      alert("거주후기 작성 완료")
+        //      window.location.href ='/reviews'
+        //  })
+        axios.post('/api', form
+       // ,{headers: {'content-type':'multipart/form-data'}}
+        ).then((res) => {
+            alert("거주후기 작성 완료")
+           // window.location.href ='/reviews'
+        })
      }
     
 
@@ -227,10 +236,12 @@ const CreateReview = (props) => {
                                         </InputGroupAddon>
                                         <CustomInput
                                             type="file"
-                                            accept='image/jpg,impge/png,image/jpeg,image/gif'
                                             name="file"
+                                            file={file}
+                                            value={filename}
+                                            accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
                                             label="파일 선택"
-                                            onChange={handleChangePicture}>asdf</CustomInput>
+                                            onChange={handleChangeFile}>asdf</CustomInput>
                                     </InputGroup>
                                     {!$imagePreview && <Image src={imagePreviewUrl} className="mw-100"></Image>}
                                 </div>
