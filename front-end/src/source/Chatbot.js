@@ -4,6 +4,8 @@ import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';
 
+import './Sidebar.css'
+
 const HappyChatbot = (props) => {
     
     const chatbotFAQ = () => {

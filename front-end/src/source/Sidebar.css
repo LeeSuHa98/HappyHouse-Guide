@@ -52,6 +52,8 @@
 }
 
 .test2 {
+  display: flex;
+  justify-content: space-between;
   font-family: "Do Hyeon", sans-serif;
   font-size: 24px;
   padding-left: 0.5em;

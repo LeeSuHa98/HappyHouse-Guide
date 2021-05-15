@@ -132,7 +132,10 @@ const SideBar = (props) => {
                  </div>
                   
                    <div id = "houseInfoSection4">
-                   <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
+                   <div class = "test2">
+                     <div>거주후기</div>
+                    <button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button>
+                  </div>
                    
                        <div class = "reviewGroup">
 

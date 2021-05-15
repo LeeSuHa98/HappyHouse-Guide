@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {Bar} from 'react-chartjs-2';
-import axios from 'axios';
+import React from 'react';
+import {Radar} from 'react-chartjs-2';
+import './Sidebar.css'
 
 const HappyChart = (props) => {
     const data = {
@@ -8,23 +8,41 @@ const HappyChart = (props) => {
         datasets: [
           {
             label: props.danjiName,
-            backgroundColor: ['rgba(255,99,132,0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)'],
-            borderColor: ['rgba(255,99,132,1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)'],
+            backgroundColor: ['rgba(255,99,132,0.2)'],
+            borderColor: ['rgba(255,99,132,1)'],
             borderWidth: 1,
-            hoverBackgroundColor: ['rgba(255,99,132,0.4)','rgba(54, 162, 235, 0.4)','rgba(255, 206, 86, 0.4)'],
-            hoverBorderColor: ['rgba(255,99,132,1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)'],
+            hoverBackgroundColor: ['rgba(255,99,132,0.4)'],
+            hoverBorderColor: ['rgba(255,99,132,1)'],
             data: [props.convenience, props.safety, props.medical]
+          },
+          
+          {
+            label: "평균",
+            backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+            borderColor: ['rgba(54, 162, 235, 1)'],
+            borderWidth: 1,
+            hoverBackgroundColor: ['rgba(54, 162, 235, 0.4)'],
+            hoverBorderColor: ['rgba(54, 162, 235, 1)'],
+            data: [1, 1, 1]
           }
         ]
       };
 
   return (
     <div className="chart-container">
-        <Bar
+        <Radar 
             data={data}
-            options={{
-              maintainAspectRatio: false
+            options={
+              {scales: {
+                r: {
+                    angleLines: {
+                        display: false
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 3
+                }
             }}
+            }
           />
     </div>
   );
