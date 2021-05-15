@@ -33,7 +33,7 @@ const CreateCommunity = (props) => {
             writeDate: newDate,
             numberOfView: 0
         };
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities', form).then((res) => {
+        axios.post('/happyhouse/communities', form).then((res) => {
             alert("게시글이 작성 완료")
             window.location.reload();
             props.toggle()

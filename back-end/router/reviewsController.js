@@ -1,12 +1,20 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+// const app = express();
+
+
+
+// router.post('/api/customers',upload.single('image',(req,res)=>{
+//   let image ='/image' +req.file.filename;
+  
+// }));
+
 
 // Find All
 router.get('/', (req, res) => {
     reviews.findAll()
     .then((reviews) => {
+      console.log(reviews);
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
     })
@@ -55,7 +63,7 @@ router.post('/', (req, res) => {
   console.log('받은거',req.body);  
   reviews.create(req.body)
   .then(reviews => res.send(reviews))
-    .catch(err => res.status(500).send(err));
+  .catch(err => res.status(500).send(err));
     
 });
 // Find One by id

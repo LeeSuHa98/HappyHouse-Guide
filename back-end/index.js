@@ -4,8 +4,18 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const fs = require('fs');
 const app = express();
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+
+const multer = require('multer');//이렇게하지않으면 filename이 undefined가 나오게됨.
+const upload = multer({dest: './upload'})
+app.use('/image', express.static('./upload'));
+
+app.post('/api',upload.single('image',(req,res)=>{
+  console.log(req.body);
+  let image ='/image' +req.file.filename;
+  
+}));
+
+
 //body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

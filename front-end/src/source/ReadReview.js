@@ -93,13 +93,14 @@ function ReadReview(props) {
     const readReview = () => {
 
         var form = {
-            _id: localStorage.getItem("review_id") //거주후기 id
+            _id: localStorage.getItem("review_id") //거주후기 id 608f0cb79070a0cf1cd26c03
+            
         };
         axios
             .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/detail', form)
             .then((res) => {
 
-                console.log(res.data);
+                console.log('데이터',res.data);
                 setUserId(res.data.reviews.userId);
                 setTitle(res.data.reviews.title);
                 setMonthlyRentCharge(res.data.reviews.monthlyRentCharge);

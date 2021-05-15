@@ -26,7 +26,7 @@ router.post('/detail', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-    
+  //console.log('등록',req.body);
     const groupId = req.body.groupId;
     req.body.groupId= groupId;  
     communitys.create(req.body)
