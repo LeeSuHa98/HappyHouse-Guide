@@ -45,7 +45,7 @@ export const MapMarkers = (props) => {
     }, [])
 
     const loadAsyncData = () => {
-        let url = `/happyhouse/houseinfos/address`;
+        let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseinfos/address`;
 
         axios.get(url).then(({data}) => {
             data = data.houseInfoList

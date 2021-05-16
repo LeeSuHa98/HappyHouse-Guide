@@ -108,7 +108,7 @@ const CreateReview = (props) => {
         //      alert("거주후기 작성 완료")
         //      window.location.href ='/reviews'
         //  })
-        axios.post('/happyhouse/reviews', form
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews', form
         ,{headers: {'content-type':'multipart/form-data'}}
         ).then((res) => {
             alert("거주후기 작성 완료")
@@ -130,7 +130,7 @@ const CreateReview = (props) => {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("/happyhouse/reviews/upload",formData,config)
+        axios.post("https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/upload",formData,config)
             .then((response) => {
                 alert("The file is successfully uploaded");
             }).catch((error) => {
