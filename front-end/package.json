@@ -25,7 +25,6 @@
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "chart.js": "^3.2.1",
     "classnames": "^2.3.1",
-    "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "enhanced-resolve": "^5.8.0",
@@ -69,7 +68,7 @@
     "react-bootstrap": "^1.6.0",
     "react-bootstrap-carousel": "^4.1.1",
     "react-chartjs-2": "^3.0.3",
-    "react-chatbot-kit": "^1.1.20",
+    "react-chatbot-kit": "git+https://github.com/LeeSuHa98/react-chatbot-kit.git",
     "react-dev-utils": "^11.0.3",
     "react-dom": "^17.0.1",
     "react-geocode": "^0.2.3",
@@ -102,7 +101,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "postinstall": "npx patch-package"
   },
   "eslintConfig": {
     "extends": [
@@ -178,5 +178,11 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
+    "ts-loader": "^9.1.2"
   }
 }

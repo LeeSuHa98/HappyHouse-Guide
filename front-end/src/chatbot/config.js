@@ -16,7 +16,7 @@ import Worker from '../components/Conditions/WorkerOptions'
 
 const config = {
   botName: "청년행복주택 알리미",
-  initialMessages: [createChatBotMessage(`안녕하세요. 청년행복주택 알리미입니다! 무엇을 도와드릴까요?`, {
+  initialMessages: [createChatBotMessage(`청년행복주택 알리미입니다 ! 무엇을 도와드릴까요?`, {
     widget: "options",
   })],
   state: {
