@@ -6,8 +6,9 @@ const reviews = require('../model/reviews');
 
    const upload =multer({dest: 'uploads/'});
 
-   router.post('/upload', upload.single('myImage'),(req,res,next)=>{
+   router.post('/', upload.single('myImage'),(req,res,next)=>{
      console.log('파일 업로드');
+     console.log(req.body);
      console.log(req.file);
      
    })
