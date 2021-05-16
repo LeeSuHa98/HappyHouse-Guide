@@ -1,5 +1,4 @@
 import GoogleLogin from 'react-google-login';
-import './Login.css'
 const token = '16301779236-cu5jqqh23f4fa748ft5420nfqrinf1vc.apps.googleusercontent.com'
 
 
