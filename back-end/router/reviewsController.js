@@ -1,7 +1,49 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+ const path = require("path");
+   const multer = require("multer");
+   const fs = require('fs');
+
+   const upload =multer({dest: 'uploads/'});
+
+   router.post('/upload', upload.single('myImage'),(req,res,next)=>{
+     console.log('파일 업로드');
+     console.log(req.file);
+     
+   })
+// const storage = multer.diskStorage({
+//    destination: "./public/uploads/",
+//    filename: function(req, file, cb){
+//       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+//    }
+// });
+
+// const upload = multer({
+//    storage: storage,
+//    limits:{fileSize: 1000000},
+// }).array('myImage');
+
+
+
+// router.post("/upload", (req, res) => {
+//   upload(req, res, (err) => {
+//      console.log("Request ---", req.body);
+//      console.log("Request file ---", req.file);//Here you get file.
+//      /*Now do where ever you want to do*/
+//      if(!err)
+//         return res.send(200).end();
+//   });
+// });
+
+// Create new document
+// router.post('/', (req, res) => {
+//   console.log('받은거',req.body);  
+//   reviews.create(req.body)
+//   .then(reviews => res.send(reviews))
+//     .catch(err => res.status(500).send(err));
+    
+// });
+
 
 // Find All
 router.get('/', (req, res) => {
@@ -50,14 +92,7 @@ router.get('/:houseid/:userid', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// Create new document
-router.post('/', (req, res) => {
-  console.log('받은거',req.body);  
-  reviews.create(req.body)
-  .then(reviews => res.send(reviews))
-    .catch(err => res.status(500).send(err));
-    
-});
+
 // Find One by id
 router.post('/detail', (req, res) => {
   

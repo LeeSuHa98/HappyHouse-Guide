@@ -33,6 +33,11 @@ const CreateReview = (props) => {
     const [file, setFile] = useState()
     const [filename,setFilename] = useState()
 
+
+    //
+    const [img,setImage] = useState(null);
+
+
     let $imagePreview = null;
 
     const handlChangeTitle = (e) => {
@@ -103,164 +108,204 @@ const CreateReview = (props) => {
         //      alert("거주후기 작성 완료")
         //      window.location.href ='/reviews'
         //  })
-        axios.post('/api', form
-       // ,{headers: {'content-type':'multipart/form-data'}}
+        axios.post('/happyhouse/reviews', form
+        ,{headers: {'content-type':'multipart/form-data'}}
         ).then((res) => {
             alert("거주후기 작성 완료")
            // window.location.href ='/reviews'
         })
      }
     
+     //TEST
+     const onChange = (e) => {
+        setFile(e.target.files[0]);
+      }
+    
+      const create = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('myImage', file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/happyhouse/reviews/upload",formData,config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+        });
+      }
+    //TEST
 
+    return (
+    // <div className="dv">
 
-    return (<div className="dv">
+    //     <React.Fragment>
 
-        <React.Fragment>
+    //         <div className="review-wrap">
+    //             <div className="review-title">
+    //                 <div id="title">거주 후기 작성</div>
+    //             </div>
 
-            <div className="review-wrap">
-                <div className="review-title">
-                    <div id="title">거주 후기 작성</div>
-                </div>
+    //             <br></br>
+    //             <div>
+    //                 <div class="review-block">
+    //                     <div id="header">
+    //                         <h4>제목
+    //                             <Input name="title" onChange={handlChangeTitle} value={title}></Input>
+    //                         </h4>
+    //                     </div>
 
-                <br></br>
-                <div>
-                    <div class="review-block">
-                        <div id="header">
-                            <h4>제목
-                                <Input name="title" onChange={handlChangeTitle} value={title}></Input>
-                            </h4>
-                        </div>
+    //                     <div id="writer-writeDate-star">
+    //                         <div>
 
-                        <div id="writer-writeDate-star">
-                            <div>
+    //                             <Progress value={star} max="5"/>평점(0~5)</div>
+    //                         <Input
+    //                             placeholder="평점(0~5)"
+    //                             name="star"
+    //                             onChange={handlChangeStar}
+    //                             value={star}></Input>
 
-                                <Progress value={star} max="5"/>평점(0~5)</div>
-                            <Input
-                                placeholder="평점(0~5)"
-                                name="star"
-                                onChange={handlChangeStar}
-                                value={star}></Input>
+    //                     </div>
 
-                        </div>
+    //                     <div>
+    //                         <table class="houseInfo">
+    //                             <tr>
+    //                                 <td id="a">지역</td>
+    //                                 <td id="a">
+    //                                     <Input name="content" onChange={handlChangeRegion} value={region}></Input>
+    //                                 </td>
+    //                                 <td id="a">작성자ID</td>
+    //                                 <td id="a">
+    //                                     <Input
+    //                                         name="userId"
+    //                                         value={localStorage.getItem("userID")}
+    //                                         readOnly={isReadOnly}></Input>
+    //                                 </td>
+    //                             </tr>
+    //                             <tr>
+    //                                 <td id="a">임대종류</td>
+    //                                 <td>
+    //                                     <Input value="행복주택" readOnly={isReadOnly}></Input>
+    //                                 </td>
+    //                                 <td id="a">유형</td>
+    //                                 <td>
+    //                                     <Input value="아파트" readOnly={isReadOnly}></Input>
+    //                                 </td>
+    //                             </tr>
+    //                             <tr>
+    //                                 <td id="a">주택형</td>
+    //                                 <td id="a">
+    //                                     <Input name="content" onChange={handlChangeTypeName} value={typeName}></Input>
+    //                                 </td>
 
-                        <div>
-                            <table class="houseInfo">
-                                <tr>
-                                    <td id="a">지역</td>
-                                    <td id="a">
-                                        <Input name="content" onChange={handlChangeRegion} value={region}></Input>
-                                    </td>
-                                    <td id="a">작성자ID</td>
-                                    <td id="a">
-                                        <Input
-                                            name="userId"
-                                            value={localStorage.getItem("userID")}
-                                            readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">임대종류</td>
-                                    <td>
-                                        <Input value="행복주택" readOnly={isReadOnly}></Input>
-                                    </td>
-                                    <td id="a">유형</td>
-                                    <td>
-                                        <Input value="아파트" readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">주택형</td>
-                                    <td id="a">
-                                        <Input name="content" onChange={handlChangeTypeName} value={typeName}></Input>
-                                    </td>
+    //                                 <td id="a">공급수</td>
+    //                                 <td>
+    //                                     <Input value="32 세대" readOnly={isReadOnly}></Input>
+    //                                 </td>
+    //                             </tr>
+    //                             <tr>
+    //                                 <td id="a">월세</td>
+    //                                 <td id="a">
+    //                                     <Input
+    //                                         name="monthlyRentCharge"
+    //                                         onChange={handlChangeMonthlyRentCharge}
+    //                                         value={numeral(monthlyRentCharge).format('0,0')}></Input>
+    //                                 </td>
 
-                                    <td id="a">공급수</td>
-                                    <td>
-                                        <Input value="32 세대" readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">월세</td>
-                                    <td id="a">
-                                        <Input
-                                            name="monthlyRentCharge"
-                                            onChange={handlChangeMonthlyRentCharge}
-                                            value={numeral(monthlyRentCharge).format('0,0')}></Input>
-                                    </td>
+    //                                 <td id="a">관리비</td>
+    //                                 <td id="a">
+    //                                     <Input
+    //                                         name="adminCharge"
+    //                                         onChange={handlChangeAdminCharge}
+    //                                         value={numeral(adminCharge).format('0,0')}></Input>
+    //                                 </td>
 
-                                    <td id="a">관리비</td>
-                                    <td id="a">
-                                        <Input
-                                            name="adminCharge"
-                                            onChange={handlChangeAdminCharge}
-                                            value={numeral(adminCharge).format('0,0')}></Input>
-                                    </td>
+    //                             </tr>
+    //                         </table>
+    //                     </div>
 
-                                </tr>
-                            </table>
-                        </div>
+                      
+    //                         <div class="review-content">
+    //                             <div id="merit">
+    //                                 <div id="b">장점</div>
+    //                                 <Input
+    //                                     name="merit"
+    //                                     cols="50"
+    //                                     rows="20"
+    //                                     onChange={handlChangeMerit}
+    //                                     value={merit}></Input>
 
-                        {/*}
-                        <div class="review-image">
-                            <img src={room1} id="reviewImage"></img>
-                            {/* <div>{reviews.picture}</div>
-                            </div>*/
-                            }
-
-                            <div class="review-content">
-                                <div id="merit">
-                                    <div id="b">장점</div>
-                                    <Input
-                                        name="merit"
-                                        cols="50"
-                                        rows="20"
-                                        onChange={handlChangeMerit}
-                                        value={merit}></Input>
-
-                                </div>
-                                <div id="demerit">
-                                    <div id="b">단점</div>
-                                    <Input
-                                        className="input-style"
-                                        name="demerit"
-                                        cols="50"
-                                        rows="20"
-                                        onChange={handlChangeDemerit}
-                                        value={demerit}></Input>
-                                </div>
-                                <br></br>
-                                <div class="review-image">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">
-                                            <InputGroupText>사진첨부</InputGroupText>
-                                        </InputGroupAddon>
-                                        <CustomInput
-                                            type="file"
-                                            name="file"
-                                            file={file}
-                                            value={filename}
-                                            accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
-                                            label="파일 선택"
-                                            onChange={handleChangeFile}>asdf</CustomInput>
+    //                             </div>
+    //                             <div id="demerit">
+    //                                 <div id="b">단점</div>
+    //                                 <Input
+    //                                     className="input-style"
+    //                                     name="demerit"
+    //                                     cols="50"
+    //                                     rows="20"
+    //                                     onChange={handlChangeDemerit}
+    //                                     value={demerit}></Input>
+    //                             </div>
+    //                             <br></br>
+    //                             <div class="review-image">
+    //                                 <InputGroup>
+    //                                     <InputGroupAddon addonType="prepend">
+    //                                         <InputGroupText>사진첨부</InputGroupText>
+    //                                     </InputGroupAddon>
+    //                                     <CustomInput
+    //                                         type="file"
+    //                                         name="file"
+    //                                         file={file}
+    //                                         value={filename}
+    //                                         accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
+    //                                         label="파일 선택"
+    //                                         onChange={handleChangeFile}>asdf</CustomInput>
+    //                                 </InputGroup>
+    //                                 {!$imagePreview && <Image src={imagePreviewUrl} className="mw-100"></Image>}
+    //                             </div>
+    //                         </div>
+    //                         <br></br>
+    //                         <div className="button-container">
+    //                             <button id="review-upload" onClick={createReview}>작성</button>
+    //                             <button
+    //                                 id="review-upload"
+    //                                 onClick ={()=>{window.location.href ='/reviews'}}
+    //                                 style={{
+    //                                     float: 'left'
+    //                                 }}>취소</button>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </React.Fragment>
+    //     </div>
+    
+<div class="dv"> 
+<div class="review-image">
+    
+<br></br>
+<br></br>
+<br></br>
+                                   <InputGroup>
+                                         <InputGroupAddon addonType="prepend">
+                                             <InputGroupText>사진첨부</InputGroupText>
+                                         </InputGroupAddon>
+                                         <CustomInput
+                                             type="file"
+                                             name="myImage"
+                                             file={file}
+                                             value={filename}
+                                             accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
+                                             label="파일 선택"
+                                             onChange={onChange}></CustomInput>
                                     </InputGroup>
-                                    {!$imagePreview && <Image src={imagePreviewUrl} className="mw-100"></Image>}
-                                </div>
-                            </div>
-                            <br></br>
-                            <div className="button-container">
-                                <button id="review-upload" onClick={createReview}>작성</button>
-                                <button
-                                    id="review-upload"
-                                    onClick ={()=>{window.location.href ='/reviews'}}
-                                    style={{
-                                        float: 'left'
-                                    }}>취소</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </React.Fragment>
-        </div>
+                                    <button id="review-upload" onClick={create}>작성</button>
+</div>
+
+    </div>
+    
 
         );
 }

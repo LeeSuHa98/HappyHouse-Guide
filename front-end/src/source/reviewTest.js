@@ -94,6 +94,7 @@ const Review =(props)=>{
 
     function move(){
         localStorage.setItem("review_id",modalInput);
+        
         window.location.href ='/reviews/detail'
     }
     $(function () {     

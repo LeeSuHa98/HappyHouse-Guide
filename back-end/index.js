@@ -2,9 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
-const fs = require('fs');
 const app = express();
-
+const fs = require('fs');
 //body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
