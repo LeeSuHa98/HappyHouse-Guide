@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Progress, Table} from 'reactstrap';
 import axios from 'axios'
-import './Review.css'
+import './css/Review.css'
 import room1 from '../Image/room1.PNG'
 import room2 from '../Image/room2.PNG'
 

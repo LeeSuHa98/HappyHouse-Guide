@@ -7,7 +7,7 @@ import {
 import axios from 'axios'
 import Moment from 'react-moment'
 import numeral from 'numeral'
-import './Review.css'
+import './css/Review.css'
 import $ from 'jquery';
 import room1 from'../Image/room1.PNG'
 import room2 from'../Image/room2.PNG'

@@ -17,7 +17,7 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios';
-import './Review.css'
+import './css/Review.css'
 import room1 from '../Image/room1.PNG'
 import Moment from 'react-moment'
 import numeral from 'numeral'

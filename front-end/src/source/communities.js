@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-import './community.css'
+import './css/community.css'
 import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateCommunity from './CreateCommunity'

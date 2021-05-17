@@ -4,9 +4,9 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import Moment from 'react-moment'
 import Chatbot from "react-chatbot-kit"
 import numeral from 'numeral'
-import {Bar} from 'react-chartjs-2';
-import './Sidebar.css'
-import './Menubar.css'
+import {Bar} from 'react-chartjs-2'
+import './css/Sidebar.css'
+import './css/Menubar.css'
 import './Menubar.js'
 
 import image from '../Image/apartment_.png'
