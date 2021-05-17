@@ -6,10 +6,34 @@ const reviews = require('../model/reviews');
 
    const upload =multer({dest: 'uploads/'});
 
-   router.post('/upload', upload.single('myImage'),(req,res,next)=>{
-     console.log('파일 업로드');
-     console.log(req.file);
+   router.post('/', upload.single('myImage'),(req,res,next)=>{
+     console.log('거주후기 작성');
      
+     console.log('거주후기 내용-----------',req.body);
+     
+     console.log('업로드한 사진-----------',req.file);
+    let filename = req.file.filename;
+     console.log('파일 이름-----------',filename);
+     let review = new reviews({
+      houseId: req.body.houseId,
+      userId: req.body.userId,
+      title: req.body.title,
+      region: req.body.region,
+      typeName: req.body.typeName,
+      monthlyRentCharge: req.body.monthlyRentCharge,
+      adminCharge: req.body.adminCharge,
+      merit: req.body.merit,
+      demerit: req.body.demerit,
+      star: req.body.star,
+      writeDate: req.body.writeDate,
+      picture: filename, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+
+    });
+    review.save()
+    .then((result) => {
+      console.log(result);
+      res.status(201).json(result);
+  });
    })
 // const storage = multer.diskStorage({
 //    destination: "./public/uploads/",
