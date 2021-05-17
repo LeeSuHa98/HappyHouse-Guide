@@ -27,7 +27,7 @@ const CreateReview = (props) => {
     const [demerit, setDemerit] = useState()
     const [picture, setPicture] = useState()
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-    const [star, setStar] = useState()
+    const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
     const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
     const [file, setFile] = useState()
@@ -118,6 +118,15 @@ const CreateReview = (props) => {
     
      //TEST
      const onChange = (e) => {
+        let reader = new FileReader();
+        let file = e
+            .target
+            .files[0];
+        reader.onloadend = () => {
+            setFile(file);
+            setImagePreviewUrl(reader.result);
+        }
+        reader.readAsDataURL(file);
         setFile(e.target.files[0]);
       }
     
@@ -145,7 +154,8 @@ const CreateReview = (props) => {
         };
         axios.post("/happyhouse/reviews",formData,config)
             .then((response) => {
-                alert("The file is successfully uploaded");
+                alert("거주후기 등록 완료");
+                window.location.href ='/reviews'
             }).catch((error) => {
         });
       }

@@ -4,16 +4,27 @@ const reviews = require('../model/reviews');
    const multer = require("multer");
    const fs = require('fs');
 
-   const upload =multer({dest: 'uploads/'});
-
+   const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+    destination: "./uploads/",
+    filename: function(req, file, cb){
+       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+ });
+   const upload =multer({storage: storage});
+//https://gngsn.tistory.com/40 multer s3
    router.post('/', upload.single('myImage'),(req,res,next)=>{
      console.log('거주후기 작성');
      
      console.log('거주후기 내용-----------',req.body);
      
      console.log('업로드한 사진-----------',req.file);
-    let filename = req.file.filename;
-     console.log('파일 이름-----------',filename);
+     let image = '/uploads/' + req.file.filename;
+
+    
+     //console.log('파일 이름-----------',filename);
+
+
+
      let review = new reviews({
       houseId: req.body.houseId,
       userId: req.body.userId,
@@ -26,7 +37,7 @@ const reviews = require('../model/reviews');
       demerit: req.body.demerit,
       star: req.body.star,
       writeDate: req.body.writeDate,
-      picture: filename, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+      picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
     });
     review.save()
@@ -71,10 +82,13 @@ const reviews = require('../model/reviews');
 
 // Find All
 router.get('/', (req, res) => {
+  
+
     reviews.findAll()
     .then((reviews) => {
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
+    
     })
     .catch(err => res.status(500).send(err));
 });
