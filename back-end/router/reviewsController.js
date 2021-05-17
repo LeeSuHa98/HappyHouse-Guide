@@ -18,7 +18,7 @@ const reviews = require('../model/reviews');
      console.log('거주후기 내용-----------',req.body);
      
      console.log('업로드한 사진-----------',req.file);
-     let image = '/uploads/' + req.file.filename;
+     let image = 'http://localhost:8080/Image/' + req.file.filename;
 
     
      //console.log('파일 이름-----------',filename);

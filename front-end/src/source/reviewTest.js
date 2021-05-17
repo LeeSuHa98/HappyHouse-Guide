@@ -7,7 +7,6 @@ import Moment from 'react-moment'
 import numeral from 'numeral'
 import './Review.css'
 import $ from 'jquery';
-import room1 from'../Image/room1.PNG'
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
 
@@ -63,11 +62,10 @@ const Review =(props)=>{
         </div>
 
         <div class="review-image">
-            {/* <img src={room1} id="reviewImage"></img> */}
-            <div>{reviews.picture}</div>
-            {/* <img src={room1} id="reviewImage"></img>  */}
-            {/* <img             src={"../../uploads/IMAGE-1621266975603.jpg"} */}
-            {/* //   src={'../back'+reviews.picture} */}
+          <br></br>
+
+            
+            <img width="650" height="300" src={reviews.picture}></img>
            
         </div>
 
