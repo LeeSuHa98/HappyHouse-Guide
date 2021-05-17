@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from 'react-select'
-import './SearchBar.css'
+import './css/SearchBar.css'
 
 const SearchBar = (props) => {
     const [options, setDate] = useState([
