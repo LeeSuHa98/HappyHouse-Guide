@@ -86,7 +86,7 @@ const Review =(props)=>{
 </li>
     );
     function readReview () {
-        axios.get('/happyhouse/reviews').then(({data}) => {
+        axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
