@@ -10,17 +10,17 @@ const FAQ = (props) => {
         },
         {
             text: "자격요건",
-            hadler: props.actionProvider.qualificationRequirement,
+            handler: props.actionProvider.qualificationRequirement,
             id: 2,
         },
         {
             text: "입주",
-            handler: props,
+            handler: props.actionProvider.moveIn,
             id: 3,
         },
         {
             text: "행복주택이란?",
-            handler: props,
+            handler: props.actionProvider.happyHouse,
             id: 4,
         }
     ]
