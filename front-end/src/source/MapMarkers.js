@@ -11,6 +11,7 @@ import './Menubar.js'
 
 import image from '../Image/apartment_.png'
 import cancel from '../Image/cancel.png'
+import undo from '../Image/undo.png'
 import like1 from '../Image/like.png'
 import like2 from '../Image/like-toggle.png'
 import star1 from '../Image/star1.PNG'
@@ -157,13 +158,13 @@ export const MapMarkers = (props) => {
             scaledSize: new props.google.maps.Size(40,40),
             //labelOrigin: new props.google.maps.Size(50, 115),
           }}
-          // label={{
-          //   text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
-          //   fontSize: "13px",
-          //   fontFamily: "Do Hyeon",
-          //   color: "white",
-          //   className: 'label'
-          // }}
+          label={{
+            text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
+            fontSize: "13px",
+            fontFamily: "Do Hyeon",
+            color: "white",
+            className: 'label'
+          }}
           onClick={() => sidebarShow(setHouseDetail(data))}
           />
           ))
@@ -301,9 +302,10 @@ export const MapMarkers = (props) => {
         <div className="side-bar-wrap" >
             <div className="side-bar" id="sideBar">
              
-                <img alt="sidebar hide" src={cancel} id="sidebarHide" onClick={()=> sidebarHide()}
-                className="toggle-menu"
-                />
+              <div className = "beforeContent">
+                 <img alt="sidebar hide" src={undo} id="sidebarHide" onClick={()=> sidebarHide()} className="toggle-menu"/>
+                  <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/>
+              </div>
                  
                 {loadAsyncHouseGradeData()}
                      
@@ -316,8 +318,7 @@ export const MapMarkers = (props) => {
                <div id = "houseInfoSection1">
               <table className ="houseInfoTable1">
                 <tr> 
-                  <td class = "houseName" colspan="2">{houseDetail.danjiName}</td>
-                  <td class="likeButton"> <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/></td>
+                  <td class = "houseName">{houseDetail.danjiName}</td>
                 </tr>
                 <tr>
                 <td className ="houseAddress">{houseDetail.address}</td>
@@ -333,37 +334,39 @@ export const MapMarkers = (props) => {
                       <table class="houseInfoTable2">
                       <tr>
                           <td id = "td1">공급세대</td>
-                          <td colspan="2">{houseDetail.houseHoldNum} 세대</td>
+                          <td>{houseDetail.houseHoldNum} 세대</td>
                         </tr>
                         <tr>
                           <td id = "td1">준공일자</td>
-                          <td colspan = "2">
+                          <td>
                             <Moment format="YYYY / MM / DD">{houseDetail.competeDate}</Moment>
                           </td>
                         </tr>
 
                         <tr>
                           <td id="td1">주택형</td>
-                          <td id="td1">공공 공용면적</td>
-                          <td id="td1"> 개인 공용면적</td>
+                          <td>{typeName[selectedIndex]}</td>
                         </tr>
                         <tr>
-                          <td>{typeName[selectedIndex]}</td>
+                          <td id="td1">공공 공용면적</td>
                           <td>{suplyCommuseArea[selectedIndex]}(㎡)</td>
+                        </tr>
+                        <tr>
+                          <td id="td1"> 개인 공용면적</td>
                           <td>{suplyPrivateArea[selectedIndex]}(㎡)</td>
                         </tr>
                         <tr>
                           <td id="td1">임대 보증금</td>
-                          <td id="td1">전환 보증금</td>
-                          <td id="td1">월 임대료</td>
+                          <td>{numeral(bassRentDeposit[selectedIndex]).format('0,0')}</td>
                         </tr>
                         <tr>
-                          <td>{numeral(bassRentDeposit[selectedIndex]).format('0,0')}</td>
+                          <td id="td1">전환 보증금</td>
                           <td>{numeral(bassConversionDeposit[selectedIndex]).format('0,0')}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">월 임대료</td>
                           <td>{numeral(bassMonthlyRentCharge[selectedIndex]).format('0,0')}</td>
                         </tr>
-
-                       
                       </table>
                       
                       {drawGraph()}

@@ -3,7 +3,7 @@ import {Route, Switch, Link} from 'react-router-dom';
 import axios from 'axios';
 
 import './Menubar.css';
-import logo from '../Image/houseLogo.png'
+import logo from '../Image/home.png'
 import logoutLogo from '../Image/logout.png'
 import like from '../Image/like-toggle.png'
 import list from '../Image/check.png'

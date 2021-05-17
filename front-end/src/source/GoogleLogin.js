@@ -1,10 +1,9 @@
 import GoogleLogin from 'react-google-login';
-import './Menubar.css'
+import loginG from '../Image/google_login.png'
 const token = '16301779236-cu5jqqh23f4fa748ft5420nfqrinf1vc.apps.googleusercontent.com'
 
 
 const LoginGoogle = (props) => {
-
     
     const loginSuccess = (result) => {
         localStorage.setItem("userID",result.profileObj.email)
@@ -18,10 +17,13 @@ const LoginGoogle = (props) => {
     <div className="google-login">
       <GoogleLogin
         clientId={token}
-        buttonText="구글로 로그인하기"
         onSuccess={result => loginSuccess(result)}
         onFailure={result => alert(result)}
-      />
+        icon={false}
+        buttonText="">
+
+        <div className="GoogleBtn"><img  src ={loginG} className="googleImage"/>Google 로그인</div> 
+      </GoogleLogin>
     </div>
   );
 };

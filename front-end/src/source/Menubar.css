@@ -5,53 +5,64 @@
 }
 
 .menu-bar {
-  font-family: "Do Hyeon", sans-serif;
+  font-family: 'Nanum Barun Gothic', sans-serif;
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: rgb(36, 72, 105);
+  background-color: rgb(21, 39, 56);
 }
 
 .logo {
   float: left;
   height: 100%;
-  width: 5%;
+  width: 77%;
+  margin-right:1%;
 }
 
 .logoImage {
-  margin-top: 20%;
-  margin-left: 30%;
-  width: 50%;
-  height: 50%;
+  margin-left:1%;
+  padding:.5% .5%;
+  width:3em;
+  height: 99%;
 }
 
 .menuGroup {
-  width: 50%;
-  float: right;
+  padding-left:1%;
+  width: 22%;
   height: 100%;
   display: flex;
-}
-
-.reviewButton,
-.communityButton,
-.joinButton,
-.loginButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 100%;
-  width: 23%;
-  font-size: 25px;
 }
 
 .reviewButton {
-  margin-left: 24%;
-}
+  display: flex;
+  align-items: center;
+  color: white;
+  height: 100%;
+  font-size: 1em;
+  font-weight:500;
+  width:20%;
+  margin-right:2%;
+ }
 
-.joinButton,
-.loginButton {
-  width: 24%;
+.communityButton {
+  display: flex;
+  align-items: center;
+  color: white;
+  height: 100%;
+  font-size: 1em;
+  font-weight:500;
+  width:33%;
+  margin-right:2%;
+ }
+
+ .loginButton{
+  display: flex;
+  align-items: center;
+  color: white;
+  height: 100%;
+  font-size: 1em;
+  font-weight:550;
+  width: 42%;
 }
 
 .text {
@@ -70,13 +81,13 @@
 
 .user-container {
   display: flex;
-  font-size: 80%;
+  font-size: 90%;
 }
 
 .logoutImage {
   margin-left: 10px;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 
