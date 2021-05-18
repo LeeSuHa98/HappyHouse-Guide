@@ -12,7 +12,7 @@ const reviewSchema = new mongoose.Schema({
   title: { type: String, required: true },
   merit: { type: String, required: true },
   demerit: { type: String, required: true },
-  picture: { data: String},
+  picture: { type: String},
   writeDate: { type: Date, required: true },
   star: { type: Number, required: true }
 });

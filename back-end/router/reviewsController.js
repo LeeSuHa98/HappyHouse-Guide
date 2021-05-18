@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
-const path = require("path");
-const multer = require("multer");
-const fs = require('fs');
+ const path = require("path");
+   const multer = require("multer");
+   const fs = require('fs');
 
    const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
     destination: "./uploads/",
@@ -15,7 +15,7 @@ const fs = require('fs');
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
      let image = 'http://localhost:8080/Image/' + req.file.filename;
-    console.log(image);
+
      let review = new reviews({
       houseId: req.body.houseId,
       userId: req.body.userId,
@@ -28,7 +28,7 @@ const fs = require('fs');
       demerit: req.body.demerit,
       star: req.body.star,
       writeDate: req.body.writeDate,
-      picture: 'http://localhost:8080/Image/' + req.file.filename, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+      picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
     });
     review.save()
