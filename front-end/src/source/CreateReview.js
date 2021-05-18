@@ -27,11 +27,16 @@ const CreateReview = (props) => {
     const [demerit, setDemerit] = useState()
     const [picture, setPicture] = useState()
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-    const [star, setStar] = useState()
+    const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
     const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
     const [file, setFile] = useState()
     const [filename,setFilename] = useState()
+
+
+    //
+    const [img,setImage] = useState(null);
+
 
     let $imagePreview = null;
 
@@ -103,17 +108,61 @@ const CreateReview = (props) => {
         //      alert("거주후기 작성 완료")
         //      window.location.href ='/reviews'
         //  })
-        axios.post('/api', form
-       // ,{headers: {'content-type':'multipart/form-data'}}
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews', form
+        ,{headers: {'content-type':'multipart/form-data'}}
         ).then((res) => {
             alert("거주후기 작성 완료")
            // window.location.href ='/reviews'
         })
      }
     
+     //TEST
+     const onChange = (e) => {
+        let reader = new FileReader();
+        let file = e
+            .target
+            .files[0];
+        reader.onloadend = () => {
+            setFile(file);
+            setImagePreviewUrl(reader.result);
+        }
+        reader.readAsDataURL(file);
+        setFile(e.target.files[0]);
+      }
+    
+      const create = (e) => {
+        e.preventDefault();
+        let newDate = new Date();
+        
+        const formData = new FormData();
+        formData.append('houseId', "6063083edb67cc10cce15fc0");
+        formData.append('userId', localStorage.getItem("userID"));
+        formData.append('title', title);
+        formData.append('region', region);
+        formData.append('typeName', typeName);
+        formData.append('monthlyRentCharge', monthlyRentCharge);
+        formData.append('adminCharge', adminCharge);
+        formData.append('merit', merit);
+        formData.append('demerit', demerit);
+        formData.append('star', star);
+        formData.append('writeDate', newDate);
+        formData.append('myImage', file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/happyhouse/reviews",formData,config)
+            .then((response) => {
+                alert("거주후기 등록 완료");
+                window.location.href ='/reviews'
+            }).catch((error) => {
+        });
+      }
+    //TEST
 
-
-    return (<div className="dv">
+    return (
+    <div className="dv">
 
         <React.Fragment>
 
@@ -200,13 +249,7 @@ const CreateReview = (props) => {
                             </table>
                         </div>
 
-                        {/*}
-                        <div class="review-image">
-                            <img src={room1} id="reviewImage"></img>
-                            {/* <div>{reviews.picture}</div>
-                            </div>*/
-                            }
-
+                      
                             <div class="review-content">
                                 <div id="merit">
                                     <div id="b">장점</div>
@@ -230,25 +273,25 @@ const CreateReview = (props) => {
                                 </div>
                                 <br></br>
                                 <div class="review-image">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">
-                                            <InputGroupText>사진첨부</InputGroupText>
-                                        </InputGroupAddon>
-                                        <CustomInput
-                                            type="file"
-                                            name="file"
-                                            file={file}
-                                            value={filename}
-                                            accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
-                                            label="파일 선택"
-                                            onChange={handleChangeFile}>asdf</CustomInput>
+                                <InputGroup>
+                                         <InputGroupAddon addonType="prepend">
+                                             <InputGroupText>사진첨부</InputGroupText>
+                                         </InputGroupAddon>
+                                         <CustomInput
+                                             type="file"
+                                             name="myImage"
+                                             file={file}
+                                             value={filename}
+                                             accept='image/jpg,impge/png,image/jpeg,image/gif'                                            
+                                             label="파일 선택"
+                                             onChange={onChange}></CustomInput>
                                     </InputGroup>
                                     {!$imagePreview && <Image src={imagePreviewUrl} className="mw-100"></Image>}
                                 </div>
                             </div>
                             <br></br>
                             <div className="button-container">
-                                <button id="review-upload" onClick={createReview}>작성</button>
+                                <button id="review-upload" onClick={create}>작성</button>
                                 <button
                                     id="review-upload"
                                     onClick ={()=>{window.location.href ='/reviews'}}
@@ -261,6 +304,9 @@ const CreateReview = (props) => {
                 </div>
             </React.Fragment>
         </div>
+    
+
+    
 
         );
 }

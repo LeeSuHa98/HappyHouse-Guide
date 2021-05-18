@@ -1,22 +1,52 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
-// const app = express();
+const path = require("path");
+const multer = require("multer");
+const fs = require('fs');
 
+   const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+    destination: "./uploads/",
+    filename: function(req, file, cb){
+       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+ });
+   const upload =multer({storage: storage});
+//https://gngsn.tistory.com/40 multer s3
+   router.post('/', upload.single('myImage'),(req,res,next)=>{
+ 
+     let image = 'http://localhost:8080/Image/' + req.file.filename;
+    console.log(image);
+     let review = new reviews({
+      houseId: req.body.houseId,
+      userId: req.body.userId,
+      title: req.body.title,
+      region: req.body.region,
+      typeName: req.body.typeName,
+      monthlyRentCharge: req.body.monthlyRentCharge,
+      adminCharge: req.body.adminCharge,
+      merit: req.body.merit,
+      demerit: req.body.demerit,
+      star: req.body.star,
+      writeDate: req.body.writeDate,
+      picture: 'http://localhost:8080/Image/' + req.file.filename, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
-
-// router.post('/api/customers',upload.single('image',(req,res)=>{
-//   let image ='/image' +req.file.filename;
-  
-// }));
-
+    });
+    review.save()
+    .then((result) => {
+      console.log(result);
+      res.status(201).json(result);
+  });
+   })
 
 // Find All
 router.get('/', (req, res) => {
+  
+
     reviews.findAll()
     .then((reviews) => {
-      console.log(reviews);
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
+    
     })
     .catch(err => res.status(500).send(err));
 });
@@ -58,14 +88,7 @@ router.get('/:houseid/:userid', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// Create new document
-router.post('/', (req, res) => {
-  console.log('받은거',req.body);  
-  reviews.create(req.body)
-  .then(reviews => res.send(reviews))
-  .catch(err => res.status(500).send(err));
-    
-});
+
 // Find One by id
 router.post('/detail', (req, res) => {
   

@@ -68,10 +68,8 @@ const Review =(props)=>{
         </div>
 
         <div class="review-image">
-            <img src={room1} id="reviewImage"></img>
-            {/*
-            <div>{reviews.picture}</div>
-            */}
+          <br></br>            
+            <img width="650" height="300" src={reviews.picture}></img>           
         </div>
 
         <div class="review-content">
@@ -94,7 +92,7 @@ const Review =(props)=>{
 </li>
     );
     function readReview () {
-        axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews').then(({data}) => {
+        axios.get('/happyhouse/reviews').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
