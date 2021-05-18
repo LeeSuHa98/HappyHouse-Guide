@@ -250,8 +250,8 @@ function ReadReview(props) {
                             </div>
 
                             <div class="review-image">
-                                <img src={room1} id="reviewImage"></img>
-                                {/* <div>{reviews.picture}</div> */}
+                             <br></br>            
+                              <img width="650" height="300" src={picture}></img>           
                             </div>
 
                             <div class="review-content">
