@@ -13,17 +13,8 @@ const reviews = require('../model/reviews');
    const upload =multer({storage: storage});
 //https://gngsn.tistory.com/40 multer s3
    router.post('/', upload.single('myImage'),(req,res,next)=>{
-     console.log('거주후기 작성');
-     
-     console.log('거주후기 내용-----------',req.body);
-     
-     console.log('업로드한 사진-----------',req.file);
+ 
      let image = 'http://localhost:8080/Image/' + req.file.filename;
-
-    
-     //console.log('파일 이름-----------',filename);
-
-
 
      let review = new reviews({
       houseId: req.body.houseId,
@@ -46,39 +37,6 @@ const reviews = require('../model/reviews');
       res.status(201).json(result);
   });
    })
-// const storage = multer.diskStorage({
-//    destination: "./public/uploads/",
-//    filename: function(req, file, cb){
-//       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-//    }
-// });
-
-// const upload = multer({
-//    storage: storage,
-//    limits:{fileSize: 1000000},
-// }).array('myImage');
-
-
-
-// router.post("/upload", (req, res) => {
-//   upload(req, res, (err) => {
-//      console.log("Request ---", req.body);
-//      console.log("Request file ---", req.file);//Here you get file.
-//      /*Now do where ever you want to do*/
-//      if(!err)
-//         return res.send(200).end();
-//   });
-// });
-
-// Create new document
-// router.post('/', (req, res) => {
-//   console.log('받은거',req.body);  
-//   reviews.create(req.body)
-//   .then(reviews => res.send(reviews))
-//     .catch(err => res.status(500).send(err));
-    
-// });
-
 
 // Find All
 router.get('/', (req, res) => {
