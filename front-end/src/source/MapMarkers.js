@@ -14,11 +14,9 @@ import cancel from '../Image/loupe.png'
 import undo from '../Image/undo.png'
 import like1 from '../Image/like.png'
 import like2 from '../Image/like-toggle.png'
-import star1 from '../Image/star1.PNG'
-import star2 from '../Image/star2.PNG'
 import room4 from '../Image/room4.PNG'
-// import chatbot2 from '../Image/help.png'
 import chatbot2 from '../Image/helpEx.png'
+import star from '../Image/star.png'
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
@@ -115,10 +113,10 @@ export const MapMarkers = (props) => {
 
 
     
-    const [dibsList, setDibsList] = useState();
-    const dibs = (dib) => (
-      <li>{dib.danjiCode}</li>
-    );
+    // const [dibsList, setDibsList] = useState();
+    // const dibs = (dib) => (
+    //   <li>{dib.danjiCode}</li>
+    // );
 
     const loadAsyncData = () => {
         let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos`;
@@ -133,10 +131,10 @@ export const MapMarkers = (props) => {
             }, {}));
         })
 
-        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${localStorage.getItem("userID")}`).then(({data}) => {
-          data = data.dibs
-          setDibsList(data.map(dibs))
-      })
+      //   axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${localStorage.getItem("userID")}`).then(({data}) => {
+      //     data = data.dibs
+      //     setDibsList(data.map(dibs))
+      // })
 
     }
 
@@ -149,6 +147,8 @@ export const MapMarkers = (props) => {
         setSafety(data.safety);
         setMedical(data.medical);
       })
+
+      // loadReview();
     }
 
    
@@ -162,14 +162,14 @@ export const MapMarkers = (props) => {
             scaledSize: new props.google.maps.Size(30,30),
             //labelOrigin: new props.google.maps.Size(50, 115),
           }}
-          label={{
-            text: `${numeral(data.houseHoldNum).format('0,0')}`,
-            fontSize: "10px",
-            fontFamily: "Nanum Barun Gothic",
-            color: "white",
-            className: 'label'
-          }}
-          onClick={() => sidebarShow(setHouseDetail(data))}
+          // label={{
+          //   text: `${numeral(data.houseHoldNum).format('0,0')}`,
+          //   fontSize: "10px",
+          //   fontFamily: "Nanum Barun Gothic",
+          //   color: "white",
+          //   className: 'label'
+          // }}
+          onClick={() =>{sidebarShow(setHouseDetail(data));loadReview(data.danjiCode)}}
           />
           ))
   }
@@ -210,6 +210,8 @@ export const MapMarkers = (props) => {
       )
     }
 
+
+
     // Chart
     const data = {
       labels: ['Convenience', 'Safety', 'Medical'],
@@ -225,7 +227,9 @@ export const MapMarkers = (props) => {
         }
       ]
     };
+
     function drawGraph() {
+      
       return (
         <div className = "chart"> 
             <Bar
@@ -282,6 +286,31 @@ export const MapMarkers = (props) => {
       cnt++;
     }
 
+    // review
+    const [review_list, setReviewList] = useState();
+    const reviews = (review) => (
+      <li id="li-reivew">
+        <div class = "rev-title">
+          <div id="rev-title1">{review.title}</div>
+          <div id= "rev-title2"><img src={star} className="starImg" />{review.star}.0</div>
+        </div>
+        <div class ="rev-content">
+          <div>장점 : {review.merit}</div>
+          <div>단점 : {review.merit}</div>
+        </div>
+      </li>
+    );
+    
+    // var reviewCnt = 0;
+    function loadReview (code) {
+      var url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${code}`
+      
+        axios.get(url).then(({data}) => {
+        data = data.reviews
+        setReviewList(data.map(reviews))
+        })
+    }
+    
     
 
 
@@ -291,6 +320,7 @@ export const MapMarkers = (props) => {
     <React.Fragment>
         <Map google={props.google} zoom={zoom} style={mapStyles} center={center} mapTypeControl={false}>
             {displayMarkers()}
+            
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
 
@@ -307,11 +337,8 @@ export const MapMarkers = (props) => {
         </div>
         <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQ()}/>
     
-          
-       
-
-
-        <div className="side-bar-wrap" >
+    
+          <div className="side-bar-wrap" >
             <div className="side-bar" id="sideBar">
              
               <div className = "beforeContent">
@@ -320,7 +347,6 @@ export const MapMarkers = (props) => {
               </div>
                  
                 {loadAsyncHouseGradeData()}
-                     
 
               <div className="content">
                <div className = "imageSection">
@@ -338,6 +364,56 @@ export const MapMarkers = (props) => {
                 </table>
                 </div>
 
+                {
+                selectedIndex === null
+                ?
+                <div id = "houseInfoSection2">
+
+                  <div class = "test2">주택정보</div>
+                      {countFunction()}
+                      {countFunctionDetail()}
+
+                      <table class="houseInfoTable2">
+                      <tr>
+                          <td id = "td1">공급세대</td>
+                          <td>{houseDetail.houseHoldNum} 세대</td>
+                        </tr>
+                        <tr>
+                          <td id = "td1">준공일자</td>
+                          <td>
+                            <Moment format="YYYY / MM / DD">{houseDetail.competeDate}</Moment>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td id="td1">주택형</td>
+                          <td>{typeName[0]}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">공공 공용면적</td>
+                          <td>{suplyCommuseArea[0]}(㎡)</td>
+                        </tr>
+                        <tr>
+                          <td id="td1"> 개인 공용면적</td>
+                          <td>{suplyPrivateArea[0]}(㎡)</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">임대 보증금</td>
+                          <td>{numeral(bassRentDeposit[0]).format('0,0')}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">전환 보증금</td>
+                          <td>{numeral(bassConversionDeposit[0]).format('0,0')}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">월 임대료</td>
+                          <td>{numeral(bassMonthlyRentCharge[0]).format('0,0')}</td>
+                        </tr>
+                      </table>
+                      
+                      {drawGraph()}
+                    </div>
+                :
                 <div id = "houseInfoSection2">
                   <div class = "test2">주택정보</div>
                       {countFunction()}
@@ -383,9 +459,16 @@ export const MapMarkers = (props) => {
                       
                       {drawGraph()}
                     </div>
-                     
-                      <div id = "houseInfoSection4">
-                      </div>
+                }
+               
+
+                  <div id = "houseInfoSection4">
+                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
+                        <ul class = "rt">
+                          {review_list}
+                        </ul>
+                      
+                      </div>     
                 </div>
                 </div>
 
