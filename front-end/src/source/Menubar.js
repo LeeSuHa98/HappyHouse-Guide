@@ -5,10 +5,9 @@ import axios from 'axios';
 import './css/Menubar.css';
 import logo from '../Image/home.png'
 import logoutLogo from '../Image/logout.png'
-import like from '../Image/like-toggle.png'
+import notify from '../Image/bell.png'
 import list from '../Image/check.png'
 import cancel from '../Image/cancel.png'
-
 
 import{
     Modal,
@@ -67,51 +66,52 @@ const Menubar = (props) => {
     }
 
     return (
-            <div menu-bar-wrap>
-                <div className="menu-bar">
-                    {loadDibsData()}
-                    <div className="logo" onClick = {()=>{window.location.href ='/'}}>
-                        <img alt='logo' src={logo} className="logoImage" />
-                    </div>
-
-                    <div className="menuGroup">
-                        <div className="reviewButton" onClick = {()=>{window.location.href ='/reviews'}}>
-                            REVIEW
-                        </div>
-                        <div className="communityButton" onClick = {()=>{window.location.href ='/communities'}}>
-                            COMMUNITY
-                        </div>
-                        <div className="loginButton">
-                        {
+        
+        <div class="top-header">
+              {loadDibsData()}
+            <div class="wrap">
+                {/* <div class="top-header-left" onClick = {()=>{window.location.href ='/'}} > */}
+                {/* </div> */}
+                <div class="top-header-right">
+                    <ul>
+                    <li id="hoverTest"><a onClick = {()=>{window.location.href ='/'}}>Home<span> </span></a></li>
+                        <li id="hoverTest"><a onClick = {()=>{window.location.href ='/reviews'}}>Review<span> </span></a></li>
+                        <li id="hoverTest"><a onClick = {()=>{window.location.href ='/communities'}}>Community</a><span> </span></li>
+                        <li id="hoverTest"> {
                             isLogin === true?
                             <div className = "user-container">
-                                <div> {localStorage.getItem("userName")} 님 <img alt="likelist hide" src={like} id="likeImage" onClick={()=> likeShow()}/></div>
+                                <div> {localStorage.getItem("userName")} 님</div>
+                                <div><img alt="likelist hide" src={notify} id="likeImage" onClick={()=> likeShow()}/></div>
                                 <div onClick = {() => {alert("안녕히 가세요!"); localStorage.clear(); setIsLogin(false); window.location.replace('/')}}>
                                     <img alt='logo' src={logoutLogo} className="logoutImage" />
                                 </div>
                             </div>
                             : 
-                            <div onClick = {() => {toggle(); setIsLogin(true)}}> LOGIN / JOIN </div>
-                        }
-                        </div>
-                    </div>
-                </div>
+                            <div onClick = {() => {toggle(); setIsLogin(true)}}> Login | Join </div>
+                        }</li>
 
-                <div id = "check">
-                   <div id="like-wrap">찜 목록<img alt="" src={cancel} id="cancelImage" onClick={()=> likeHide()}/></div>
-                    <div class="likeList">
-                        <ul>
-                            {dibs_list}
-                        </ul>
-                    </div>  
+                    </ul>
                 </div>
-                        
-                <Modal isOpen={isOpen} toggle={toggle} >
-                    <ModalBody>
-                        <Login toggle={toggle}/>
-                    </ModalBody>
-                </Modal>
+                <div class="clear"> </div>
             </div>
+
+
+            <div id = "check">
+                <div id="like-wrap">찜한 매물<img alt="" src={cancel} id="cancelImage" onClick={()=> likeHide()}/></div>
+                <div class="likeList">
+                    <ul>
+                        {dibs_list}
+                    </ul>
+                </div>  
+            </div>
+
+            <Modal isOpen={isOpen} toggle={toggle} >
+                <ModalBody>
+                    <Login toggle={toggle}/>
+                </ModalBody>
+            </Modal>
+        </div>
+       
     );
 }
 

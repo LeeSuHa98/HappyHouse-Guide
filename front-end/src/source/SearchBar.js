@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Select from 'react-select'
+import Select, { NonceProvider } from 'react-select'
 import './css/SearchBar.css'
 
 const SearchBar = (props) => {
@@ -277,17 +277,21 @@ const SearchBar = (props) => {
           ...provided,
           borderBottom: '1px solid lightgray',
           color: 'rgb(51, 51, 51)',
-          padding: 20,
+          backgroundColor:'white',
+          padding: 10,
           ":hover": {
             // Overwrittes the different states of border
-            backgroundColor: 'lightgray',
+            color: 'rgb(56, 111, 173)',
+            fontWeight:'bold',
+            backgroundColor:'white'
           },
-          fontFamily: 'Do Hyeon',
+          fontFamily: 'Nanum Barun Gothic',
+          fontSize:'12px'
         }),
       }
 
     return(
-        <div className = "search-bar">
+        <div class = "search-bar">
                 <Select
                 options={options} 
                 value={options.find(op => {return op.value === choice })} 

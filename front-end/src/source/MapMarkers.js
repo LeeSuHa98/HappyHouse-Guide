@@ -9,15 +9,16 @@ import './css/Sidebar.css'
 import './css/Menubar.css'
 import './Menubar.js'
 
-import image from '../Image/apartment_.png'
-import cancel from '../Image/cancel.png'
+import image from '../Image/placeholder.png'
+import cancel from '../Image/loupe.png'
 import undo from '../Image/undo.png'
 import like1 from '../Image/like.png'
 import like2 from '../Image/like-toggle.png'
 import star1 from '../Image/star1.PNG'
 import star2 from '../Image/star2.PNG'
 import room4 from '../Image/room4.PNG'
-import chatbot2 from '../Image/help.png'
+// import chatbot2 from '../Image/help.png'
+import chatbot2 from '../Image/helpEx.png'
 
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
@@ -96,10 +97,13 @@ export const MapMarkers = (props) => {
 
     const chatbotFAQ = () => {
       var con = document.getElementById("chatbot");
+      var con2 = document.getElementById("chatbotM");
       if(con.style.display==='none'){
         con.style.display='block';
+        con2.style.display='none';
       }else{
-        con.style.display='none';
+        con.style.display='none'; 
+        con2.style.display='block';
       }
     }
 
@@ -155,13 +159,13 @@ export const MapMarkers = (props) => {
           position={{lat:data.lat, lng:data.lng}}
           icon={{
             url: image,
-            scaledSize: new props.google.maps.Size(40,40),
+            scaledSize: new props.google.maps.Size(30,30),
             //labelOrigin: new props.google.maps.Size(50, 115),
           }}
           label={{
-            text: `${numeral(data.houseHoldNum).format('0,0')}세대`,
-            fontSize: "13px",
-            fontFamily: "Do Hyeon",
+            text: `${numeral(data.houseHoldNum).format('0,0')}`,
+            fontSize: "10px",
+            fontFamily: "Nanum Barun Gothic",
             color: "white",
             className: 'label'
           }}
@@ -285,7 +289,7 @@ export const MapMarkers = (props) => {
     return(
     <div>
     <React.Fragment>
-        <Map google={props.google} zoom={zoom} style={mapStyles} center={center}>
+        <Map google={props.google} zoom={zoom} style={mapStyles} center={center} mapTypeControl={false}>
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
@@ -295,8 +299,16 @@ export const MapMarkers = (props) => {
           config={config} 
           actionProvider={ActionProvider} 
           messageParser={MessageParser}/>
+        </div> 
+        
+        <div id = "chatbotM">
+            <div id = "messageText1"><img src={cancel} id="cancelImg"/>청년 행복주택 알리미 </div>
+            <div id = "messageText2">무엇을 도와드릴까요?</div>
         </div>
         <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQ()}/>
+    
+          
+       
 
 
         <div className="side-bar-wrap" >
