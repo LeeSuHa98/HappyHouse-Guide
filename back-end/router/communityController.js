@@ -24,14 +24,15 @@ router.post('/detail', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// Create new document
+// Create new community
 router.post('/', (req, res) => {
     
-    const groupId = req.body.groupId;
+    const groupId = req.body.writeDate;
+    console.log('groupId',groupId);
     req.body.groupId= groupId;  
-    communitys.create(req.body)
-    .then(communitys => res.send(communitys))
-    .catch(err => res.status(500).send(err));
+     communitys.create(req.body)
+     .then(communitys => res.send(communitys))
+     .catch(err => res.status(500).send(err));
 });
 
 // Update by id

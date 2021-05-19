@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'; //https://github.com/imtaekh/my_app/blob/4485452eee5a48e94d2ee0b7892ef0181ba4302c/models/User.js
 import $ from 'jquery';
 import {
     Button,
@@ -44,7 +44,7 @@ function ReplyCommunity(props) {
     }
 
 
-    const readCommunity = () => {
+    const readCommunity = () => {  //게시글 정보
 
         var form = {
             _id: localStorage.getItem("community_id")
@@ -64,17 +64,28 @@ function ReplyCommunity(props) {
                 console.log(error);
             })
         }
+        const readReply  = () => {  //댓글 목록 조회
 
-//   function getReplyList(form) {
-//     var form = new FormData;
-//     form.append("postId", postId);
-//     axios
-//         .post('/community/readReply', form)
-//         .then((response) => {
-//             setReplyArrays(response.data);
-//             setTableData(replyArrays.map(renderInput));
-//         });
-// }
+            var form = {
+                groupId: localStorage.getItem("community_id")
+            };
+            axios
+                .post('/happyhouse/communities/detail', form)
+                .then((res) => {
+    
+                    console.log(res.data);
+                    console.log(res.data.communitys.userId);
+                    setUserId(res.data.communitys.userId);
+                    setWriteDate(res.data.communitys.writeDate);
+                    setTitle(res.data.communitys.title);
+                    setContent(res.data.communitys.content);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+    
+    
 const updateCommunity = () => {
    // let newDate = new Date();
     var form = {

@@ -46,6 +46,7 @@ const Communities = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
+                    <button id="review-upload" className={"readCommunityReply"}>댓글</button>
                     <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button>
                 </div>
                 <br></br>
@@ -55,17 +56,14 @@ const Communities = (props) => {
 
     function readActivityHistory() {
         axios
-            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities')
+            .get('/happyhouse/communities')
             .then(({data}) => {
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))
 
             })
     }
-    function move(){
-        localStorage.setItem("community_id",modalInput);
-        window.location.href ='/communities/detail'
-    }
+
     $(function () {
         $(".readCommunity").off("click")
         $(".createCommunityButton").on("click", function () {
@@ -83,7 +81,21 @@ const Communities = (props) => {
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            move();
+            if(modalInput!=null){
+                localStorage.setItem("community_id",modalInput);
+            
+            window.location.href ='/communities/detail'
+            }
+        
+        })
+        $(".readCommunityReply").on("click", function () {
+
+            var Button = $(this);
+            var div = Button.parent().parent();
+            var td = div.children();
+            setModalInput(td.eq(0).text());
+            localStorage.setItem("community_id",modalInput);
+            window.location.href ='/communities/reply'
         })
     })
 
