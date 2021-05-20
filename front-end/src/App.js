@@ -6,6 +6,7 @@ import Menubar from './source/Menubar';
 import SearchBar from './source/SearchBar'
 import './App.css'
 import ReadCommunity from './source/ReadCommunity'
+import ReplyCommunity from './source/ReplyCommunity'
 import CreateReview from './source/CreateReview';
 import ReadReview from './source/ReadReview'
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route exact path={"/reviews"} component={Reviews} />
           <Route exact path={"/communities"} component={communities} />
           <Route exact path={"/communities/detail"} component={ReadCommunity} />
+          <Route exact path={"/communities/reply"} component={ReplyCommunity} />
           <Route exact path={"/reviews/detail"} component={ReadReview} />
           <Route exact path={"/reviews/create"} component={CreateReview} />
         </Switch>

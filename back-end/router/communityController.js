@@ -23,8 +23,21 @@ router.post('/detail', (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
+router.post('/reply', (req, res) => {  //댓글 조회
 
-// Create new document
+  const groupId = req.body.groupId;
+  console.log('그룹 ID   :',groupId)
+ // communitys.find({ groupId: req.body.groupId } ,{replyStep: 1})    
+ communitys.find({replyStep: 1, groupId: req.body.groupId})
+  .then((communitys) => {
+    console.log(communitys);
+    if (!communitys) return res.status(404).send({ err: 'communitys not found' });
+    res.send({communitysList : communitys});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+// Create new community
 router.post('/', (req, res) => {
   //console.log('등록',req.body);
     const groupId = req.body.groupId;
@@ -32,6 +45,15 @@ router.post('/', (req, res) => {
     communitys.create(req.body)
     .then(communitys => res.send(communitys))
     .catch(err => res.status(500).send(err));
+});
+
+// Create new reply
+router.post('/create', (req, res) => {
+    
+  console.log(req.body);
+  communitys.create(req.body)
+  .then(communitys => res.send(communitys))
+  .catch(err => res.status(500).send(err));
 });
 
 // Update by id

@@ -9,6 +9,7 @@ import Moment from 'react-moment'
 
 const Communities = (props) => {
     const [modalInput, setModalInput] = useState("0");
+    const [modalInputReply, setModalInputReply] = useState("0");
     const [modalCreateCommunity, setModalCreateCommunity] = useState(false);
     const [modalReadCommunity, setModalReadCommunity] = useState(false);
     const toggleCreateCommunity = () => setModalCreateCommunity(
@@ -46,6 +47,7 @@ const Communities = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
+                <button id="review-upload" className={"readCommunityReply"}>댓글</button>
                     <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button>
                 </div>
                 <br></br>
@@ -55,7 +57,7 @@ const Communities = (props) => {
 
     function readActivityHistory() {
         axios
-            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities')
+            .get('/happyhouse/communities')
             .then(({data}) => {
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))
@@ -88,6 +90,19 @@ const Communities = (props) => {
             var td = div.children();
             setModalInput(td.eq(0).text());
             move();
+        })
+        $(".readCommunityReply").on("click", function () {
+
+            var Button = $(this);
+            var div = Button.parent().parent();
+            var td = div.children();
+            setModalInput(td.eq(0).text());
+            setModalInputReply(td.eq(1).text());
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/reply'
+            }
         })
     })
 
