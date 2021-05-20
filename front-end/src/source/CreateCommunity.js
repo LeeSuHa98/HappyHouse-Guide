@@ -11,11 +11,11 @@ const CreateCommunity = (props) => {
     const [content, setContent] = useState()
    
     
-    const handlChangeTitle = (e) => {
+    const handleChangeTitle = (e) => {
         e.preventDefault();
         setTitle(e.target.value);
     };    
-    const handlChangeContent = (e) => {
+    const handleChangeContent = (e) => {
         e.preventDefault();
         setContent(e.target.value);
     };
@@ -58,7 +58,7 @@ const CreateCommunity = (props) => {
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>제목</InputGroupText>
                         </InputGroupAddon>
-                        <Input type="title" name="title" id="title"  onChange={handlChangeTitle}/>
+                        <Input type="title" name="title" id="title"  onChange={handleChangeTitle}/>
                     </InputGroup>
                     </FormGroup>
                     
@@ -71,7 +71,7 @@ const CreateCommunity = (props) => {
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>내용</InputGroupText>
                         </InputGroupAddon>
-                        <Input type="textarea" name="content" id="content"  cols="50" rows="10" onChange={handlChangeContent}/>
+                        <Input type="textarea" name="content" id="content"  cols="50" rows="10" onChange={handleChangeContent}/>
                     </InputGroup>
                     
                     </FormGroup>

@@ -20,12 +20,16 @@ import './community.css'
 import Moment from 'react-moment'
 
 function ReplyCommunity(props) {
-
+    const [modalInput, setModalInput] = useState("0");
     const [_id, set_id] = useState(props._id);
     const [userId, setUserId] = useState(props);
     const [writeDate, setWriteDate] = useState();
     const [title, setTitle] = useState();
     const [content, setContent] = useState();
+    const [reply, setReply] = useState();
+
+    const [activityHistoryList, setActivityHistoryList] = useState();
+
     const handleChangeUserId = (e) => {
         e.preventDefault();
         setUserId(e.target.value);
@@ -38,11 +42,56 @@ function ReplyCommunity(props) {
         e.preventDefault();
         setTitle(e.target.value);
     }
-    const handleChangeContent = (e) => {
+    const handleChangeReply = (e) => {
         e.preventDefault();
-        setContent(e.target.value);
+        setReply(e.target.value);
     }
 
+
+const replyList = (community) => (
+
+    <li class="article" key={community._id} id={community._id}>
+        <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+        <div class="profile">
+            <h3 class="user">{community.userId}</h3>
+            
+            <ul class="status">
+            <td className="id">{community._id}</td>
+                <li className={"deleteReply"}>삭제</li>
+            </ul>
+        </div>
+        <br></br>
+        <p class="reply">
+            {community.content}</p>
+        <time class="time">
+            <Moment format="YY.MM.DD">{community.writeDate}</Moment>
+        </time>
+        <br></br>
+
+    </li>
+);
+    const handReply = () => {  //댓글등록
+        let newDate = new Date();
+        var form={
+            title : "[댓글]",
+            content : reply,
+            userId : localStorage.getItem("userID"),
+            groupId : localStorage.getItem("groupId"),
+            replyOrder: 0,
+            replyStep: 1,
+            writeDate: newDate,
+            numberOfView: 0
+        };
+        console.log(form);
+        axios.post('/happyhouse/communities/create', form).then((res) => {
+            alert("댓글 작성 완료")
+            window.location.reload();
+            props.toggle()
+        }).catch(function (error){
+            console.log(error)
+            
+        })
+    }
 
     const readCommunity = () => {  //게시글 정보
 
@@ -64,165 +113,126 @@ function ReplyCommunity(props) {
                 console.log(error);
             })
         }
+       
         const readReply  = () => {  //댓글 목록 조회
 
             var form = {
-                groupId: localStorage.getItem("community_id")
+                groupId: localStorage.getItem("groupId")
             };
             axios
-                .post('/happyhouse/communities/detail', form)
-                .then((res) => {
+                .post('/happyhouse/communities/reply', form)
+                .then(({data}) => {
+                    data = data.communitysList
+                    setActivityHistoryList(data.map(replyList))
     
-                    console.log(res.data);
-                    console.log(res.data.communitys.userId);
-                    setUserId(res.data.communitys.userId);
-                    setWriteDate(res.data.communitys.writeDate);
-                    setTitle(res.data.communitys.title);
-                    setContent(res.data.communitys.content);
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
             }
+            const deleteCommunity = () => {
+                var form = {
+                    _id: modalInput
+                };
+                axios
+                    .post('/happyhouse/communities/delete', form)
+                    .then((res) => {
+                       // alert("댓글 삭제 완료");
+                        window.location.href = '/communities/reply'
+                    })
+            }
     
-    
-const updateCommunity = () => {
-   // let newDate = new Date();
-    var form = {
-        userId: localStorage.getItem("userID"),
-        _id: localStorage.getItem("community_id"),
-        title: title,
-        content: content,
-       // writeDate: writeDate
-    };
-    
-    console.log('수정커뮤니티', form);
-    
-    axios
-    .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/update', form).then((res) => {
-       
-        alert("게시글 수정 완료")
-        window.location.href ='/communities'
-    })
-}
-const deleteCommunity = () => {
-    var form = {
-        _id: localStorage.getItem("community_id")
-    };
-    axios
-        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
-        .then((res) => {
-            alert("커뮤니티 삭제 완료");
-            window.location.href = '/communities'
-        })
-}
-// const createReply = () => {
-//     var form = new FormData;
-//     form.append('userToken', localStorage.getItem("userToken"));
-//     form.append('postId', postId);
-//     form.append('reply', reply);
-//     axios
-//         .post("/community/createReply", form, {
-//             headers: {
-//                 'content-type': 'multipart/form-data'
-//             }
-//         })
-//         .then((response) => {
-//             window
-//                 .location
-//                 .reload();
-//         })
-// }
 
     useEffect(() => {
     
         readCommunity(); //게시글 상세조회
-        // getReplyList(form);
+        readReply();
     }, [])
+
+    $(function () {
+       
+        $(".deleteReply").on("click", function () {
+
+            var Button = $(this);
+
+            var ul = Button.parent();
+            var td = ul.children();
+            setModalInput(td.eq(0).text());
+           console.log(modalInput);
+           if(modalInput !=0){
+               deleteCommunity();
+           }
+        })        
+        
+    })
+
+
     return (
        
         <div className="dv">
     
   <div className="createCommunity">
                 <div className="community-title">
-                    <div id="title">커뮤니티 작성</div>
+                    <div id="title">커뮤니티</div>
                 </div>
 
             </div>
-            
+            <br></br>
                 <div class="community-block">
                    
                     <td id="header">
                         <h4>
-                            <Input name="title" onChange={handleChangeTitle} value={title}></Input>
+                            <td name="title">{title}</td>
                         </h4>
                     </td>
-{/* 
-                    <div>
-                        <table class="houseInfo">
-                            <tr>
-                                <td id="a">작성자</td>
-                                <td>{userId}</td>
-                                <td id="a">작성일</td>
-                                <td>
-                                    <Moment format="YY.MM.DD">{writeDate}</Moment>
-                                </td>
-                            </tr>
-                        </table>
-                    </div> 
-    */}
+
                      <div class="community-content">
-                        <Input
+                        <td
                             name="content"
                             type="textarea"
                             Rows="7"
-                            onChange={handleChangeContent}
-                            value={content}></Input>
+                            >{content}</td>
                     </div>  
                     <br></br>
                    <div className="button-container">
-                <button id="review-upload" onClick={updateCommunity}>수정</button>
-                  <button id="review-upload" onClick={deleteCommunity}>삭제</button>
                   <button id="review-upload" onClick = {()=>{window.location.href ='/communities'}} style={{float: 'left'}}>취소</button>
                 </div> 
                     
                     <br></br>
                  </div> 
+              
+                <br>
+                </br>
+                
+                 {activityHistoryList}
 
-        
-           
 
-            {/* <Modal isOpen={modalCreateReply}>
-                        <ModalHeader toggle={toggleCreateReply}>댓글 등록</ModalHeader>
-
-                         <CreateReply postId={modalInput}></CreateReply>
-            </Modal>
-            <Modal isOpen={modalDeleteReply}>
-                        <ModalHeader toggle={toggleDeleteReply}>댓글 삭제</ModalHeader>
-
-                         <DeleteReply postId={modalInput}></DeleteReply>
-            </Modal> */
-            }
-            {/* <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>댓글</InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                        type="textarea"
-                        name="content"
-                        placeholder="댓글"
-                        onChange={handleReplyOnChange}
-                        value={reply}></Input>
-                </InputGroup>
-                <Button
-                    className="btn btn-primary btn-block w-25"
-                    color={"primary"}
-                    style={{
-                        float: 'right'
-                    }}
-                    type="post"
-                    onClick={createReply}>{"댓글작성"}</Button> */
-            }
+    {/* <FormGroup>
+                    <InputGroup
+                        style={{
+                            marginTop: "1%",
+                            marginBottom: "1%"
+                        }}>
+                        <InputGroupAddon addonType="prepend">
+                            <InputGroupText>댓글</InputGroupText>
+                        </InputGroupAddon>
+                        <Input type="textarea" name="content" id="content"  cols="10"  onChange={handleChangeContent}/>
+                    </InputGroup>
+                    
+                    </FormGroup> */}
+                    {/* <div className="form-group">
+                        <Button color="primary" block="block" onClick = {()=> handReply()}>등록</Button>
+                    </div> */}
+                    <InputGroup
+                        style={{
+                            marginTop: "1%",
+                            marginBottom: "1%"
+                        }}>
+                     <Input name="reply" id="reply" placeholder="댓글을 입력하세요" onChange={handleChangeReply}></Input>
+                     <InputGroupAddon addonType="append">
+                    <Button color="primary" onClick = {()=> handReply()}>등록</Button>
+                      </InputGroupAddon>
+                    </InputGroup>
         </div>
 
     )

@@ -8,7 +8,8 @@ import ReadCommunity from './ReadCommunity';
 import Moment from 'react-moment'
 
 const Communities = (props) => {
-    const [modalInput, setModalInput] = useState("default");
+    const [modalInput, setModalInput] = useState("0");
+    const [modalInputReply, setModalInputReply] = useState("0");
     const [modalCreateCommunity, setModalCreateCommunity] = useState(false);
     const [modalReadCommunity, setModalReadCommunity] = useState(false);
     const toggleCreateCommunity = () => setModalCreateCommunity(
@@ -24,6 +25,7 @@ const Communities = (props) => {
 
             <div class="community-block" id="second">
                 <td className="id">{community._id}</td>
+                <td className="id">{community.writeDate}</td>
                 <td id="header" className={"readCommunity"}>
                     <h4>[{community.title}]</h4>
                 </td>
@@ -63,7 +65,6 @@ const Communities = (props) => {
 
             })
     }
-
     $(function () {
         $(".readCommunity").off("click")
         $(".createCommunityButton").on("click", function () {
@@ -81,10 +82,10 @@ const Communities = (props) => {
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            if(modalInput!=null){
-                localStorage.setItem("community_id",modalInput);
-            
-            window.location.href ='/communities/detail'
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/detail'
             }
         
         })
@@ -94,8 +95,12 @@ const Communities = (props) => {
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
+            setModalInputReply(td.eq(1).text());
             localStorage.setItem("community_id",modalInput);
-            window.location.href ='/communities/reply'
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/reply'
+            }
         })
     })
 
