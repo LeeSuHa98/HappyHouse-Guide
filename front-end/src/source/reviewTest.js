@@ -9,7 +9,7 @@ import './Review.css'
 import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
-
+import star3 from '../Image/star3.png'
 const Review =(props)=>{
     useEffect(() => {
             readReview()
@@ -138,8 +138,79 @@ const Review =(props)=>{
                 </div>
 
                 {review_list}
-            </div>
 
+            </div>
+{/*테스트 */}
+
+<div class="review-item">
+<div class="review-item-description-user">
+<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">userId</h3> 
+</span>
+</div>
+{/* <div class="review-item-description-user">
+<span class="review-item-description-title">
+<time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+</span>
+</div> */}
+{/* <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+        <div class="profile">
+            <h3 class="user">1234</h3>
+            <time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+            <ul class="status">
+            <td className="id">2</td>
+            </ul>
+        </div> */}
+     
+
+
+{/* <img src={star3} class="bldg-img"></img> */}
+<span class="starpoint">
+<img src={star3} ></img>
+4.0
+</span>
+<div class="review-item-title">
+<a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
+봉천동 964-25
+</a>
+<p class="address">
+서울특별시 관악구 봉천동 964-25
+</p>
+<span class="badge">월세: 30 </span>
+<span class="badge">관리비: 3</span>
+</div>
+<div class="review-item-descriptions">
+<div class="review-image">
+          <br></br>
+
+            
+            <img width="650" height="300" src={star3}></img>
+           
+        </div>
+<div class="review-item-description">
+<span class="review-item-description-title">장점</span>
+<p >장점~~~~~~~~~</p>
+</div>
+<div class="review-item-description">
+<span class="review-item-description-title">단점</span>
+<p >단점~~~~~~~~~~.</p>
+</div>
+<div class="review-item-description">
+<span class="review-item-description-title">
+<time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+</span>
+</div>
+</div>
+</div>
+
+
+
+{/*테스트 */}
             <div id="center">
                     <div class="pagination">
                         <a href="#">&laquo;</a>
@@ -151,6 +222,7 @@ const Review =(props)=>{
                         <a href="#">&raquo;</a>
                     </div>
             </div>
+
         </div>
 
         </React.Fragment>
