@@ -14,28 +14,29 @@ const reviews = require('../model/reviews');
 //https://gngsn.tistory.com/40 multer s3
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
-     let image = 'http://localhost:8080/Image/' + req.file.filename;
+    //  let image = 'http://localhost:8080/Image/' + req.file.filename;
 
-     let review = new reviews({
-      houseId: req.body.houseId,
-      userId: req.body.userId,
-      title: req.body.title,
-      region: req.body.region,
-      typeName: req.body.typeName,
-      monthlyRentCharge: req.body.monthlyRentCharge,
-      adminCharge: req.body.adminCharge,
-      merit: req.body.merit,
-      demerit: req.body.demerit,
-      star: req.body.star,
-      writeDate: req.body.writeDate,
-      picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+    //  let review = new reviews({
+    //   houseId: req.body.houseId,
+    //   userId: req.body.userId,
+    //   title: req.body.title,
+    //   region: req.body.region,
+    //   typeName: req.body.typeName,
+    //   monthlyRentCharge: req.body.monthlyRentCharge,
+    //   adminCharge: req.body.adminCharge,
+    //   merit: req.body.merit,
+    //   demerit: req.body.demerit,
+    //   star: req.body.star,
+    //   writeDate: req.body.writeDate,
+    //   picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
-    });
-    review.save()
-    .then((result) => {
-      console.log(result);
-      res.status(201).json(result);
-  });
+    // });
+    console.log(req.body)
+  //   review.save()
+  //   .then((result) => {
+  //     console.log(result);
+  //     res.status(201).json(result);
+  // });
    })
 
 // Find All
