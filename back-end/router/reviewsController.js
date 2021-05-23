@@ -4,77 +4,50 @@ const reviews = require('../model/reviews');
    const multer = require("multer");
    const fs = require('fs');
 
-   const upload =multer({dest: 'uploads/'});
-
+   const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+    destination: "./uploads/",
+    filename: function(req, file, cb){
+       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+ });
+   const upload =multer({storage: storage});
+//https://gngsn.tistory.com/40 multer s3
    router.post('/', upload.single('myImage'),(req,res,next)=>{
-     console.log('거주후기 작성');
-     
-     console.log('거주후기 내용-----------',req.body);
-     
-     console.log('업로드한 사진-----------',req.file);
-    let filename = req.file.filename;
-     console.log('파일 이름-----------',filename);
-     let review = new reviews({
-      houseId: req.body.houseId,
-      userId: req.body.userId,
-      title: req.body.title,
-      region: req.body.region,
-      typeName: req.body.typeName,
-      monthlyRentCharge: req.body.monthlyRentCharge,
-      adminCharge: req.body.adminCharge,
-      merit: req.body.merit,
-      demerit: req.body.demerit,
-      star: req.body.star,
-      writeDate: req.body.writeDate,
-      picture: filename, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+ 
+    //  let image = 'http://localhost:8080/Image/' + req.file.filename;
 
-    });
-    review.save()
-    .then((result) => {
-      console.log(result);
-      res.status(201).json(result);
-  });
+    //  let review = new reviews({
+    //   houseId: req.body.houseId,
+    //   userId: req.body.userId,
+    //   title: req.body.title,
+    //   region: req.body.region,
+    //   typeName: req.body.typeName,
+    //   monthlyRentCharge: req.body.monthlyRentCharge,
+    //   adminCharge: req.body.adminCharge,
+    //   merit: req.body.merit,
+    //   demerit: req.body.demerit,
+    //   star: req.body.star,
+    //   writeDate: req.body.writeDate,
+    //   picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+
+    // });
+    console.log(req.body)
+  //   review.save()
+  //   .then((result) => {
+  //     console.log(result);
+  //     res.status(201).json(result);
+  // });
    })
-// const storage = multer.diskStorage({
-//    destination: "./public/uploads/",
-//    filename: function(req, file, cb){
-//       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-//    }
-// });
-
-// const upload = multer({
-//    storage: storage,
-//    limits:{fileSize: 1000000},
-// }).array('myImage');
-
-
-
-// router.post("/upload", (req, res) => {
-//   upload(req, res, (err) => {
-//      console.log("Request ---", req.body);
-//      console.log("Request file ---", req.file);//Here you get file.
-//      /*Now do where ever you want to do*/
-//      if(!err)
-//         return res.send(200).end();
-//   });
-// });
-
-// Create new document
-// router.post('/', (req, res) => {
-//   console.log('받은거',req.body);  
-//   reviews.create(req.body)
-//   .then(reviews => res.send(reviews))
-//     .catch(err => res.status(500).send(err));
-    
-// });
-
 
 // Find All
 router.get('/', (req, res) => {
+  
+
     reviews.findAll()
     .then((reviews) => {
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
+    
     })
     .catch(err => res.status(500).send(err));
 });

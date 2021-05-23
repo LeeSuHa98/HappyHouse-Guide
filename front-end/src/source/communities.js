@@ -8,7 +8,8 @@ import ReadCommunity from './ReadCommunity';
 import Moment from 'react-moment'
 
 const Communities = (props) => {
-    const [modalInput, setModalInput] = useState("default");
+    const [modalInput, setModalInput] = useState("0");
+    const [modalInputReply, setModalInputReply] = useState("0");
     const [modalCreateCommunity, setModalCreateCommunity] = useState(false);
     const [modalReadCommunity, setModalReadCommunity] = useState(false);
     const toggleCreateCommunity = () => setModalCreateCommunity(
@@ -24,6 +25,7 @@ const Communities = (props) => {
 
             <div class="community-block" id="second">
                 <td className="id">{community._id}</td>
+                <td className="id">{community.writeDate}</td>
                 <td id="header" className={"readCommunity"}>
                     <h4>[{community.title}]</h4>
                 </td>
@@ -46,6 +48,7 @@ const Communities = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
+                    <button id="review-upload" className={"readCommunityReply"}>댓글</button>
                     <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button>
                 </div>
                 <br></br>
@@ -55,16 +58,12 @@ const Communities = (props) => {
 
     function readActivityHistory() {
         axios
-            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities')
+            .get('/happyhouse/communities')
             .then(({data}) => {
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))
 
             })
-    }
-    function move(){
-        localStorage.setItem("community_id",modalInput);
-        window.location.href ='/communities/detail'
     }
     $(function () {
         $(".readCommunity").off("click")
@@ -83,7 +82,25 @@ const Communities = (props) => {
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            move();
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/detail'
+            }
+        
+        })
+        $(".readCommunityReply").on("click", function () {
+
+            var Button = $(this);
+            var div = Button.parent().parent();
+            var td = div.children();
+            setModalInput(td.eq(0).text());
+            setModalInputReply(td.eq(1).text());
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/reply'
+            }
         })
     })
 

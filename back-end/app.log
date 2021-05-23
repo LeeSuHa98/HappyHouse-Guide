@@ -1,4 +1,0 @@
-[0mGET /happyhouse/noticeInfo [32m200[0m 552.875 ms - 14384[0m
-[0mGET /happyhouse/noticeInfo/60a613af37e27d85056d2379 [32m200[0m 191.574 ms - 229[0m
-[0mGET /happyhouse/plannedPlace [32m200[0m 395.034 ms - 15685[0m
-[0mGET /happyhouse/plannedPlace/60a9ac357e78d84c6c105dd1 [32m200[0m 240.139 ms - 413[0m
