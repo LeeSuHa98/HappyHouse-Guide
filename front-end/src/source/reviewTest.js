@@ -9,7 +9,7 @@ import './css/Review.css'
 import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
-import star3 from '../Image/star3.png'
+
 
 
 const Review =(props)=>{
@@ -171,7 +171,7 @@ const Review =(props)=>{
 
 {/* <img src={star3} class="bldg-img"></img> */}
 <span class="starpoint">
-<img src={star3} ></img>
+<img  ></img>
 4.0
 </span>
 <div class="review-item-title">
@@ -189,7 +189,7 @@ const Review =(props)=>{
           <br></br>
 
             
-            <img width="650" height="300" src={star3}></img>
+            <img width="650" height="300" ></img>
            
         </div>
 <div class="review-item-description">
