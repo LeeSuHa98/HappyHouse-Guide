@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import './Sidebar.css'
 import cancel from '../Image/cancel.png'
 import like1 from '../Image/like.png'
 import like2 from '../Image/like-toggle.png'
@@ -10,6 +9,7 @@ import Moment from 'react-moment'
 import HappyChart from './Chart';
 import numeral from 'numeral'
 import axios from 'axios';
+import './css/Sidebar.css';
 
 const SideBar = (props) => {
 

@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+
+.wrap{
+	width:100%;
+	height:100%;
+	margin:0 auto;
+}
+.top-header{
+	height:100%;
+	background:#08080B;
+	font-family: 'Nanum Barun Gothic'
+}
+
+.top-header-left{
+	padding-left:1em;
+	padding-top:.75em;
+	float: left;
+	width: 78%;
+	height:100%;
+	color:white;
+	font-size:.8em;
+}
+
+.top-header-right{
+	width:21.5%;
+	float: right;
+	padding-top:.35em;
+}
+
+.top-header-right ul li{
+	display:inline-block;	
+	color: #FFF;
+	font-size: 0.75em;
+}
+
+/* .top-header-right ul li  :hover{
+	color:rgb(75, 228, 255);
+} */
+
+#hoverTest :hover{
+	color:rgb(75, 228, 255);
+}
+
+.top-header-right ul li span{
+	height: 13px;
+	width: 1px;
+	background: #FFF;
+	display: inline-block;
+	margin: 0 0.5em 0 0.6em;
+	vertical-align: middle;
+}
+
+.logoutImage {
+	margin-top:-2px;
+	margin-left:10px;
+	height:14px;
+	width:14px;
+  }
+
+  #likeImage{
+	margin-top:-3px;
+	margin-left:7px;
+	margin-right:7px;
+	height:13px;
+	width:13px;
+  }
+
+  .user-container{
+	  display:flex;
+  }
+
+/* dibsList */
+#check{
+	top:80%;
+	left:82%;
+	width:220px;
+	height:180px;
+	background-color:rgb(255, 255, 255);  
+	border:solid .5px rgb(100, 100, 100);
+	position:absolute;
+	z-index: 2;
+  
+	display:none;
+	border-radius: 10px;
+  }
+  
+  #like-wrap{
+	width:100%;
+	height:15%;
+	background-color: rgba(75, 144, 207, 0.404);
+	
+	border-radius: 10px 10px 0px 0px;
+	border-bottom:solid .5px rgba(124, 124, 124, 0.322);
+	font-family: "Do Hyeon", sans-serif;
+	padding-left:10px;
+	padding-top:1px;
+	font-size:17px;
+  }
+  
+  #cancelImage{
+	width:9.5px;
+	height:9.5px;
+	margin-left:130px;
+  }
+  
+  .likeList{
+	width:100%;
+	height:85%;
+	overflow: auto;
+  }
+  
+  .likeList ul{
+	width:100%;
+	float:left;
+	list-style: none;
+  }
+  
+  .likeList ul li{
+	height:25px;
+	width:100%;
+	margin-left:-35px;
+	padding:6px 0px;
+	font-family: 'Nanum Barun Gothic', sans-serif;
+	font-size:9.5px;
+  }
+  
+  #listImage{
+	width:14px;
+	height:14px;
+	margin-right:10px;
+	margin-bottom:3px;
+  }
+
+  .google-login button{
+	width: 100%;
+	text-align: center;
+  }

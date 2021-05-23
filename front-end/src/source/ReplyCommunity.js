@@ -16,7 +16,7 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios';
-import './community.css'
+import './css/community.css'
 import Moment from 'react-moment'
 
 function ReplyCommunity(props) {

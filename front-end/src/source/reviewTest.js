@@ -5,7 +5,7 @@ import {
 import axios from 'axios'
 import Moment from 'react-moment'
 import numeral from 'numeral'
-import './Review.css'
+import './css/Review.css'
 import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
