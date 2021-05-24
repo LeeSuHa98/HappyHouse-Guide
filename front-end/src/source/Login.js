@@ -5,6 +5,7 @@ import axios from 'axios'
 import LoginKakao from './KakaoLogin';
 import GoogleLogin from './GoogleLogin';
 import './css/Menubar.css';
+import './css/Login.css';
 
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');
@@ -82,8 +83,8 @@ const Login = (props) => {
 
     return (
         <div class ="login_container">
-            <Nav tabs>
-                <NavItem>
+             <Nav tabs >
+                <NavItem id = "tab">
                     <NavLink
                         className={classnames({ active: activeTab === '1' })}
                         onClick={() => { toggle('1'); }}
@@ -92,7 +93,7 @@ const Login = (props) => {
                     </NavLink>
                 </NavItem>
 
-                <NavItem>
+                <NavItem id = "tab">
                     <NavLink
                         className={classnames({ active: activeTab === '2' })}
                         onClick={() => { toggle('2'); }}
@@ -103,25 +104,24 @@ const Login = (props) => {
             </Nav>
 
 
-
             <TabContent activeTab={activeTab}>
 
                 <TabPane tabId="1">
                     <br/>
                     <FormGroup>
-                        <Input type="userId" name="userId" id="userId" placeholder="ID" onChange={handlChangeId}/>
+                        <Input type="userId" name="userId" id="userId" placeholder="아이디" onChange={handlChangeId}/>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={handlChangePw}/>
+                        <Input type="password" name="password" id="examplePassword" placeholder="비밀번호" onChange={handlChangePw}/>
                     </FormGroup>
                     <div className="form-group">
                         <Button color="primary" block="block" onClick = {()=> handLogin()}>로그인</Button>
                     </div>
                     <div className="form-group">
-                        <LoginKakao setUserID = {props.setUserID} toggle = {props.toggle} loadDibsData = {props.loadDibsData}/>
-                    </div>
-                    <div className="form-group">
-                        <GoogleLogin setUserID = {props.setUserID} toggle = {props.toggle} loadDibsData = {props.loadDibsData}/>
+                        <div>
+                            <LoginKakao toggle = {props.toggle}/>
+                            <GoogleLogin toggle = {props.toggle}/>
+                        </div>
                     </div>
                 </TabPane>
 
@@ -134,7 +134,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="userId"
-                                placeholder="ID"
+                                placeholder="아이디"
                                 onChange={handlChangeId}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -145,7 +145,7 @@ const Login = (props) => {
                             <Input
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder="비밀번호"
                                 onChange={handlChangePw}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -155,7 +155,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="name"
-                                placeholder="name"
+                                placeholder="이름"
                                 onChange={handlChangeName}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -165,7 +165,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="phoneNum"
-                                placeholder="phoneNum"
+                                placeholder="휴대폰번호"
                                 onChange={handlChangePhonNum}
                                 className="form-control"></Input>
                         </InputGroup>
