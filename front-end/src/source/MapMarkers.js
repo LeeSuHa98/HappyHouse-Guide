@@ -4,11 +4,9 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import numeral from 'numeral'
 
 import image from '../Image/apartment_.png'
-
-import './Menubar.css'
-import './Sidebar.css'
 import SearchBar from './SearchBar'
 import SideBar from './SideBar';
+import './css/SearchBar.css';
 
 export const MapMarkers = (props) => { 
     const [item, setItem] = useState([]);

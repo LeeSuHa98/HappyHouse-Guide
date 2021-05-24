@@ -1,6 +1,6 @@
 import React from 'react';
 import {Radar} from 'react-chartjs-2';
-import './Sidebar.css'
+import './css/Sidebar.css'
 
 const HappyChart = (props) => {
     const data = {

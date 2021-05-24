@@ -18,8 +18,12 @@ import {
     Table
 } from 'reactstrap';
 import axios from 'axios';
+<<<<<<< HEAD
 import './Review.css'
 import {Image} from 'react-bootstrap';
+=======
+import './css/Review.css'
+>>>>>>> f738fe94ab9bd89581776149ce503b631e3138e4
 import room1 from '../Image/room1.PNG'
 import Moment from 'react-moment'
 import numeral from 'numeral'

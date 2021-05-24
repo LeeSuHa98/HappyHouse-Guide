@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import axios from 'axios'
 import LoginKakao from './KakaoLogin';
 import GoogleLogin from './GoogleLogin';
+import './css/Menubar.css';
 
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');

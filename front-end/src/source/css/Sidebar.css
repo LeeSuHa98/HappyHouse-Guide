@@ -1,0 +1,312 @@
+@import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('http://fonts.cdnfonts.com/css/malgun-gothic-boot');
+
+
+.label{
+    /* border: 2px solid rgb(36, 72, 105);
+    background-color: rgb(36, 72, 105); */
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    background-color: rgba(46,61,94);
+    text-align: center;
+    padding: 3px;
+    border-radius: 13px;
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-bottom: 170px;
+    
+}
+
+
+.toggle-menu {
+    height: 15px;
+    width: 15px;
+    margin-top:8px;
+    margin-left:2.5%;
+    margin-bottom:5px;
+    display: inline-block;
+}
+
+/* ScrollBar */
+::-webkit-scrollbar{
+    width:0px;
+}
+
+/* SideBar */
+.side-bar-wrap{
+    height:100%;
+}
+
+.side-bar {
+    /*menubar_height만큼 side-bar top위치 조정*/
+    top: 6%;
+    left:73%;
+    border-left:solid 0.5px rgb(187, 187, 187);
+    position: absolute;
+    width: 27%;
+    height:94%;
+    overflow:auto;
+    flex-direction: column;
+    border-radius: 0;
+    border-color: rgba(199, 199, 199, 0.693);
+    background-color: rgb(255, 255, 255);
+    display:none;
+}
+
+.content {
+    display: inline-block;
+    width:100%;
+}
+
+.test2{
+    font-family: 'Malgun Gothic Boot', sans-serif;
+    font-size:17px;
+    color:rgb(70, 70, 70);
+    font-weight:bold;
+    padding-left:.7em;
+    padding-top:.7em;
+    padding-bottom:.7em;
+    border-bottom:solid 2px rgba(199, 199, 199, 0.5);
+}
+
+
+/* beforeContent */
+.beforeContent{
+    margin-top:5px;
+    width:100%;
+    height:35px;
+}
+
+/* houseInfoSection1 - Name, likeButton, address, holdNum, competeDate */
+#houseInfoSection1{
+    width:100%;
+    border-bottom:solid 7px rgba(199, 199, 199, 0.693);
+    text-align: center;
+}
+
+.likeImage{
+    margin-top:3px;
+    float:right;
+    margin-right: 10px;
+    width:25px;
+    height:25px;
+}
+
+.imageSection{
+    width:100%;
+}
+
+#roomImage{
+    width:100%;
+    margin-top:1%;
+    margin-bottom:1%;
+    height:250px;
+}
+
+.houseInfoTable1{
+    width:100%;
+    margin-bottom:.7em;
+}
+
+.houseName{
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    font-size:21px;
+    padding-top:1em;
+    padding-left:.3em;
+    font-weight:900;
+}
+.houseAddress{
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    font-size:14px;
+    padding-left:.3em;
+    padding-bottom:1em; 
+    font-weight: 400;
+}
+
+/* houseInfoSection2 */
+#houseInfoSection2{
+    width:100%;
+    border-bottom:solid 7px rgba(199, 199, 199, 0.693);
+}
+
+.typeGroup{
+    padding-top:1em;
+    padding-bottom:.65em;
+    padding-left:10px;
+}
+
+#typeButton{
+    width:70px;
+    height:30px;
+    border-radius: 15px;;
+    margin-right:10px;
+    margin-bottom:5px;
+    background-color: white;
+    border:solid 1.35px rgba(43, 77, 104, 0.452);
+}
+
+.houseInfoTable2{
+    margin-left:3%;
+    width:94%;
+    margin-bottom:1em;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'Malgun Gothic Boot', sans-serif;
+    font-size:14.5px;
+}
+
+.houseInfoTable2 tr{
+    height:50px;
+    border-top:solid 1px rgba(44, 93, 133, 0.336);
+    border-bottom:solid 1px rgba(44, 93, 133, 0.336);
+}
+
+#td1{
+    width:33%;
+    /* background-color: rgba(44, 93, 133, 0.096); */
+    background-color: white;
+    font-weight: 600;
+}
+
+/* houseInfoSection3 */
+#houseInfoSection3{
+    border-bottom:solid 7px rgba(199, 199, 199, 0.693);
+    width:100%;
+}
+
+.chart{
+    width:88%;
+    height:250px;
+    margin-top:2em;
+    margin-bottom:1em;
+    margin-left:5%;
+}
+
+/* houseInfoSection4 */
+#houseInfoSection4{
+    width:100%;
+}
+
+.rt {
+    width:95%;
+    list-style: none;
+    margin-left:2.5%;
+    padding:15px 10px 10px 10px;
+}
+
+#li-reivew{
+    list-style: none;
+    width:100%;;
+    padding: 7px 20px 7px 20px;
+    margin-top:10px;
+    border:Solid 2px rgba(44, 93, 133, 0.336);
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    font-size:12px;
+}
+
+.rev-title{
+    font-family: inherit;
+    font-weight: 600;
+    font-size:16px;
+    width:100%;
+    line-height:30px;
+}
+
+.starImg{
+    width:20px;
+    height:20px;
+    margin-bottom:4.5px;
+    margin-right:5px;
+}
+
+#rev-title1{
+    width:68%;
+    display:inline-block;
+}
+#rev-title2{
+    text-align: right;
+    width:30%;
+    display:inline-block;
+}
+
+#moreReview{
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    float:right;
+    margin-right:15px;
+    background-color: white;
+    border-radius:20px;
+    border:solid 2px rgba(44, 93, 133, 0.459);
+    font-size:8px;
+    height:30px;
+}
+
+/* CharBot */
+#chatbotM{
+    width:180px;
+    padding-left:5px;
+    height:66px;
+    z-index:2;
+    position:fixed;
+    left: 34.5px;
+    bottom: 110px;
+    background-color: rgba(255, 255, 255, 0.95);
+    /* border:solid 2px rgba(46, 46, 46, 0.24); */
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+}
+
+#messageText1{
+    padding-top:8px;
+    padding-left:10px;
+    height:32px;
+    font-family:'Do Hyeon';
+    color:rgb(83, 83, 83);
+}
+#messageText2{
+    padding-left:10px;
+    height:32px;
+    width:100%;
+    font-size:14.5px;
+    /* font-family: 'Do Hyeon', sans-serif; */
+    font-family : 'Nanum Barun Gothic';
+    font-weight:bold;
+    color:rgb(56, 111, 173);
+}
+#cancelImg{
+    margin-bottom:2.2px;
+    margin-right:10px;
+    width:9px;
+    height:9px;
+}
+
+.chatbot-button {
+    height: 75px;
+    width: 75px;
+    position: fixed;
+    left: 2%;
+    bottom: 27px;
+    outline: none;
+    z-index: 2;
+}
+.chatbot-show {
+    text-align: center;
+    bottom: 15%;
+    left: 3%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+/* .react-chatbot-kit-chat-container {
+    width: 400px
+}
+.react-chatbot-kit-chat-bot-message {
+    width: 300px !important
+} */
+span {
+    word-break:break-all;
+}
+
+

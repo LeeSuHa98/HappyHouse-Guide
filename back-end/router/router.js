@@ -8,5 +8,7 @@ router.use('/FAQs', require('./FAQController'));
 router.use('/communities', require('./communityController'));
 router.use('/dibs', require('./dibsController'));
 router.use('/houseGrade', require('./houseGradeController'));
+router.use('/noticeInfo', require('./noticeInfoController'));
+router.use('/plannedPlace', require('./plannedPlaceController'));
 
 module.exports = router;
