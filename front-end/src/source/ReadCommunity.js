@@ -97,17 +97,7 @@ const updateCommunity = () => {
         window.location.href ='/communities'
     })
 }
-const deleteCommunity = () => {
-    var form = {
-        _id: localStorage.getItem("community_id")
-    };
-    axios
-        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
-        .then((res) => {
-            alert("커뮤니티 삭제 완료");
-            window.location.href = '/communities'
-        })
-}
+
 // const createReply = () => {
 //     var form = new FormData;
 //     form.append('userToken', localStorage.getItem("userToken"));
@@ -163,18 +153,19 @@ const deleteCommunity = () => {
                         </table>
                     </div> 
     */}
-                     <div class="community-content">
-                        <Input
-                            name="content"
-                            type="textarea"
-                            Rows="7"
-                            onChange={handleChangeContent}
-                            value={content}></Input>
-                    </div>  
+                   
+                    <div id="b"></div>
+        <Input
+           type="textarea"
+            className="input-style"
+            name="content" id="content"
+            cols="50" rows="10"
+            onChange={handleChangeContent}
+                            value={content}
+           ></Input>
                     <br></br>
                    <div className="button-container">
                 <button id="review-upload" onClick={updateCommunity}>수정</button>
-                  <button id="review-upload" onClick={deleteCommunity}>삭제</button>
                   <button id="review-upload" onClick = {()=>{window.location.href ='/communities'}} style={{float: 'left'}}>취소</button>
                 </div> 
                     

@@ -110,7 +110,6 @@
     font-family: 'Do Hyeon', sans-serif;
     font-size:15px;
   }
-  
   #writer-writeDate-star{
     font-family: 'Nanum Barun Gothic', sans-serif;
     font-size:13px;
@@ -136,8 +135,9 @@
   .community-content{
       margin-top:10px;
       font-family: 'Nanum Barun Gothic', sans-serif;
-      border:3px gray solid;
+      border:1px gray solid;
       height:200px;
+      border-radius: 3px;
   }
   
   #merit, #demerit{
@@ -253,6 +253,60 @@
     border-radius: 4px;
   }
   
+<<<<<<< HEAD:front-end/src/source/community.css
+}
+.article{
+ 
+    padding: 10px 10px 0 10px;
+    border: 1px solid #e3e3e3;
+    background-color: #f9f9f9;
+}
+
+.picture-medium{
+  float: left;
+  margin: 0 5px 5px 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.text1{
+
+  margin: 0;
+    padding: 10px 85px 10px 10px;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 20px;
+    box-sizing: border-box;
+    color: #262626;
+    font-size: 13px;
+    overflow: hidden;
+    resize: none;
+    background-color: transparent
+}
+
+.community-submit{
+  border: 0;
+  width: 100%;
+  height: 48px;
+  background: #ffc80f;
+  border-radius: 8px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.create_container{
+  padding: 15px;
+}
+=======
   .text1{
   
     margin: 0;
@@ -269,3 +323,4 @@
       background-color: transparent
   }
   
+>>>>>>> f738fe94ab9bd89581776149ce503b631e3138e4:front-end/src/source/css/community.css
