@@ -29,11 +29,31 @@ const Review =(props)=>{
         <div id="header" >  
             <h4 className={"readReviewDetail"}>{reviews.title}</h4>
         </div>
+        <div class="review-item-description-date">
+<span class="review-item-description">
+<time class="time">
+            <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
+        </time>
+</span>
+</div>
+
+<div class="review-item-description-user">
+<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">{reviews.userId}</h3> 
+</span>
+</div>
         {/* onClick = {()=>{window.location.href ='/reviews/detail'}} */}
         <div id="writer-writeDate-star">
-            <div>{reviews.userId} /
-                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
-                <Progress value={reviews.star} max="5"/></div>
+        <span class="starpoint">
+<img src={star3} ></img>
+{reviews.star}
+</span>
+            <div>
+                {/* {reviews.userId} /
+                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment> */}
+                {/* <Progress value={reviews.star} max="5"/> */}
+                
+                </div>
+                
         </div>
 
         <div>
@@ -63,11 +83,11 @@ const Review =(props)=>{
             </table>
         </div>
 
-        <div class="review-image">
+        <div >
           <br></br>
 
             
-            <img width="650" height="300" src={reviews.picture}></img>
+            <img  class="review-image" src={reviews.picture}></img>
            
         </div>
 
@@ -145,6 +165,14 @@ const Review =(props)=>{
 {/*테스트 */}
 
 <div class="review-item">
+<div class="review-item-description-date">
+<span class="review-item-description">
+<time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+</span>
+</div>
+
 <div class="review-item-description-user">
 <span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">userId</h3> 
 </span>
@@ -170,6 +198,8 @@ const Review =(props)=>{
 
 
 {/* <img src={star3} class="bldg-img"></img> */}
+
+
 <span class="starpoint">
 <img src={star3} ></img>
 4.0
@@ -184,43 +214,38 @@ const Review =(props)=>{
 <span class="badge">월세: 30 </span>
 <span class="badge">관리비: 3</span>
 </div>
-<div class="review-item-descriptions">
-<div class="review-image">
-          <br></br>
+<div class="review-item-description">
+<span class="review-item-description-header"></span>
 
-            
-            <img width="650" height="300" src={star3}></img>
-           
-        </div>
+</div>
+<div class="review-item-description">
+<span class="review-item-description-title">한줄평</span>
+<h4 >[단점~~~~~~~~~~.]</h4>
+</div>
+
+
+
 <div class="review-item-description">
 <span class="review-item-description-title">장점</span>
-<p >장점~~~~~~~~~</p>
+<p >afeaewfawfe~~~~~~~~~</p>
 </div>
 <div class="review-item-description">
 <span class="review-item-description-title">단점</span>
 <p >단점~~~~~~~~~~.</p>
 </div>
-<div class="review-item-description">
-<span class="review-item-description-title">
-<time class="time">
-            <Moment format="YY.MM.DD">10.20.22</Moment>
-        </time>
-</span>
+<div class="review-image">
+          <br></br>
+
+            
+            <img width="80%" height="300"  src={star3}></img>
+           
+        </div>
+        <br></br>
+        <div className="button-container">
+        <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
+        </div>
+        <br></br>
 </div>
-</div>
-</div>
-<fieldset class="rating">
-  <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
-  <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-  <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
-  <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-  <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
-  <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-  <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-  <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-  <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
-  <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-</fieldset>
 {/*테스트 */}
             <div id="center">
                     <div class="pagination">

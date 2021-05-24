@@ -8,6 +8,7 @@ import {
     FormGroup,
     Input,
     InputGroup,
+    CustomInput,
     Progress,
     InputGroupAddon,
     InputGroupText,
@@ -18,6 +19,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 import './Review.css'
+import {Image} from 'react-bootstrap';
 import room1 from '../Image/room1.PNG'
 import Moment from 'react-moment'
 import numeral from 'numeral'
@@ -31,26 +33,21 @@ function ReadReview(props) {
     const [typeName, setTypeName] = useState()
     const [merit, setMerit] = useState()
     const [demerit, setDemerit] = useState()
-    const [picture, setPicture] = useState('')
+    const [picture, setPicture] = useState()
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-    const [star, setStar] = useState()
+    const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
+    const [file, setFile] = useState()
+    const [filename,setFilename] = useState()
+    const [img,setImage] = useState(null);
 
     const [modalInput, setModalInput] = useState("default");
     const [tableData, setTableData] = useState(); //댓글 목록 조회
     const [isReadOnly, setIsReadOnly] = useState(true); //댓글 수정활성화
-   
+    let $imagePreview = null;
     const handleChangeTitle = (e) => {
         e.preventDefault();
         setTitle(e.target.value);
-    };
-    const handleChangeMonthlyRentCharge = (e) => {
-        e.preventDefault();
-        setMonthlyRentCharge(e.target.value);
-    };
-    const handleChangeAdminCharge = (e) => {
-        e.preventDefault();
-        setAdminCharge(e.target.value);
     };
     const handleChangeRegion = (e) => {
         e.preventDefault();
@@ -60,7 +57,15 @@ function ReadReview(props) {
         e.preventDefault();
         setTypeName(e.target.value);
     };
-    const handlChangeMerit = (e) => {
+    const handleChangeMonthlyRentCharge = (e) => {
+        e.preventDefault();
+        setMonthlyRentCharge(e.target.value);
+    };
+    const handleChangeAdminCharge = (e) => {
+        e.preventDefault();
+        setAdminCharge(e.target.value);
+    };
+    const handleChangeMerit = (e) => {
         e.preventDefault();
         setMerit(e.target.value);
     };
@@ -68,20 +73,20 @@ function ReadReview(props) {
         e.preventDefault();
         setDemerit(e.target.value);
     };
-    const handleChangePicture = (e) => {
+    const handleChangeFile = (e) => {
         e.preventDefault();
-
-        let reader = new FileReader();
-        let file = e
-            .target
-            .files[0];
-        reader.onloadend = () => {
-            setPicture(file);
-            setImagePreviewUrl(reader.result);
-        }
-        reader.readAsDataURL(file);
+        setFilename(e.target.value);
+         let reader = new FileReader();
+         let file = e
+             .target
+             .files[0];
+         reader.onloadend = () => {
+             setFile(file);
+             setImagePreviewUrl(reader.result);
+         }
+         reader.readAsDataURL(file);
     }
-    const handlChangeStar = (e) => {
+    const handleChangeStar = (e) => {
         e.preventDefault();
         setStar(e.target.value);
     };
@@ -89,7 +94,18 @@ function ReadReview(props) {
     // const toggleIsReadOnly = () => {
     //     setIsReadOnly(!isReadOnly);
     // }
-
+    const onChange = (e) => {
+        let reader = new FileReader();
+        let file = e
+            .target
+            .files[0];
+        reader.onloadend = () => {
+            setFile(file);
+            setImagePreviewUrl(reader.result);
+        }
+        reader.readAsDataURL(file);
+        setFile(e.target.files[0]);
+      }
     const readReview = () => {
 
         var form = {
@@ -169,7 +185,132 @@ function ReadReview(props) {
                     
                     <div class="review-container">
                         <div class="review-block">
-                            <div id="header">
+
+                        <div class="write-modal-info">
+<div class="review-item-title">
+<a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
+봉천동 964-25
+</a>
+<p class="address">
+서울특별시 관악구 봉천동 964-25
+</p>
+<span class="badge">행복주택</span>
+<span class="badge">아파트</span>
+</div>
+</div>
+
+
+<p class="p">
+<span>리뷰 작성 시 주의해주세요</span><br/>1. 단순 비방 및 욕설이 아니라, 객관적
+사실에 근거한 리뷰를 작성해주세요.<br/>
+*객관적 사실에 근거해서 리뷰를 작성하신 경우에는 공익성을 고려하여 명예훼손에 해당되지 않는다는 대법원
+판례(2012도10392)가 있습니다. <br/>
+2. 실제로 거주했던 집에만 후기를 남겨주세요.<br/>
+위 가이드라인을 지키지 않은 리뷰는 관리자에 의해 삭제될 수 있습니다.
+</p>
+
+
+<div id="create-review-item">월세</div>
+    <tr>
+
+        <td id="a">
+            <Input
+                name="monthlyRentCharge"
+                onChange={handleChangeMonthlyRentCharge}
+                value={numeral(monthlyRentCharge).format('0,0')}></Input>
+        </td>
+    </tr>
+    <div id="create-review-item">관리비</div>
+    <tr>
+
+        <td id="a">
+            <Input
+                name="adminCharge"
+                onChange={handleChangeAdminCharge}
+                value={numeral(adminCharge).format('0,0')}></Input>
+        </td>
+    </tr>
+    <div id="merit">
+        <div id="b">거주후기 제목</div>
+        <Input
+            name="title"
+            cols="50"
+            rows="20"
+            onChange={handleChangeTitle}
+            value={title}></Input>
+
+    </div>
+    <div id="merit">
+        <div id="b">장점</div>
+        <Input
+            name="merit"
+            cols="50"
+            rows="20"
+            onChange={handleChangeMerit}
+            value={merit}></Input>
+
+    </div>
+    <div id="demerit">
+        <div id="b">단점</div>
+        <Input
+            className="input-style"
+            name="demerit"
+            cols="50"
+            rows="20"
+            onChange={handleChangeDemerit}
+            value={demerit}></Input>
+    </div>
+    <div id="create-review-item">평점</div>
+    <tr>
+
+        <td >
+        <fieldset class="rating">
+  <input  onChange={handleChangeStar} type="radio" id="star5" name="rating" value="5.0" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star4" name="rating" value="4.0" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star3" name="rating" value="3.0" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+  <input  onChange={handleChangeStar} type="radio" id="star1" name="rating" value="1.0" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+  <input  onChange={handleChangeStar} type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+</fieldset>
+        </td>
+    </tr>
+    
+    <br></br>
+    <div>
+        <InputGroup>
+           
+            <CustomInput
+                type="file"
+                name="myImage"
+                file={file}
+                value={filename}
+                accept='image/jpg,impge/png,image/jpeg,image/gif'
+                label="사진 선택"
+                onChange={onChange}></CustomInput>
+        </InputGroup>
+
+        <br></br>
+        {!$imagePreview &&
+        <Image src={imagePreviewUrl} className="mw-100"></Image>}
+    </div>s
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            {/* <div id="header">
                                 <h4>
                                             <Input
                                                 name="title"
@@ -250,10 +391,10 @@ function ReadReview(props) {
 
                             <div class="review-image">
                                 <img src={room1} id="reviewImage"></img>
-                                {/* <div>{reviews.picture}</div> */}
-                            </div>
+                                {/* <div>{reviews.picture}</div>
+                            </div> */}
 
-                            <div class="review-content">
+                            {/* <div class="review-content">
                                 <div id="merit">
                                     <div id="b">장점</div>
                                     <Input
@@ -276,7 +417,7 @@ function ReadReview(props) {
                                         value={demerit}
                                         ></Input>
                                 </div>
-                            </div>
+                            </div> */}
                             <br></br>
                             <div className="button-container">
         <button id="review-upload" onClick={updateReview}>수정</button>

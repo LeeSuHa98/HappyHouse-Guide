@@ -26,7 +26,6 @@ router.post('/detail', (req, res) => {
 router.post('/reply', (req, res) => {  //댓글 조회
 
   const groupId = req.body.groupId;
-  console.log('그룹 ID   :',groupId)
  // communitys.find({ groupId: req.body.groupId } ,{replyStep: 1})    
  communitys.find({replyStep: 1, groupId: req.body.groupId})
   .then((communitys) => {

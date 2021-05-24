@@ -49,7 +49,7 @@ const Communities = (props) => {
                 <br></br>
                 <div className="button-container">
                     <button id="review-upload" className={"readCommunityReply"}>댓글</button>
-                    <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button>
+                    {/* <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button> */}
                 </div>
                 <br></br>
             </div>
@@ -84,7 +84,7 @@ const Communities = (props) => {
             setModalInput(td.eq(0).text());
             localStorage.setItem("community_id",modalInput);
             localStorage.setItem("groupId",modalInputReply);
-            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+            if(localStorage.getItem("community_id")!="0"){
                 window.location.href ='/communities/detail'
             }
         
@@ -139,12 +139,12 @@ const Communities = (props) => {
             </div>
 
             <Modal isOpen={modalCreateCommunity} >
-                <ModalHeader toggle={toggleCreateCommunity}>게시글 작성</ModalHeader>
+                <ModalHeader toggle={toggleCreateCommunity}>커뮤니티</ModalHeader>
                 <CreateCommunity></CreateCommunity>
             </Modal>
 
             <Modal isOpen={modalReadCommunity}>
-                <ModalHeader toggle={toggleReadCommunity}>게시글 상세조회</ModalHeader>
+                <ModalHeader toggle={toggleReadCommunity}>커뮤니티</ModalHeader>
                 <ReadCommunity _id={modalInput}></ReadCommunity>
             </Modal>
 
