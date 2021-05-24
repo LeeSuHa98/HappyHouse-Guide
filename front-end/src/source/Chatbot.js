@@ -19,8 +19,7 @@ const HappyChatbot = (props) => {
       }
 
   return (
-    <div className="chatbot-container">
-      
+    <div>
         <div id="chatbot" className="chatbot-show">
           <Chatbot 
           config={config} 

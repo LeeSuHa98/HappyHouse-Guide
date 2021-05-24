@@ -9,6 +9,9 @@ import CreateReview from './source/CreateReview';
 import ReadReview from './source/ReadReview'
 import HappyChatbot from './source/Chatbot'
 import './App.css'
+import './source/css/SearchBar.css';
+import './source/css/Menubar.css';
+import './source/css/Sidebar.css';
 
 function App() {
     

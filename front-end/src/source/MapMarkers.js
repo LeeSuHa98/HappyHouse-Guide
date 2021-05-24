@@ -6,15 +6,10 @@ import numeral from 'numeral'
 import SearchBar from './SearchBar'
 import SideBar from './SideBar';
 import './css/SearchBar.css';
+import './css/Menubar.css';
+import './css/Sidebar.css';
 
 import image from '../Image/placeholder.png'
-import cancel from '../Image/loupe.png'
-import undo from '../Image/undo.png'
-import like1 from '../Image/like.png'
-import like2 from '../Image/like-toggle.png'
-import room4 from '../Image/room4.PNG'
-import chatbot2 from '../Image/helpEx.png'
-import star from '../Image/star.png'
 
 
 export const MapMarkers = (props) => { 
