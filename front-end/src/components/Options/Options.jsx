@@ -15,14 +15,9 @@ const Options = (props) => {
             id: 2,
         },
         {
-            text: "거주후기",
-            handler: props.actionProvider.handleReview,
-            id: 3,
-        },
-        {
-            text: "자주 묻는 질문",
+            text: "FAQ",
             handler: props.actionProvider.handleFAQ,
-            id: 4,
+            id: 3,
         },
     ];
 
