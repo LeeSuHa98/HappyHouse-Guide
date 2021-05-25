@@ -111,7 +111,7 @@ const Review =(props)=>{
 </li>
     );
     function readReview () {
-        axios.get('/happyhouse/reviews').then(({data}) => {
+        axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
@@ -165,7 +165,7 @@ const Review =(props)=>{
 {/*테스트 */}
 
 <div class="review-item">
-<div class="review-item-description-date">
+{/* <div class="review-item-description-date">
 <span class="review-item-description">
 <time class="time">
             <Moment format="YY.MM.DD">10.20.22</Moment>
@@ -176,7 +176,7 @@ const Review =(props)=>{
 <div class="review-item-description-user">
 <span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">userId</h3> 
 </span>
-</div>
+</div> */}
 {/* <div class="review-item-description-user">
 <span class="review-item-description-title">
 <time class="time">
@@ -199,7 +199,7 @@ const Review =(props)=>{
 
 {/* <img src={star3} class="bldg-img"></img> */}
 
-
+{/* 
 <span class="starpoint">
 <img src={star3} ></img>
 4.0
@@ -244,7 +244,7 @@ const Review =(props)=>{
         <div className="button-container">
         <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
         </div>
-        <br></br>
+        <br></br> */}
 </div>
 {/*테스트 */}
             <div id="center">
