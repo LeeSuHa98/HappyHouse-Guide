@@ -153,7 +153,7 @@ const CreateReview = (props) => {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("/happyhouse/reviews",formData,config)
+        axios.post("https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews",formData,config)
             .then((response) => {
                 alert("거주후기 등록 완료");
                 window.location.href ='/reviews'
