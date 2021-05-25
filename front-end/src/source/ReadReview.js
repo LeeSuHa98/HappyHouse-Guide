@@ -112,7 +112,7 @@ function ReadReview(props) {
             _id: localStorage.getItem("review_id") //거주후기 id
         };
         axios
-            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/detail', form)
+            .post('/happyhouse/reviews/detail', form)
             .then((res) => {
 
                 console.log(res.data);
@@ -140,35 +140,39 @@ function ReadReview(props) {
     }, [])
 
     const updateReview = () => {
-       // let newDate = new Date();
-       
-        var form={
-            houseId: "6063083edb67cc10cce15fc0",
-            userId : localStorage.getItem("userID"),
-            _id : localStorage.getItem("review_id"),
-            title : title, 
-            region : region,
-            typeName : typeName,
-            monthlyRentCharge : monthlyRentCharge,
-            adminCharge : adminCharge,           
-            merit : merit,
-            demerit : demerit,
-            picture : picture, 
-            star : star,  
-           // writeDate: newDate     
-        };
 
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', form).then((res) => {
-            alert("거주후기 수정 완료")
-            window.location.href ='/reviews'
-        })
+       const formData = new FormData();
+       formData.append('houseId', "6063083edb67cc10cce15fc0");
+       formData.append('userId', localStorage.getItem("userID"));
+       formData.append('_id', localStorage.getItem("review_id"));
+       formData.append('title', title);
+       formData.append('region', region);
+       formData.append('typeName', typeName);
+       formData.append('monthlyRentCharge', monthlyRentCharge);
+       formData.append('adminCharge', adminCharge);
+       formData.append('merit', merit);
+       formData.append('demerit', demerit);
+       formData.append('star', star);
+       formData.append('myImage', file);
+       const config = {
+           headers: {
+               'content-type': 'multipart/form-data'
+           }
+       };
+       axios.post('/happyhouse/reviews/update',formData,config)
+            .then((response) => {
+                alert("거주후기 수정 완료");
+                window.location.href ='/reviews'
+            }).catch((error) => {
+        });
+
     }
     const deleteReview = () => {    
          var form={
              _id : localStorage.getItem("review_id"),
          };
  
-         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/delete', form).then((res) => {
+         axios.post('/happyhouse/reviews/delete', form).then((res) => {
              alert("거주후기 삭제 완료")
              window.location.href ='/reviews'
          })
@@ -296,7 +300,7 @@ function ReadReview(props) {
         <br></br>
         {!$imagePreview &&
         <Image src={imagePreviewUrl} className="mw-100"></Image>}
-    </div>s
+    </div>
 
 
 
