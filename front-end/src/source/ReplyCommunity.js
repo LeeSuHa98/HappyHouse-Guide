@@ -87,7 +87,7 @@ const handReply = () => { //댓글등록
     };
     console.log(form);
     axios
-        .post('/happyhouse/communities/create', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/create', form)
         .then((res) => {
             alert("댓글 작성 완료")
             window
@@ -107,7 +107,7 @@ const readCommunity = () => { //게시글 정보
         _id: localStorage.getItem("community_id")
     };
     axios
-        .post('/happyhouse/communities/detail', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/detail', form)
         .then((res) => {
 
             console.log(res.data);
@@ -129,7 +129,7 @@ const readReply = () => { //댓글 목록 조회
         groupId: localStorage.getItem("groupId")
     };
     axios
-        .post('/happyhouse/communities/reply', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/reply', form)
         .then(({data}) => {
             data = data.communitysList
             setActivityHistoryList(data.map(replyList))
@@ -144,7 +144,7 @@ const deleteCommunity = () => { //게시글 삭제
         _id: modalInput
     };
     axios
-        .post('/happyhouse/communities/delete', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
         .then((res) => {
             // alert("댓글 삭제 완료");
             window.location.href = '/communities'
@@ -155,7 +155,7 @@ const deleteReply = () => { //댓글 삭제
         _id: modalInput
     };
     axios
-        .post('/happyhouse/communities/delete', form)
+        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
         .then((res) => {
             // alert("댓글 삭제 완료");
             window.location.href = '/communities/reply'
