@@ -25,6 +25,7 @@ const Communities = (props) => {
 
             <div class="community-block" id="second">
                 <td className="id">{community._id}</td>
+                <td className="id">{community.writeDate}</td>
                 <td id="header" className={"readCommunity"}>
                     <h4>[{community.title}]</h4>
                 </td>
@@ -47,8 +48,8 @@ const Communities = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
-                <button id="review-upload" className={"readCommunityReply"}>댓글</button>
-                    <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button>
+                    <button id="review-upload" className={"readCommunityReply"}>댓글</button>
+                    {/* <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button> */}
                 </div>
                 <br></br>
             </div>
@@ -63,14 +64,6 @@ const Communities = (props) => {
                 setActivityHistoryList(data.map(communityList))
 
             })
-    }
-    function move(){
-        localStorage.setItem("community_id",modalInput);
-        localStorage.setItem("community_id",modalInput);
-        if(localStorage.getItem("community_id")!="0"){
-            window.location.href ='/communities/detail'
-        }
-       
     }
     $(function () {
         $(".readCommunity").off("click")
@@ -89,7 +82,12 @@ const Communities = (props) => {
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            move();
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0"){
+                window.location.href ='/communities/detail'
+            }
+        
         })
         $(".readCommunityReply").on("click", function () {
 
@@ -141,12 +139,12 @@ const Communities = (props) => {
             </div>
 
             <Modal isOpen={modalCreateCommunity} >
-                <ModalHeader toggle={toggleCreateCommunity}>게시글 작성</ModalHeader>
+                <ModalHeader toggle={toggleCreateCommunity}>커뮤니티</ModalHeader>
                 <CreateCommunity></CreateCommunity>
             </Modal>
 
             <Modal isOpen={modalReadCommunity}>
-                <ModalHeader toggle={toggleReadCommunity}>게시글 상세조회</ModalHeader>
+                <ModalHeader toggle={toggleReadCommunity}>커뮤니티</ModalHeader>
                 <ReadCommunity _id={modalInput}></ReadCommunity>
             </Modal>
 

@@ -1,28 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Button,
-    Progress,
-    Table
+    Progress
 } from 'reactstrap';
 import axios from 'axios'
 import Moment from 'react-moment'
 import numeral from 'numeral'
 import './css/Review.css'
 import $ from 'jquery';
-import room1 from'../Image/room1.PNG'
-import room2 from'../Image/room2.PNG'
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
-import ReadReview from './ReadReview';
+import star3 from '../Image/star3.png'
+
 
 const Review =(props)=>{
     useEffect(() => {
             readReview()
         }
     );
-    const [modalInput, setModalInput] = useState("0");
+    const [modalInput, setModalInput] = useState();
     const [modalCreateReview, setModalCreateReview] = useState(false);
-    const [modalReadReview, setModalReadReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
   //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
@@ -33,11 +29,31 @@ const Review =(props)=>{
         <div id="header" >  
             <h4 className={"readReviewDetail"}>{reviews.title}</h4>
         </div>
+        <div class="review-item-description-date">
+<span class="review-item-description">
+<time class="time">
+            <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
+        </time>
+</span>
+</div>
+
+<div class="review-item-description-user">
+<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">{reviews.userId}</h3> 
+</span>
+</div>
         {/* onClick = {()=>{window.location.href ='/reviews/detail'}} */}
         <div id="writer-writeDate-star">
-            <div>{reviews.userId} /
-                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
-                <Progress value={reviews.star} max="5"/></div>
+        <span class="starpoint">
+<img src={star3} ></img>
+{reviews.star}
+</span>
+            <div>
+                {/* {reviews.userId} /
+                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment> */}
+                {/* <Progress value={reviews.star} max="5"/> */}
+                
+                </div>
+                
         </div>
 
         <div>
@@ -67,9 +83,12 @@ const Review =(props)=>{
             </table>
         </div>
 
-        <div class="review-image">
-          <br></br>            
-            <img width="650" height="300" src={reviews.picture}></img>           
+        <div >
+          <br></br>
+
+            
+            <img  class="review-image" src={reviews.picture}></img>
+           
         </div>
 
         <div class="review-content">
@@ -99,12 +118,9 @@ const Review =(props)=>{
     }
 
     function move(){
-        
         localStorage.setItem("review_id",modalInput);
-
-        if(localStorage.getItem("review_id")!="0"){
-            window.location.href ='/reviews/detail'
-        }
+        
+        window.location.href ='/reviews/detail'
     }
     $(function () {     
         
@@ -143,12 +159,94 @@ const Review =(props)=>{
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
                 </div>
 
-                {/* <div class="review-container">
-                    {review_list}
-                </div> */}
                 {review_list}
-            </div>
 
+            </div>
+{/*테스트 */}
+
+<div class="review-item">
+<div class="review-item-description-date">
+<span class="review-item-description">
+<time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+</span>
+</div>
+
+<div class="review-item-description-user">
+<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">userId</h3> 
+</span>
+</div>
+{/* <div class="review-item-description-user">
+<span class="review-item-description-title">
+<time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+</span>
+</div> */}
+{/* <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+        <div class="profile">
+            <h3 class="user">1234</h3>
+            <time class="time">
+            <Moment format="YY.MM.DD">10.20.22</Moment>
+        </time>
+            <ul class="status">
+            <td className="id">2</td>
+            </ul>
+        </div> */}
+     
+
+
+{/* <img src={star3} class="bldg-img"></img> */}
+
+
+<span class="starpoint">
+<img src={star3} ></img>
+4.0
+</span>
+<div class="review-item-title">
+<a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
+봉천동 964-25
+</a>
+<p class="address">
+서울특별시 관악구 봉천동 964-25
+</p>
+<span class="badge">월세: 30 </span>
+<span class="badge">관리비: 3</span>
+</div>
+<div class="review-item-description">
+<span class="review-item-description-header"></span>
+
+</div>
+<div class="review-item-description">
+<span class="review-item-description-title">한줄평</span>
+<h4 >[단점~~~~~~~~~~.]</h4>
+</div>
+
+
+
+<div class="review-item-description">
+<span class="review-item-description-title">장점</span>
+<p >afeaewfawfe~~~~~~~~~</p>
+</div>
+<div class="review-item-description">
+<span class="review-item-description-title">단점</span>
+<p >단점~~~~~~~~~~.</p>
+</div>
+<div class="review-image">
+          <br></br>
+
+            
+            <img width="80%" height="300"  src={star3}></img>
+           
+        </div>
+        <br></br>
+        <div className="button-container">
+        <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
+        </div>
+        <br></br>
+</div>
+{/*테스트 */}
             <div id="center">
                     <div class="pagination">
                         <a href="#">&laquo;</a>
@@ -160,6 +258,7 @@ const Review =(props)=>{
                         <a href="#">&raquo;</a>
                     </div>
             </div>
+
         </div>
 
         </React.Fragment>

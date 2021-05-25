@@ -11,11 +11,11 @@ const CreateCommunity = (props) => {
     const [content, setContent] = useState()
    
     
-    const handlChangeTitle = (e) => {
+    const handleChangeTitle = (e) => {
         e.preventDefault();
         setTitle(e.target.value);
     };    
-    const handlChangeContent = (e) => {
+    const handleChangeContent = (e) => {
         e.preventDefault();
         setContent(e.target.value);
     };
@@ -49,34 +49,26 @@ const CreateCommunity = (props) => {
         <div class ="create_container">       
            
                     <br/>
-                    <FormGroup>
-                    <InputGroup
-                        style={{
-                            marginTop: "1%",
-                            marginBottom: "1%"
-                        }}>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>제목</InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="title" name="title" id="title"  onChange={handlChangeTitle}/>
-                    </InputGroup>
-                    </FormGroup>
                     
-                    <FormGroup>
-                    <InputGroup
-                        style={{
-                            marginTop: "1%",
-                            marginBottom: "1%"
-                        }}>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>내용</InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="textarea" name="content" id="content"  cols="50" rows="10" onChange={handlChangeContent}/>
-                    </InputGroup>
-                    
-                    </FormGroup>
+                    <div id="b"></div>
+        <Input
+            className="input-style"
+            name="title"
+            placeholder="글제목"
+            type="title" name="title" id="title"
+            onChange={handleChangeTitle}
+            ></Input>
+      <div id="b"></div>
+        <Input
+           type="textarea"
+            className="input-style"
+            name="content" id="content"
+            cols="50" rows="10"
+            onChange={handleChangeContent}
+           ></Input>
+         <br></br>
                     <div className="form-group">
-                        <Button color="primary" block="block" onClick = {()=> handCommunity()}>등록</Button>
+                        <button class="community-submit"  block="block" onClick = {()=> handCommunity()}>작성</button>
                     </div>
 
         </div>

@@ -21,8 +21,9 @@ import Moment from 'react-moment'
 
 function ReplyCommunity(props) {
     const [modalInput, setModalInput] = useState("0");
-    const [_id, set_id] = useState(props._id);
-    const [userId, setUserId] = useState(props);
+    const [modalInputReply, setModalInputReply] = useState("0");
+    const [_id, set_id] = useState();
+    const [userId, setUserId] = useState();
     const [writeDate, setWriteDate] = useState();
     const [title, setTitle] = useState();
     const [content, setContent] = useState();
@@ -54,13 +55,15 @@ const replyList = (community) => (
         <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
         <div class="profile">
             <h3 class="user">{community.userId}</h3>
-            
+
             <ul class="status">
-            <td className="id">{community._id}</td>
+                <td className="id">{community._id}</td>
+
                 <li className={"deleteReply"}>삭제</li>
             </ul>
+
         </div>
-        <br></br>
+
         <p class="reply">
             {community.content}</p>
         <time class="time">
@@ -70,88 +73,116 @@ const replyList = (community) => (
 
     </li>
 );
-    const handReply = () => {  //댓글등록
-        let newDate = new Date();
-        var form={
-            title : "[댓글]",
-            content : reply,
-            userId : localStorage.getItem("userID"),
-            groupId : localStorage.getItem("groupId"),
-            replyOrder: 0,
-            replyStep: 1,
-            writeDate: newDate,
-            numberOfView: 0
-        };
-        console.log(form);
-        axios.post('/happyhouse/communities/create', form).then((res) => {
+const handReply = () => { //댓글등록
+    let newDate = new Date();
+    var form = {
+        title: "[댓글]",
+        content: reply,
+        userId: localStorage.getItem("userID"),
+        groupId: localStorage.getItem("groupId"),
+        replyOrder: 0,
+        replyStep: 1,
+        writeDate: newDate,
+        numberOfView: 0
+    };
+    console.log(form);
+    axios
+        .post('/happyhouse/communities/create', form)
+        .then((res) => {
             alert("댓글 작성 완료")
-            window.location.reload();
+            window
+                .location
+                .reload();
             props.toggle()
-        }).catch(function (error){
+        })
+        .catch(function (error) {
             console.log(error)
-            
+
         })
     }
 
-    const readCommunity = () => {  //게시글 정보
+const readCommunity = () => { //게시글 정보
 
-        var form = {
-            _id: localStorage.getItem("community_id")
-        };
-        axios
-            .post('/happyhouse/communities/detail', form)
-            .then((res) => {
+    var form = {
+        _id: localStorage.getItem("community_id")
+    };
+    axios
+        .post('/happyhouse/communities/detail', form)
+        .then((res) => {
 
-                console.log(res.data);
-                console.log(res.data.communitys.userId);
-                setUserId(res.data.communitys.userId);
-                setWriteDate(res.data.communitys.writeDate);
-                setTitle(res.data.communitys.title);
-                setContent(res.data.communitys.content);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        }
-       
-        const readReply  = () => {  //댓글 목록 조회
+            console.log(res.data);
+            console.log(res.data.communitys.userId);
+            set_id(res.data.communitys._id);
+            setUserId(res.data.communitys.userId);
+            setWriteDate(res.data.communitys.writeDate);
+            setTitle(res.data.communitys.title);
+            setContent(res.data.communitys.content);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
 
-            var form = {
-                groupId: localStorage.getItem("groupId")
-            };
-            axios
-                .post('/happyhouse/communities/reply', form)
-                .then(({data}) => {
-                    data = data.communitysList
-                    setActivityHistoryList(data.map(replyList))
-    
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-            }
-            const deleteCommunity = () => {
-                var form = {
-                    _id: modalInput
-                };
-                axios
-                    .post('/happyhouse/communities/delete', form)
-                    .then((res) => {
-                       // alert("댓글 삭제 완료");
-                        window.location.href = '/communities/reply'
-                    })
-            }
-    
+const readReply = () => { //댓글 목록 조회
 
-    useEffect(() => {
-    
-        readCommunity(); //게시글 상세조회
-        readReply();
-    }, [])
+    var form = {
+        groupId: localStorage.getItem("groupId")
+    };
+    axios
+        .post('/happyhouse/communities/reply', form)
+        .then(({data}) => {
+            data = data.communitysList
+            setActivityHistoryList(data.map(replyList))
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+const deleteCommunity = () => { //게시글 삭제
+    var form = {
+        _id: modalInput
+    };
+    axios
+        .post('/happyhouse/communities/delete', form)
+        .then((res) => {
+            // alert("댓글 삭제 완료");
+            window.location.href = '/communities'
+        })
+}
+const deleteReply = () => { //댓글 삭제
+    var form = {
+        _id: modalInput
+    };
+    axios
+        .post('/happyhouse/communities/delete', form)
+        .then((res) => {
+            // alert("댓글 삭제 완료");
+            window.location.href = '/communities/reply'
+        })
+}
+
+useEffect(() => {
+
+    readCommunity(); //게시글 상세조회
+    readReply(); //댓글 목록 조회
+}, [])
 
     $(function () {
        
-        $(".deleteReply").on("click", function () {
+        $(".deleteReply").on("click", function () {  //댓글 삭제
+
+            var Button = $(this);
+
+            var ul = Button.parent();
+            var td = ul.children();
+            setModalInput(td.eq(0).text());
+           console.log(modalInput);
+           if(modalInput !=0){
+               deleteReply();
+           }
+        })     
+        $(".deleteCommunity").on("click", function () {  //댓글 삭제
 
             var Button = $(this);
 
@@ -162,8 +193,18 @@ const replyList = (community) => (
            if(modalInput !=0){
                deleteCommunity();
            }
-        })        
-        
+        })   
+          $(".readCommunityDetail").on("click", function () {
+
+            var Button = $(this);
+            var ul = Button.parent();
+            var td = ul.children();
+            setModalInput(td.eq(0).text());
+            localStorage.setItem("community_id",modalInput);
+            if(localStorage.getItem("community_id")!="0"){
+                window.location.href ='/communities/detail'
+            }
+        })
     })
 
 
@@ -175,17 +216,36 @@ const replyList = (community) => (
                 <div className="community-title">
                     <div id="title">커뮤니티</div>
                 </div>
-
+                
             </div>
             <br></br>
                 <div class="community-block">
-                   
+                <ul class="status">
+               <td className="id">{_id}</td>            
+                <li className={"deleteCommunity"}>삭제</li>
+            </ul>
+            <ul class="status">
+            <td className="id">{_id}</td>            
+                <li className={"readCommunityDetail"}>수정</li>
+            </ul>
                     <td id="header">
                         <h4>
                             <td name="title">{title}</td>
                         </h4>
+                      
                     </td>
-
+                    <div>
+                    <table class="houseInfo">
+                        <tr>
+                            <td id="a">작성자</td>
+                            <td>{userId}</td>
+                            <td id="a">작성일</td>
+                            <td>
+                                <Moment format="YY.MM.DD">{writeDate}</Moment>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                      <div class="community-content">
                         <td
                             name="content"
@@ -195,7 +255,7 @@ const replyList = (community) => (
                     </div>  
                     <br></br>
                    <div className="button-container">
-                  <button id="review-upload" onClick = {()=>{window.location.href ='/communities'}} style={{float: 'left'}}>취소</button>
+                  <button id="review-upload" onClick = {()=>{window.location.href ='/communities'}} style={{float: 'left'}}>글목록</button>
                 </div> 
                     
                     <br></br>
@@ -205,7 +265,6 @@ const replyList = (community) => (
                 </br>
                 
                  {activityHistoryList}
-
                     <InputGroup
                         style={{
                             marginTop: "1%",
