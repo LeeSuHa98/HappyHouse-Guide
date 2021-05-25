@@ -105,7 +105,7 @@ export const MapMarkers = (props) => {
     return(
     <div>
       <React.Fragment>
-        <Map google={props.google} zoom={zoom} style={mapStyles} center={center}>
+        <Map google={props.google} zoom={zoom} style={mapStyles} center={center}  mapTypeControl={false}>
             {displayMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>

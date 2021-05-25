@@ -123,45 +123,49 @@ const SideBar = (props) => {
              </div>
 
              <div id = "houseInfoSection2">
-               <div class = "test2">주택정보</div>
-                    <div className = "typeGroup">
-                        {typeButton(props.houseDetail.houseDetailInfo)}
-                    </div>
-                   <table class="houseInfoTable2">
-                        <tr>
-                            <td id = "td1">공급세대</td>
-                            <td colSpan="2">{props.houseDetail.houseHoldNum} 세대</td>
-                            </tr>
-                            <tr>
-                            <td id = "td1">준공일자</td>
-                            <td colSpan = "2">
-                                <Moment format="YYYY / MM / DD">{props.houseDetail.competeDate}</Moment>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td id="td1">주택형</td>
-                            <td id="td1">공공 공용면적</td>
-                            <td id="td1"> 개인 공용면적</td>
-                        </tr>
-                        <tr>
-                            <td>{props.houseDetail.houseDetailInfo[typeIndex].typeName}</td>
-                            <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyCommuseArea}</td>
-                            <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyPrivateArea}</td>
-                        </tr>
-                        <tr>
-                            <td id="td1">임대 보증금</td>
-                            <td id="td1">전환 보증금</td>
-                            <td id="td1">월 임대료</td>
-                        </tr>
-                        <tr>
-                            <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).format('0,0')}</td>
-                            <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')}</td>
-                            <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).format('0,0')}</td>
-                        </tr>
-                   </table>
+                  <div class = "test2">주택정보</div>
 
-                   <HappyChart danjiName = {props.houseDetail.danjiName} convenience = {props.houseDetail.convenience} safety = {props.houseDetail.safety} medical = {props.houseDetail.medical}/>
-                 </div>
+                      <table class="houseInfoTable2">
+                      <tr>
+                          <td id = "td1">공급세대</td>
+                          <td>{props.houseDetail.houseHoldNum} 세대</td>
+                        </tr>
+                        <tr>
+                          <td id = "td1">준공일자</td>
+                          <td>
+                          <Moment format="YYYY / MM / DD">{props.houseDetail.competeDate}</Moment>
+                          </td>
+                        </tr>
+                            
+                        <tr>
+                          <td id="td1">주택형</td>
+                          <td>{props.houseDetail.houseDetailInfo[typeIndex].typeName}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">공공 공용면적</td>
+                          <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyCommuseArea}(㎡)</td>
+                        </tr>
+                        <tr>
+                          <td id="td1"> 개인 공용면적</td>
+                          <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyPrivateArea}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">임대 보증금</td>
+                          <td> {numeral(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).format('0,0')}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">전환 보증금</td>
+                          <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')}</td>
+                        </tr>
+                        <tr>
+                          <td id="td1">월 임대료</td>
+                          <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).format('0,0')}</td>
+                        </tr>
+                      </table>
+                      
+                      <HappyChart danjiName = {props.houseDetail.danjiName} convenience = {props.houseDetail.convenience} safety = {props.houseDetail.safety} medical = {props.houseDetail.medical}/>
+                    </div>
+                </div>
                   
                   <div id = "houseInfoSection4">
                     <div class = "test2">
@@ -176,7 +180,6 @@ const SideBar = (props) => {
                   </div>
              </div>
         </div>
-    </div>
   );
 };
 
