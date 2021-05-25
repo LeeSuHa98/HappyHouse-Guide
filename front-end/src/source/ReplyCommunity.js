@@ -91,6 +91,9 @@ const handReply = () => { //댓글등록
         .then((res) => {
             console.log(res)
             alert("댓글 작성 완료")
+            window
+                .location
+                .reload();
         })
         .catch(function (error) {
             console.log(error)
