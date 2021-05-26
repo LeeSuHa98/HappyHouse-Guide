@@ -1,10 +1,43 @@
+import axios from 'axios';
+import React, { Component } from 'react';
+
 class ActionProvider {
     constructor(createChatBotMessage, setStateFunc, createClientMessage) {
       this.createChatBotMessage = createChatBotMessage;
-      this.setState = setStateFunc;
+      this.setStateFunc = setStateFunc;
       this.createClientMessage = createClientMessage;
+      this.noticeData = {
+        infoData: [],
+      };
+    }
+
+    loadAsyncNoticeData = () => {      
+      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/noticeInfo`;
+
+      axios.get(url).then(({data}) => {
+        data = data.noticeInfoList
+        this.infoData = data
+      })
     }
     
+    answerAddress = () => {
+      //let url = this.setNoticeData[1].DTL_URL;
+
+      this.loadAsyncNoticeData();
+
+      console.log(this.infoData)
+      const message = this.createChatBotMessage(
+        "해당주택에 관한 공고문입니다. ",
+      );
+      const message2 = this.createChatBotMessage(
+        <a href="">성남고등</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
     initialQuestion = () => {
       const message = this.createChatBotMessage("더 궁금한 것이 있으신가요 ?", { widget: "options" });
       this.addMessageToState(message);
@@ -20,18 +53,7 @@ class ActionProvider {
       this.addMessageToState(message2);
     }
 
-    answerAddress = () => {
-      const message = this.createChatBotMessage(
-        "해당주택에 관한 공고문입니다. ",
-      );
-      const message2 = this.createChatBotMessage(
-        "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008358,LCC:Y#MN::CLCC_MN_0010:"
-      );
-      this.addMessageToState(message);
-      this.addMessageToState(message2);
-
-      this.initialQuestion();
-    }
+    
 
     handleCondition = () => {
       const message = this.createChatBotMessage("입주조건", <br/>);
@@ -436,7 +458,7 @@ class ActionProvider {
     }
 
     addMessageToState = (message) => {
-      this.setState((prevState) => ({
+      this.setStateFunc((prevState) => ({
         ...prevState,
         messages: [...prevState.messages, message],
       }))
