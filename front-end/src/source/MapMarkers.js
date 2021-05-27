@@ -310,20 +310,12 @@ export const MapMarkers = (props) => {
       
       setIsLike(false)
       
-      alert("load Dibs")
-      axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
+      axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/${userId}/${code}`).then(({data}) => {
         data = data.dibs
-
-        for(var i = 0; i<data.length;i++){
-          if(code == data[i].danjiCode){
-            setIsLike(true)
-            alert("change true")
-            break;
-          }
+        console.log(data)
+        if (data[0] != null){
+          setIsLike(true)
         }
-
-        alert("finish load Dibs")
-
       }) 
     }
 
