@@ -27,12 +27,12 @@ dibsSchema.statics.findByUserId = function (userId) {
     return this.find({"userId" : userId});
 };
 
-dibsSchema.statics.findByHouseId = function (houseId) {
-    return this.find({"houseId" : houseId});
+dibsSchema.statics.findByHouseId = function (danjiCode) {
+    return this.find({"danjiCode" : danjiCode});
 };
 
-dibsSchema.statics.findByUserIdAndHouseId = function (userId, houseId) {
-    return this.find({"userId" : userId, "houseId" : houseId});
+dibsSchema.statics.findByUserIdAndHouseId = function (userId, danjiCode) {
+    return this.find({"userId" : userId, "danjiCode" : danjiCode});
 };
 
 // Find One by id

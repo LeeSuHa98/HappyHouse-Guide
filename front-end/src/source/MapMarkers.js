@@ -32,6 +32,8 @@ export const MapMarkers = (props) => {
     const [convenience, setConvenience] = useState([]);
     const [medical, setMedical] = useState([]);
     const [safety, setSafety] = useState([]);
+    
+    const [isLike, setIsLike] = useState(false);
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
@@ -87,7 +89,7 @@ export const MapMarkers = (props) => {
     const sidebarShow = () => {
       var con = document.getElementById("sideBar");
       if(con.style.display==='none'){
-        con.style.display='block';
+        con.style.display='block';        
       }else{
         con.style.display='block';
       }
@@ -112,11 +114,6 @@ export const MapMarkers = (props) => {
     }, [])
 
 
-    
-    // const [dibsList, setDibsList] = useState();
-    // const dibs = (dib) => (
-    //   <li>{dib.danjiCode}</li>
-    // );
 
     const loadAsyncData = () => {
         let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos`;
@@ -130,12 +127,6 @@ export const MapMarkers = (props) => {
               return infoData;
             }, {}));
         })
-
-      //   axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${localStorage.getItem("userID")}`).then(({data}) => {
-      //     data = data.dibs
-      //     setDibsList(data.map(dibs))
-      // })
-
     }
 
     const loadAsyncHouseGradeData = () => {      
@@ -147,8 +138,6 @@ export const MapMarkers = (props) => {
         setSafety(data.safety);
         setMedical(data.medical);
       })
-
-      // loadReview();
     }
 
    
@@ -169,7 +158,10 @@ export const MapMarkers = (props) => {
           //   color: "white",
           //   className: 'label'
           // }}
-          onClick={() =>{sidebarShow(setHouseDetail(data));loadReview(data.danjiCode)}}
+          onClick={() =>{
+            loadDibsData(data.danjiCode);
+            sidebarShow(setHouseDetail(data));
+            loadReview(data.danjiCode)}}
           />
           ))
   }
@@ -211,7 +203,6 @@ export const MapMarkers = (props) => {
     }
 
 
-
     // Chart
     const data = {
       labels: ['Convenience', 'Safety', 'Medical'],
@@ -229,7 +220,6 @@ export const MapMarkers = (props) => {
     };
 
     function drawGraph() {
-      
       return (
         <div className = "chart"> 
             <Bar
@@ -246,10 +236,9 @@ export const MapMarkers = (props) => {
     const [zoom, setZoom] = useState()
 
     /* Dibs */
-    var cnt = 1;
 
     function changeImage(props){
-      var tmpCheck = document.getElementById("tmp");
+      var temp = document.getElementById("tmp").src.includes("-toggle")
       
       var insertForm={
         userId : localStorage.getItem("userID"),
@@ -262,28 +251,32 @@ export const MapMarkers = (props) => {
           danjiCode : houseDetail.danjiCode,
           };
 
-       if(cnt%2==1){
-        tmpCheck.src = like2;   
+       if(temp == false){
+        setIsLike(true)
         
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', insertForm).then((res) => {
+          alert("좋아요")
         // window.location.reload();
         props.toggle()
         }).catch(function (error){
         console.log(error)  
        })
+       
       }
 
       else{
-        tmpCheck.src = like1;
+        setIsLike(false)
         
         axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', {data:deleteForm}).then((res) => {
+          alert("좋아요  취소")
         // window.location.reload();
         props.toggle()
         }).catch(function (error){
         console.log(error)  
        })
+       
       }
-      cnt++;
+      
     }
 
     // review
@@ -292,7 +285,7 @@ export const MapMarkers = (props) => {
       <li id="li-reivew">
         <div class = "rev-title">
           <div id="rev-title1">{review.title}</div>
-          <div id= "rev-title2"><img src={star} className="starImg" />{review.star}.0</div>
+          <div id= "rev-title2"><img src={star} className="starImg" />{review.star}</div>
         </div>
         <div class ="rev-content">
           <div>장점 : {review.merit}</div>
@@ -311,9 +304,20 @@ export const MapMarkers = (props) => {
         })
     }
     
-    
 
-
+    function loadDibsData (code) {
+      var userId = localStorage.getItem("userID")
+      
+      setIsLike(false)
+      
+      axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/${userId}/${code}`).then(({data}) => {
+        data = data.dibs
+        console.log(data)
+        if (data[0] != null){
+          setIsLike(true)
+        }
+      }) 
+    }
 
     return(
     <div>
@@ -343,9 +347,14 @@ export const MapMarkers = (props) => {
              
               <div className = "beforeContent">
                  <img alt="sidebar hide" src={undo} id="sidebarHide" onClick={()=> sidebarHide()} className="toggle-menu"/>
-                  <img id = "tmp"alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/>
+                  {
+                    isLike
+                    ?
+                    <img id = "tmp" alt='like' src={like2} className="likeImage" onClick={() => changeImage()}/>
+                    :
+                    <img id = "tmp" alt='like' src={like1} className="likeImage" onClick={() => changeImage()}/>
+                  }
               </div>
-                 
                 {loadAsyncHouseGradeData()}
 
               <div className="content">
@@ -370,6 +379,9 @@ export const MapMarkers = (props) => {
                 <div id = "houseInfoSection2">
 
                   <div class = "test2">주택정보</div>
+
+                  <div></div>
+                      
                       {countFunction()}
                       {countFunctionDetail()}
 
