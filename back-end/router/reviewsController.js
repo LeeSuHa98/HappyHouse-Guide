@@ -95,4 +95,47 @@ router.post('/delete', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+
+
+
+
+
+
+// 기본 rest api 용 url
+router.get('/:id', (req, res) => {
+  reviews.findOneById(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/houseid/:id', (req, res) => {
+  reviews.findByHouseId(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/userid/:id', (req, res) => {
+  reviews.findByUserId(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/:houseid/:userid', (req, res) => {
+  reviews.findByUserIdAndHouseId(req.params.houseid,req.params.userid)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
 module.exports = router;
