@@ -86,36 +86,7 @@ const CreateReview = (props) => {
         e.preventDefault();
         setStar(e.target.value);
     };
-    const createReview = () => {
-         let newDate = new Date();
-        
-         var form={
-             houseId: "6063083edb67cc10cce15fc0",
-             userId : localStorage.getItem("userID"),
-             title : title, 
-             region : region,
-             typeName : typeName,
-             monthlyRentCharge : monthlyRentCharge,
-             adminCharge : adminCharge,           
-             merit : merit,
-             demerit : demerit,
-             file : file, 
-             star : star,  
-             writeDate: newDate     
-         };
-        console.log('insert : ',form);
-        //alert("  거주후기 작성 완료1"+file)
-        //  axios.post('/happyhouse/reviews', form).then((res) => {
-        //      alert("거주후기 작성 완료")
-        //      window.location.href ='/reviews'
-        //  })
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews', form
-        ,{headers: {'content-type':'multipart/form-data'}}
-        ).then((res) => {
-            alert("거주후기 작성 완료")
-           // window.location.href ='/reviews'
-        })
-     }
+  
     
      //TEST
      const onChange = (e) => {
@@ -136,7 +107,7 @@ const CreateReview = (props) => {
         let newDate = new Date();
         
         const formData = new FormData();
-        formData.append('houseId', "6063083edb67cc10cce15fc0");
+        formData.append('danjiCode', localStorage.getItem("danjiCode"));
         formData.append('userId', localStorage.getItem("userID"));
         formData.append('title', title);
         formData.append('region', region);

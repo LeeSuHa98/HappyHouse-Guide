@@ -154,6 +154,7 @@ const Review =(props)=>{
                 <div className = "search-button-group">
                     <select id = "review-search-option">
                         <option>최신순</option>
+                        <option>별점순</option>
                     </select>
                     <input id="review-search" value=""></input>
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
