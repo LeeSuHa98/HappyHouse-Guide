@@ -3,12 +3,14 @@ var ObjectId = require('mongoose').Types.ObjectId;
 mongoose.set('useCreateIndex', true)
 // Define Schemes
 const reviewSchema = new mongoose.Schema({
-  houseId: { type: String, required: true },
+  danjiCode: { type: String, required: true },
+  danjiName: { type: String, required: true },
   userId: { type: String, required: true },
   region: { type: String, required: true },
   typeName: { type: String, required: true },
-  monthlyRentCharge: { type: Number, required: true },
-  adminCharge: { type: Number, required: true },
+  houseType: {type: String, required: true},
+  monthlyRentCharge: { type: String, required: true },
+  adminCharge: { type: String, required: true },
   title: { type: String, required: true },
   merit: { type: String, required: true },
   demerit: { type: String, required: true },

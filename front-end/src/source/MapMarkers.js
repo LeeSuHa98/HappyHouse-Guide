@@ -475,7 +475,10 @@ export const MapMarkers = (props) => {
                
 
                   <div id = "houseInfoSection4">
-                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button></div>
+                      <div class = "test2">거주후기
+                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",houseDetail.danjiCode); window.location.href ='/reviews/create'}}>거주후기 작성</button>
+                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button></div>
+                       
                         <ul class = "rt">
                           {review_list}
                         </ul>

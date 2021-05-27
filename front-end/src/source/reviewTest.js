@@ -59,20 +59,21 @@ const Review =(props)=>{
         <div>
             <table class="houseInfo">
                 <tr>
+                    <td id="a">단지명</td>
+                    <td colspan="3">{reviews.danjiName}</td>
+                </tr>
+                <tr>
                     <td id="a">지역</td>
-                    <td colspan="3">{reviews.region}</td>
-                </tr>
-                <tr>
+                    <td>{reviews.region}</td>
                     <td id="a">임대종류</td>
-                    <td>행복주택</td>
-                    <td id="a">유형</td>
-                    <td>아파트</td>
+                    <td>행복주택</td>                    
                 </tr>
                 <tr>
+                    <td id="a">유형</td>
+                    <td>{reviews.houseType}</td>
                     <td id="a">주택형</td>
                     <td>{reviews.typeName}</td>
-                    <td id="a">공급수</td>
-                    <td>32 세대</td>
+                    
                 </tr>
                 <tr>
                     <td id="a">월세</td>

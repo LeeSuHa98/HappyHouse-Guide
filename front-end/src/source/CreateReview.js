@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     FormGroup,
     Input,
@@ -34,7 +34,11 @@ const CreateReview = (props) => {
     const [file, setFile] = useState()
     const [filename,setFilename] = useState()
 
-
+    const [address,setAddress] = useState()
+    const [danjiName,setDanjiName] = useState()
+    const [houseType,setHouseType] = useState()
+    const [sidoName,setSidoName] = useState()
+   
     //
     const [img,setImage] = useState(null);
 
@@ -86,7 +90,6 @@ const CreateReview = (props) => {
         e.preventDefault();
         setStar(e.target.value);
     };
-  
     
      //TEST
      const onChange = (e) => {
@@ -102,16 +105,18 @@ const CreateReview = (props) => {
         setFile(e.target.files[0]);
       }
     
-      const create = (e) => {
+      const create = (e) => {  //거주후기 등록
         e.preventDefault();
         let newDate = new Date();
         
         const formData = new FormData();
         formData.append('danjiCode', localStorage.getItem("danjiCode"));
+        formData.append('danjiName', danjiName);
         formData.append('userId', localStorage.getItem("userID"));
         formData.append('title', title);
-        formData.append('region', region);
-        formData.append('typeName', typeName);
+        formData.append('region', sidoName);    //주택정보
+        formData.append('typeName', typeName); 
+        formData.append('houseType', houseType); //주택정보
         formData.append('monthlyRentCharge', monthlyRentCharge);
         formData.append('adminCharge', adminCharge);
         formData.append('merit', merit);
@@ -131,8 +136,28 @@ const CreateReview = (props) => {
             }).catch((error) => {
         });
       }
-    //TEST
+      const readHouse = (e) => {   //주택정보 
+        var form = {
+            danjiCode: localStorage.getItem("danjiCode") //단지code
+        };
+        axios
+            .post('/happyhouse/houseInfos/detail', form)
+            .then((res) => {
 
+                console.log(res.data);
+                setAddress(res.data.houseInfo.address);
+                setHouseType(res.data.houseInfo.houseType);
+                setDanjiName(res.data.houseInfo.danjiName);
+                setSidoName(res.data.houseInfo.sidoName);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+      }
+      useEffect(() => {
+        readHouse(); 
+    }, [])
     return (
     <div className="dv">
 
@@ -190,13 +215,13 @@ const CreateReview = (props) => {
 <div class="write-modal-info">
 <div class="review-item-title">
 <a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
-봉천동 964-25
+{danjiName}
 </a>
 <p class="address">
-서울특별시 관악구 봉천동 964-25
+{address}
 </p>
 <span class="badge">행복주택</span>
-<span class="badge">아파트</span>
+<span class="badge">{houseType}</span>
 </div>
 </div>
 
@@ -298,6 +323,17 @@ const CreateReview = (props) => {
             rows="20"
             onChange={handlChangeTitle}
             value={title}></Input>
+
+    </div>
+    <div id="merit">
+        <div id="b">주택형</div>
+        <Input
+            name="typeName"
+            cols="50"
+            rows="20"
+            placeholder="예)40A,40B,40C"
+            onChange={handlChangeTypeName}
+            value={typeName}></Input>
 
     </div>
     <div id="merit">
