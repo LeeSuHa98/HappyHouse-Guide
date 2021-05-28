@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
 import axios from 'axios';
 
+import { Spinner } from 'reactstrap';
+
 import './css/Menubar.css';
 import logo from '../Image/home.png'
 import logoutLogo from '../Image/logout.png'
@@ -20,18 +22,11 @@ import Login from'./Login'
 const Menubar = (props) => {
     const [dibs_list, setDibs] = useState();
     
-    const dibs = (dib) => (
-        <li><img id = "listImage" alt="" src={list}/>{dib.danjiName}</li>
-    );
+    const [isLoading, setIsLoading] = useState(true)
+    const [isLogin, setIsLogin] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
 
-    const loadDibsData = () => {
-      console.log(1)
-        var userId = localStorage.getItem("userID")
-        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
-            data = data.dibs
-            setDibs(data.map(dibs))
-        })
-    }
     useEffect(() => {
         if(!localStorage.getItem("userToken")){
             localStorage.setItem("userToken", "bearer: ");
@@ -43,10 +38,6 @@ const Menubar = (props) => {
             setIsLogin(true);
         }
     });
-    
-    const [isLogin, setIsLogin] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
 
     const likeHide = () => {
         var con = document.getElementById("check");
@@ -63,6 +54,21 @@ const Menubar = (props) => {
         }else{
           con.style.display='block';
         }
+    }
+
+    
+    const dibs = (dib) => (
+        <li><img id = "listImage" alt="" src={list}/>{dib.danjiName}</li>
+    );
+
+    const loadDibsData = () => {
+        setIsLoading(true)
+        var userId = localStorage.getItem("userID")
+        axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs/userid/${userId}`).then(({data}) => {
+            data = data.dibs
+            setDibs(data.map(dibs))
+            setIsLoading(false)
+        })
     }
     
     return (
@@ -96,11 +102,19 @@ const Menubar = (props) => {
 
                 <div id = "check">
                    <div id="like-wrap">찜 목록<img alt="" src={cancel} id="cancelImage" onClick={()=> likeHide()}/></div>
-                    <div class="likeList">
-                        <ul>
-                            {dibs_list}
-                        </ul>
-                    </div>  
+                    {
+                    isLoading ?
+                        <div>
+                            <Spinner style={{ width: '3rem', height: '3rem' }} color="primary" />
+                        </div>
+                    :
+
+                        <div class="likeList">
+                            <ul>
+                                {dibs_list}
+                            </ul>
+                        </div>  
+                    }
                 </div>
                         
                 <Modal isOpen={isOpen} toggle={toggle} >
