@@ -43,13 +43,23 @@ const reviews = require('../model/reviews');
 router.get('/', (req, res) => {
   
 
-    reviews.findAll()
+    reviews.findOrderByDate()
     .then((reviews) => {
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
     
     })
     .catch(err => res.status(500).send(err));
+});
+router.get('/star', (req, res) => { 
+
+  reviews.findOrderByStar()
+  .then((reviews) => {
+    if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviewList : reviews});
+  
+  })
+  .catch(err => res.status(500).send(err));
 });
 
 // Find One by id
