@@ -31,8 +31,8 @@ dibsSchema.statics.findByHouseId = function (houseId) {
     return this.find({"houseId" : houseId});
 };
 
-dibsSchema.statics.findByUserIdAndHouseId = function (userId, houseId) {
-    return this.find({"userId" : userId, "houseId" : houseId});
+dibsSchema.statics.findByUserIdAndHouseId = function (userId, danjiCode) {
+    return this.find({"userId" : userId, "danjiCode" : danjiCode});
 };
 
 // Find One by id
