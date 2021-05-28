@@ -83,7 +83,7 @@ router.get('/:houseid/:userid', (req, res) => {
 router.get('/', (req, res) => {
   
 
-    reviews.findAll()
+    reviews.findAll().sort({writeDate: -1})
     .then((reviews) => {
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});

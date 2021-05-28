@@ -13,15 +13,27 @@ import star3 from '../Image/star3.png'
 
 
 const Review =(props)=>{
-    useEffect(() => {
-            readReview()
-        }
-    );
+    
+    const [option,setOption] =useState(0);
     const [modalInput, setModalInput] = useState();
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
   //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
+
+    const handleOptionOnChange = (e) => { 
+        e.preventDefault();
+        //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
+        if(e.target.value === "최신순")
+        {            
+            setOption(0);
+        }else{
+            setOption(1);
+        }
+    }
+
+
+
     const reviewList = (reviews) => (
         <li className="li" key={reviews._id} id={reviews._id}>
     <div class="review-block">
@@ -41,18 +53,12 @@ const Review =(props)=>{
 <span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">{reviews.userId}</h3> 
 </span>
 </div>
-        {/* onClick = {()=>{window.location.href ='/reviews/detail'}} */}
         <div id="writer-writeDate-star">
         <span class="starpoint">
 <img src={star3} ></img>
 {reviews.star}
 </span>
-            <div>
-                {/* {reviews.userId} /
-                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment> */}
-                {/* <Progress value={reviews.star} max="5"/> */}
-                
-                </div>
+            
                 
         </div>
 
@@ -138,10 +144,15 @@ const Review =(props)=>{
             
         })
     })
-    // function readHouseInfo(){
-    //     axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${houseId}`);
-    // } 
 
+    useEffect(() => {
+        if(option == 0){
+       //     console.log('옵션 :  ', option);
+            readReview()
+        }else ;
+      //  console.log('옵션 :  ', option);
+        }
+    );
     return (
         <div>
         <React.Fragment>
@@ -153,10 +164,14 @@ const Review =(props)=>{
                 </div>
 
                 <div className = "search-button-group">
-                    <select id = "review-search-option">
-                        <option>최신순</option>
+                    {/* <select id = "review-search-option">
+                        <option >최신순</option>
                         <option>별점순</option>
-                    </select>
+                    </select> */}
+                    <select  id = "review-search-option" onChange={handleOptionOnChange}>
+                    <option>최신순</option>
+                        <option>별점순</option>
+                        </select>
                     <input id="review-search" value=""></input>
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
                 </div>
@@ -164,91 +179,7 @@ const Review =(props)=>{
                 {review_list}
 
             </div>
-{/*테스트 */}
 
-<div class="review-item">
-{/* <div class="review-item-description-date">
-<span class="review-item-description">
-<time class="time">
-            <Moment format="YY.MM.DD">10.20.22</Moment>
-        </time>
-</span>
-</div>
-
-<div class="review-item-description-user">
-<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">userId</h3> 
-</span>
-</div> */}
-{/* <div class="review-item-description-user">
-<span class="review-item-description-title">
-<time class="time">
-            <Moment format="YY.MM.DD">10.20.22</Moment>
-        </time>
-</span>
-</div> */}
-{/* <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
-        <div class="profile">
-            <h3 class="user">1234</h3>
-            <time class="time">
-            <Moment format="YY.MM.DD">10.20.22</Moment>
-        </time>
-            <ul class="status">
-            <td className="id">2</td>
-            </ul>
-        </div> */}
-     
-
-
-{/* <img src={star3} class="bldg-img"></img> */}
-
-{/* 
-<span class="starpoint">
-<img src={star3} ></img>
-4.0
-</span>
-<div class="review-item-title">
-<a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
-봉천동 964-25
-</a>
-<p class="address">
-서울특별시 관악구 봉천동 964-25
-</p>
-<span class="badge">월세: 30 </span>
-<span class="badge">관리비: 3</span>
-</div>
-<div class="review-item-description">
-<span class="review-item-description-header"></span>
-
-</div>
-<div class="review-item-description">
-<span class="review-item-description-title">한줄평</span>
-<h4 >[단점~~~~~~~~~~.]</h4>
-</div>
-
-
-
-<div class="review-item-description">
-<span class="review-item-description-title">장점</span>
-<p >afeaewfawfe~~~~~~~~~</p>
-</div>
-<div class="review-item-description">
-<span class="review-item-description-title">단점</span>
-<p >단점~~~~~~~~~~.</p>
-</div>
-<div class="review-image">
-          <br></br>
-
-            
-            <img width="80%" height="300"  src={star3}></img>
-           
-        </div>
-        <br></br>
-        <div className="button-container">
-        <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
-        </div>
-        <br></br> */}
-</div>
-{/*테스트 */}
             <div id="center">
                     <div class="pagination">
                         <a href="#">&laquo;</a>
@@ -274,139 +205,5 @@ const Review =(props)=>{
     </div>
     );
 }
-
-// const Review = (props) => {
-//     return(
-//         <div>
-//             <React.Fragment>
-//                 <div className="dv">
-
-//                 <div className = "review-wrap">
-//                     <div className = "review-title">
-//                         <div id = "title">거주 후기</div>
-//                     </div>
-
-//                     <div className = "search-button-group">
-//                         <select id = "review-search-option">
-//                             <option>최신순</option>
-//                         </select>
-//                         <input id="review-search" value=""></input>
-//                         <button id="review-upload">UPLOAD</button>
-//                     </div>
-
-//                     <div class="review-container">
-//                         <div class="review-block">
-//                             <div id="header">
-//                                 <h4>[ 내곡보금자리 주택지구 도시형 생활주택 ]</h4>
-//                             </div>
-
-//                             <div id = "writer-writeDate-star">
-//                                 <div>작성자/작성일/별점</div>
-//                             </div>
-
-//                             <div>
-//                                 <table class="houseInfo">
-//                                     <tr>
-//                                         <td id="a">주소</td>
-//                                         <td colspan="3">서울특별시 서초구 청계산로9길 10-3</td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td id="a">임대종류</td>
-//                                         <td>행복주택</td>
-//                                         <td id="a">유형</td>
-//                                         <td>아파트</td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td id="a">Type</td>
-//                                         <td>49A</td>
-//                                         <td id="a">세대수</td>
-//                                         <td>32</td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td id="a">월세</td>
-//                                         <td>300,000</td>
-//                                         <td id="a">관리비</td>
-//                                         <td>50,000</td>
-//                                     </tr>
-//                                 </table>
-//                             </div>
-
-//                             <div class="review-image">
-//                                 <img src={room1} id="reviewImage"></img>
-//                             </div>
-
-//                             <div class="review-content">
-//                                 <div id="merit">장점 : </div>
-//                                 <div id="demerit">단점 : </div>
-//                             </div>
-//                         </div>
-
-//                         <div class="review-block" id = "second">
-//                             <div id="header">
-//                                 <h4>[ 내곡보금자리 주택지구 도시형 생활주택 ]</h4>
-//                             </div>
-                            
-//                             <div id = "writer-writeDate-star">
-//                                 <div>작성자/작성일/별점</div>
-//                             </div>
-
-//                             <div>
-//                                 <table class="houseInfo">
-//                                        <tr>
-//                                            <td id="a">주소</td>
-//                                            <td colspan="3">서울특별시 서초구 청계산로9길 10-3</td>
-//                                        </tr>
-//                                        <tr>
-//                                            <td id="a">임대종류</td>
-//                                            <td>행복주택</td>
-//                                            <td id="a">유형</td>
-//                                            <td>아파트</td>
-//                                        </tr>
-//                                        <tr>
-//                                            <td id="a">Type</td>
-//                                            <td>49C</td>
-//                                            <td id="a">세대수</td>
-//                                            <td>32</td>
-//                                        </tr>
-//                                        <tr>
-//                                             <td id="a">월세</td>
-//                                             <td>300,000</td>
-//                                             <td id="a">관리비</td>
-//                                             <td>50,000</td>
-//                                     </tr>
-//                                    </table>
-//                             </div>
-
-//                             <div class="review-image">
-//                                 <img src={room2} id="reviewImage"></img>
-//                             </div>
-
-//                             <div class="review-content">
-//                                 <div id="merit">장점 : </div>
-//                                 <div id="demerit">단점 : </div>
-//                             </div>
-//                         </div>
-
-//                     </div>
-
-//                 </div>
-
-//                 <div id="center">
-//                         <div class="pagination">
-//                             <a href="#">&laquo;</a>
-//                             <a href="#"  class="active">1</a>
-//                             <a href="#">2</a>
-//                             <a href="#">3</a>
-//                             <a href="#">4</a>
-//                             <a href="#">5</a>
-//                             <a href="#">&raquo;</a>
-//                         </div>
-//                     </div>
-//             </div>
-
-//             </React.Fragment>
-//         </div>
-//     )
-// }
 
 export default Review;
