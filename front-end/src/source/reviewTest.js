@@ -13,15 +13,30 @@ import CreateReview from './CreateReview'
 
 
 const Review =(props)=>{
-    useEffect(() => {
-            readReview()
-        }
-    );
+    
     const [modalInput, setModalInput] = useState();
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
   //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
+
+    const handleOptionOnChange = (e) => { 
+        e.preventDefault();
+        //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
+        if(e.target.value === "최신순")
+        {            
+           // setOption(0);
+            localStorage.setItem("option", 0)
+           // readReview();
+        }else{
+          //  setOption(1);
+            localStorage.setItem("option", 1)
+            //readReviewStar();
+        }
+    }
+
+
+
     const reviewList = (reviews) => (
         <li className="li" key={reviews._id} id={reviews._id}>
     <div class="review-block">
@@ -91,12 +106,17 @@ const Review =(props)=>{
 </li>
     );
     function readReview () {
-        axios.get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews').then(({data}) => {
+        axios.get('/happyhouse/reviews').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
     }
-
+    function readReviewStar () {
+        axios.get('/happyhouse/reviews/star').then(({data}) => {
+            data = data.reviewList
+            setReview(data.map(reviewList))
+        })
+    }
     function move(){
         localStorage.setItem("review_id",modalInput);
         
@@ -120,6 +140,13 @@ const Review =(props)=>{
     // function readHouseInfo(){
     //     axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${houseId}`);
     // } 
+    useEffect(() => {
+        if(localStorage.getItem("option") == 0){
+      
+            readReview()
+        }else  readReviewStar();
+        }
+    );
 
     return (
         <div>
@@ -128,17 +155,21 @@ const Review =(props)=>{
 
             <div className = "review-wrap">
                 <div className = "review-title">
-                    <div id = "title">거주 후기</div>
+                    <div id = "title">거주 후기</div>   
                 </div>
-
+                
                 <div className = "search-button-group">
-                    <select id = "review-search-option">
+         
+                    <select id = "review-search-option"  onChange={handleOptionOnChange}>
                         <option>최신순</option>
+                        <option>별점순</option>
                     </select>
-                    <input id="review-search" value=""></input>
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
+                 
                 </div>
-
+              
+            
+                
                 {review_list}
 
             </div>

@@ -3,7 +3,7 @@ const communitys = require('../model/community');
 
 // Find All
 router.get('/', (req, res) => {
-  communitys.find({replyStep: 0})
+  communitys.find({replyStep: 0}).sort({writeDate :-1 })
     .then((communitys) => {
       if (!communitys.length) return res.status(404).send({ err: 'communitys not found' });
       res.send({communitysList : communitys});
