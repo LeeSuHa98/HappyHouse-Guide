@@ -1,43 +1,39 @@
-import axios from 'axios';
-import React, { Component } from 'react';
+import axios from 'axios'
+import { Component } from 'react';
 
-class ActionProvider {
-    constructor(createChatBotMessage, setStateFunc, createClientMessage) {
+class ActionProvider extends Component{
+    constructor(createChatBotMessage, setStateFunc, createClientMessage, props) {
+      super(props);
       this.createChatBotMessage = createChatBotMessage;
       this.setStateFunc = setStateFunc;
       this.createClientMessage = createClientMessage;
-      this.noticeData = {
-        infoData: [],
-      };
+     
     }
 
-    loadAsyncNoticeData = () => {      
-      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/noticeInfo`;
-
-      axios.get(url).then(({data}) => {
-        data = data.noticeInfoList
-        this.infoData = data
-      })
+    state = {
+      loading: false,
+      noticeList: []
     }
     
-    answerAddress = () => {
-      //let url = this.setNoticeData[1].DTL_URL;
+    // loadAsyncData = () => {
+    //   let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/noticeInfo`;
 
-      this.loadAsyncNoticeData();
-
-      console.log(this.infoData)
-      const message = this.createChatBotMessage(
-        "해당주택에 관한 공고문입니다. ",
-      );
-      const message2 = this.createChatBotMessage(
-        <a href="">성남고등</a>
-      );
-      this.addMessageToState(message);
-      this.addMessageToState(message2);
-
-      this.initialQuestion();
-    }
-
+    //   axios.get(url)
+    //   .then(({data}) => {
+    //     console.log("접근")
+    //       this.setState({
+    //         loading: true,
+    //         noticeList: data.noticeInfoList
+    //       });
+    //   })
+    //   .catch(e => {
+    //     console.error(e);  // 에러표시
+    //     this.setState({  
+    //       loading: false
+    //     });
+    //   })
+    // }
+    
     initialQuestion = () => {
       const message = this.createChatBotMessage("더 궁금한 것이 있으신가요 ?", { widget: "options" });
       this.addMessageToState(message);
@@ -53,7 +49,89 @@ class ActionProvider {
       this.addMessageToState(message2);
     }
 
-    
+    answerAddress = () => {
+      let url = "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008800,LCC:Y"
+
+      const message = this.createChatBotMessage(
+        "성남시에 위치한 행복주택입니다. ",
+      );
+      const message2 = this.createChatBotMessage(
+        <a href={url}>성남고등 A-1 행복주택 공고문으로 이동하기</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
+    answerAddress2 = () => {
+      let url = "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008808,LCC:Y"
+      
+      const message = this.createChatBotMessage(
+        "충청남도 당진시에 위치한 행복주택입니다."
+      );
+      const message2 = this.createChatBotMessage(
+        <a href={url}>당진석문A-3BL 행복주택 공고문으로 이동하기</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
+    answerAddress3 = () => {
+      let url = "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008776,LCC:Y"
+      
+      const message = this.createChatBotMessage(
+        "강원도 원주시에 위치한 행복주택입니다."
+      );
+      const message2 = this.createChatBotMessage(
+        <a href={url}>원주태장7 행복주택 공고문으로 이동하기</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
+    answerAddress4 = () => {
+      let url = "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008718,LCC:Y"
+      
+      const message = this.createChatBotMessage(
+        "전라남도 영암군에 위치한 행복주택입니다."
+      );
+      const message2 = this.createChatBotMessage(
+        <a href={url}>영암용앙3 행복주택 공고문으로 이동하기</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
+    answerAddress5 = () => {
+      let url = "https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0065.xfdl&gv_menuId=1010203&gv_param=CCR_CNNT_SYS_DS_CD:03,PAN_ID:2015122300008681,LCC:Y"
+      
+      const message = this.createChatBotMessage(
+        "전라남도 목포시에 위치한 행복주택입니다."
+      );
+      const message2 = this.createChatBotMessage(
+        <a href={url}>목포용해2 6-1BL 행복주택 공고문으로 이동하기</a>
+      );
+      this.addMessageToState(message);
+      this.addMessageToState(message2);
+
+      this.initialQuestion();
+    }
+
+    answerNothing = () => {
+      const message = this.createChatBotMessage(
+        "현재 공고중인 행복주택이 없습니다."
+      );
+      this.addMessageToState(message);
+
+      this.initialQuestion();
+    }
 
     handleCondition = () => {
       const message = this.createChatBotMessage("입주조건", <br/>);

@@ -10,10 +10,12 @@ import './css/Menubar.css';
 import './css/Sidebar.css';
 
 import image from '../Image/placeholder.png'
+import plan from '../Image/placeholder2.png'
 
 
 export const MapMarkers = (props) => { 
     const [item, setItem] = useState([]);
+    const [planned, setPlanned] = useState([]);
     const [houseDetail, setHouseDetail] = useState({
       _id:"",
       danjiCode: "",
@@ -45,6 +47,7 @@ export const MapMarkers = (props) => {
       setCenter({lat: 37.5, lng: 127})
       setZoom(15)
       loadAsyncData();
+      loadAsyncPlannedData();
     }, [])
 
     const loadAsyncData = () => {
@@ -55,6 +58,16 @@ export const MapMarkers = (props) => {
             setItem(data);
         })
     }
+
+    const loadAsyncPlannedData = () => {
+      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/plannedPlace`;
+
+      axios.get(url).then(({data}) => {
+          data = data.plannedPlaceList;
+          setPlanned(data);
+      })
+    }
+
 
     const displayMarkers = () => {
       return item.map((data) => (
@@ -74,11 +87,36 @@ export const MapMarkers = (props) => {
           //   className: 'label'
           // }}
           onClick = {()=>{
-            sidebarShow();
+          sidebarShow();
           setHouseDetail(data);}}
           />
           ))
   }
+
+  const displayPlannedMarkers = () => {
+    return planned.map((data) => (
+        <Marker className='marker-image' 
+        key={data._id} 
+        position={{lat:data.lat, lng:data.lng}}
+        icon={{
+          url: plan,
+          scaledSize: new props.google.maps.Size(30,30),
+          //labelOrigin: new props.google.maps.Size(50, 115),
+        }}
+        // label={{
+        //   text: `${numeral(data.houseHoldNum).format('0,0')}`,
+        //   fontSize: "10px",
+        //   fontFamily: "Nanum Barun Gothic",
+        //   color: "white",
+        //   className: 'label'
+        // }}
+        onClick={() =>{
+          sidebarShow(setHouseDetail(data));
+        }}
+        />
+        ))
+  }
+
 
     const mapStyles = {
         width: '100%',
@@ -107,6 +145,7 @@ export const MapMarkers = (props) => {
       <React.Fragment>
         <Map google={props.google} zoom={zoom} style={mapStyles} center={center}  mapTypeControl={false}>
             {displayMarkers()}
+            {displayPlannedMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
         <SideBar houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
