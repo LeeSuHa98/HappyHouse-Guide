@@ -10,6 +10,7 @@ import './css/Menubar.css'
 import './Menubar.js'
 
 import image from '../Image/placeholder.png'
+import plan from '../Image/placeholder2.png'
 import cancel from '../Image/loupe.png'
 import undo from '../Image/undo.png'
 import like1 from '../Image/like.png'
@@ -25,6 +26,8 @@ import config from '../chatbot/config';
 
 export const MapMarkers = (props) => { 
     const [item, setItem] = useState([]);
+    const [planned, setPlanned] = useState([]);
+
     const [houseDetail, setHouseDetail] = useState([]);
     const [type, setType] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -111,6 +114,7 @@ export const MapMarkers = (props) => {
       setCenter({lat: 37.5, lng: 127})
       setZoom(15)
       loadAsyncData();
+      loadAsyncPlannedData();
     }, [])
 
 
@@ -128,6 +132,14 @@ export const MapMarkers = (props) => {
             }, {}));
         })
     }
+    const loadAsyncPlannedData = () => {
+      let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/plannedPlace`;
+
+      axios.get(url).then(({data}) => {
+          data = data.plannedPlaceList;
+          setPlanned(data);
+      })
+  }
 
     const loadAsyncHouseGradeData = () => {      
       let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseGrade/${houseDetail.danjiCode}`;
@@ -165,6 +177,31 @@ export const MapMarkers = (props) => {
           />
           ))
   }
+
+  const displayPlannedMarkers = () => {
+    return planned.map((data) => (
+        <Marker className='marker-image' 
+        key={data._id} 
+        position={{lat:data.lat, lng:data.lng}}
+        icon={{
+          url: plan,
+          scaledSize: new props.google.maps.Size(30,30),
+          //labelOrigin: new props.google.maps.Size(50, 115),
+        }}
+        // label={{
+        //   text: `${numeral(data.houseHoldNum).format('0,0')}`,
+        //   fontSize: "10px",
+        //   fontFamily: "Nanum Barun Gothic",
+        //   color: "white",
+        //   className: 'label'
+        // }}
+        onClick={() =>{
+          loadDibsData(data.danjiCode);
+          sidebarShow(setHouseDetail(data));
+        }}
+        />
+        ))
+}
 
     const mapStyles = {
         width: '100%',
@@ -296,7 +333,7 @@ export const MapMarkers = (props) => {
     
     // var reviewCnt = 0;
     function loadReview (code) {
-      var url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${code}`
+      var url = `/happyhouse/reviews/houseid/${code}`
       
         axios.get(url).then(({data}) => {
         data = data.reviews
@@ -324,7 +361,7 @@ export const MapMarkers = (props) => {
     <React.Fragment>
         <Map google={props.google} zoom={zoom} style={mapStyles} center={center} mapTypeControl={false}>
             {displayMarkers()}
-            
+            {displayPlannedMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
         </Map>
 
@@ -475,7 +512,10 @@ export const MapMarkers = (props) => {
                
 
                   <div id = "houseInfoSection4">
-                      <div class = "test2">거주후기<button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button></div>
+                      <div class = "test2">거주후기
+                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",houseDetail.danjiCode); window.location.href ='/reviews/create'}}>거주후기 작성</button>
+                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button></div>
+                       
                         <ul class = "rt">
                           {review_list}
                         </ul>

@@ -38,7 +38,15 @@ router.get('/:sidoCode/:sigunguCode/:danjiCode', (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
-
+router.post('/detail', (req, res) => { //거주후기 주택정보
+  console.log(req.body.danjiCode);
+  HouseInfo.findByDanjiCode(req.body.danjiCode)
+  .then((houseInfo) => {
+    if (!houseInfo) return res.status(404).send({ err: 'houseInfo not found' });
+    res.send({houseInfo});
+  })
+  .catch(err => res.status(500).send(err));
+});
 // Create new todo document
 router.post('/', (req, res) => {
     HouseInfo.create(req.body)

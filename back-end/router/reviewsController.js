@@ -14,15 +14,17 @@ const reviews = require('../model/reviews');
 //https://gngsn.tistory.com/40 multer s3
 
    router.post('/', upload.single('myImage'),(req,res,next)=>{
- 
+      console.log(req.body);
      let image = 'http://localhost:8080/Image/' + req.file.filename;
 
      let review = new reviews({
-      houseId: req.body.houseId,
+      danjiCode: req.body.danjiCode,
+      danjiName: req.body.danjiName,
       userId: req.body.userId,
       title: req.body.title,
       region: req.body.region,
       typeName: req.body.typeName,
+      houseType: req.body.houseType,
       monthlyRentCharge: req.body.monthlyRentCharge,
       adminCharge: req.body.adminCharge,
       merit: req.body.merit,
@@ -38,7 +40,45 @@ const reviews = require('../model/reviews');
       res.status(201).json(result);
   });
    })
+// Find One by id
+router.get('/:id', (req, res) => {
+  reviews.findOneById(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
 
+router.get('/houseid/:id', (req, res) => {
+
+  // reviews.findByHouseId(req.params.id)
+  reviews.find({danjiCode: req.params.id})
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/userid/:id', (req, res) => {
+ 
+  reviews.findByUserId(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/:houseid/:userid', (req, res) => {
+  reviews.findByUserIdAndHouseId(req.params.houseid,req.params.userid)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
 // Find All
 router.get('/', (req, res) => {
   

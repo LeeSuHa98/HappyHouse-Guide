@@ -55,6 +55,10 @@ houseInfoSchema.statics.findBySidoCodeAndSigunguCode = function (sidoCode, sigun
 houseInfoSchema.statics.findBySidoCodeAndSigunguCodeAndDanjiCode = function (sidoCode, sigunguCode, danjiCode) {
   return this.find({"sidoCode" : sidoCode, "sigunguCode": sigunguCode, "danjiCode" : danjiCode});
 };
+// Find danjiCode
+houseInfoSchema.statics.findByDanjiCode = function (danjiCode) {
+  return this.findOne({"danjiCode" : danjiCode});
+};
 
 // Update by id
 houseInfoSchema.statics.updateById = function (_id, payload) {
