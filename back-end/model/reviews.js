@@ -31,8 +31,15 @@ reviewSchema.statics.create = function (payload) {
 reviewSchema.statics.findAll = function () {
   // return promise
   // V4부터 exec() 필요없음
-  return this.find();
+  return this.find().sort({writeDate : -1});
 };
+// Find All orderby star
+reviewSchema.statics.findAllStar = function () {
+  // return promise
+  // V4부터 exec() 필요없음
+  return this.find().sort({star : -1});
+};
+
 
 reviewSchema.statics.findByUserId = function (userId) {
     return this.find({"userId" : userId});

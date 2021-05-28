@@ -58,7 +58,7 @@ const Communities = (props) => {
 
     function readActivityHistory() {
         axios
-            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities')
+            .get('/happyhouse/communities')
             .then(({data}) => {
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))

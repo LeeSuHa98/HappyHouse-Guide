@@ -23,12 +23,11 @@ const Review =(props)=>{
 
     const handleOptionOnChange = (e) => { 
         e.preventDefault();
-        //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
         if(e.target.value === "최신순")
-        {            
-            setOption(0);
-        }else{
-            setOption(1);
+        {         
+            localStorage.setItem("option", 0)
+        }else if(e.target.value=="별점순"){
+            localStorage.setItem("option", 1)
         }
     }
 
@@ -123,6 +122,12 @@ const Review =(props)=>{
             setReview(data.map(reviewList))
         })
     }
+    function readReviewStar () {
+        axios.get('/happyhouse/reviews/star').then(({data}) => {
+            data = data.reviewList
+            setReview(data.map(reviewList))
+        })
+    }
 
     function move(){
         localStorage.setItem("review_id",modalInput);
@@ -146,13 +151,13 @@ const Review =(props)=>{
     })
 
     useEffect(() => {
-        if(option == 0){
-       //     console.log('옵션 :  ', option);
+        if(localStorage.getItem("option") == 0){
+      
             readReview()
-        }else ;
-      //  console.log('옵션 :  ', option);
+        }else  readReviewStar();
         }
     );
+
     return (
         <div>
         <React.Fragment>

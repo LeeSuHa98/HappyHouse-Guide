@@ -79,19 +79,27 @@ router.get('/:houseid/:userid', (req, res) => {
   })
   .catch(err => res.status(500).send(err));
 });
-// Find All
+// Find All order by writeDate
 router.get('/', (req, res) => {
+  reviews.findAll()
+  .then((reviews) => {
+    if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviewList : reviews});
   
-
-    reviews.findAll().sort({writeDate: -1})
-    .then((reviews) => {
-      if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
-      res.send({reviewList : reviews});
-    
-    })
-    .catch(err => res.status(500).send(err));
+  })
+  .catch(err => res.status(500).send(err));
 });
 
+// Find All order by star
+router.get('/star', (req, res) => {
+reviews.findAllStar()
+.then((reviews) => {
+  if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+  res.send({reviewList : reviews});
+
+})
+.catch(err => res.status(500).send(err));
+});
 
 // Find One by id
 router.post('/detail', (req, res) => {
