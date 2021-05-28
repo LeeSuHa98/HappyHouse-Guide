@@ -81,6 +81,7 @@ router.get('/:houseid/:userid', (req, res) => {
 });
 // Find All order by writeDate
 router.get('/', (req, res) => {
+  
   reviews.findAll()
   .then((reviews) => {
     if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
@@ -91,8 +92,9 @@ router.get('/', (req, res) => {
 });
 
 // Find All order by star
-router.get('/star', (req, res) => {
-reviews.findAllStar()
+router.get('/sort', (req, res) => {
+  console.log('aaaaaaaaaaaa');
+reviews.findAll()
 .then((reviews) => {
   if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
   res.send({reviewList : reviews});

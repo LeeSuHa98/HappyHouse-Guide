@@ -34,10 +34,10 @@ reviewSchema.statics.findAll = function () {
   return this.find().sort({writeDate : -1});
 };
 // Find All orderby star
-reviewSchema.statics.findAllStar = function () {
+reviewSchema.statics.findAll = function () {
   // return promise
   // V4부터 exec() 필요없음
-  return this.find().sort({star : -1});
+  return this.find();
 };
 
 

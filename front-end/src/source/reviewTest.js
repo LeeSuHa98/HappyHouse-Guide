@@ -123,7 +123,7 @@ const Review =(props)=>{
         })
     }
     function readReviewStar () {
-        axios.get('/happyhouse/reviews/star').then(({data}) => {
+        axios.get('/happyhouse/reviews/sort').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
@@ -156,6 +156,8 @@ const Review =(props)=>{
             readReview()
         }else  readReviewStar();
         }
+      
+    
     );
 
     return (
