@@ -36,13 +36,23 @@
 }
 
 #review-search-option{
-    width:100px;
-    height:29px;
-    border:solid 2px rgba(160, 160, 160, 0.514);
-    
-    padding-left:5px;
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:12px;
+
+  padding-left:5px;
+  font-family: 'Nanum Barun Gothic', sans-serif;
+  font-size:12px;
+  width: 30%;
+  height: 29px;
+  background: 0 0;
+  border: 1px solid #d8dade;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #363b44;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 14px;
+
+  align-items: center;
+
 }
 
 #b{font-weight: 950;

@@ -14,7 +14,7 @@ import star3 from '../Image/star3.png'
 
 const Review =(props)=>{
     
-    const [option,setOption] =useState(0);
+
     const [modalInput, setModalInput] = useState();
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
@@ -23,11 +23,16 @@ const Review =(props)=>{
 
     const handleOptionOnChange = (e) => { 
         e.preventDefault();
+        //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
         if(e.target.value === "최신순")
-        {         
+        {            
+           // setOption(0);
             localStorage.setItem("option", 0)
-        }else if(e.target.value=="별점순"){
+           // readReview();
+        }else{
+          //  setOption(1);
             localStorage.setItem("option", 1)
+            //readReviewStar();
         }
     }
 
@@ -123,7 +128,7 @@ const Review =(props)=>{
         })
     }
     function readReviewStar () {
-        axios.get('/happyhouse/reviews/sort').then(({data}) => {
+        axios.get('/happyhouse/reviews/star').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
@@ -151,14 +156,12 @@ const Review =(props)=>{
     })
 
     useEffect(() => {
-        // if(localStorage.getItem("option") == 0){
+        // if(localStorage.getItem("option") == 1){
       
-        //     readReview()
-        // }else  readReviewStar();
-        // }
-      
-        readReview()
-    }
+        //     readReviewStar();
+        // }else  readReview()
+        readReview();
+        }
     );
 
     return (
@@ -176,10 +179,10 @@ const Review =(props)=>{
                         <option >최신순</option>
                         <option>별점순</option>
                     </select> */}
-                    <select  id = "review-search-option" onChange={handleOptionOnChange}>
-                    <option>최신순</option>
+                    <select id = "review-search-option"  onChange={handleOptionOnChange}>
+                        <option>최신순</option>
                         <option>별점순</option>
-                        </select>
+                    </select>
                     <input id="review-search" value=""></input>
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
                 </div>

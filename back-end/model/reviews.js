@@ -27,17 +27,13 @@ reviewSchema.statics.create = function (payload) {
   return review.save();
 };
 
-// Find All
-reviewSchema.statics.findAll = function () {
-  // return promise
-  // V4부터 exec() 필요없음
-  return this.find().sort({writeDate : -1});
+// 최신순 정렬
+reviewSchema.statics.findOrderByDate = function () {
+  return this.find().sort({writeDate: -1});
 };
-// Find All orderby star
-reviewSchema.statics.findAll = function () {
-  // return promise
-  // V4부터 exec() 필요없음
-  return this.find();
+// 별점순 정렬
+reviewSchema.statics.findOrderByStar = function () {
+  return this.find().sort({star: -1});
 };
 
 
