@@ -44,6 +44,11 @@ function ReadReview(props) {
     const [modalInput, setModalInput] = useState("default");
     const [tableData, setTableData] = useState(); //댓글 목록 조회
     const [isReadOnly, setIsReadOnly] = useState(true); //댓글 수정활성화
+
+    const [address,setAddress] = useState()
+    const [danjiName,setDanjiName] = useState()
+    const [houseType,setHouseType] = useState()
+    const [sidoName,setSidoName] = useState()
     let $imagePreview = null;
     const handleChangeTitle = (e) => {
         e.preventDefault();
@@ -137,6 +142,7 @@ function ReadReview(props) {
   
     useEffect(() => {
         readReview(); 
+        readHouse();
     }, [])
 
     const updateReview = () => {
@@ -177,6 +183,26 @@ function ReadReview(props) {
              window.location.href ='/reviews'
          })
      }
+
+     const readHouse = (e) => {   //주택정보 
+        var form = {
+            danjiCode: localStorage.getItem("danjiCode") //단지code
+        };
+        axios
+            .post('/happyhouse/houseInfos/detail', form)
+            .then((res) => {
+
+                console.log(res.data);
+                setAddress(res.data.houseInfo.address);
+                setHouseType(res.data.houseInfo.houseType);
+                setDanjiName(res.data.houseInfo.danjiName);
+                setSidoName(res.data.houseInfo.sidoName);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+      }
     return (
         <div>
             <React.Fragment>
@@ -193,13 +219,13 @@ function ReadReview(props) {
                         <div class="write-modal-info">
 <div class="review-item-title">
 <a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
-봉천동 964-25
+{danjiName}
 </a>
 <p class="address">
-서울특별시 관악구 봉천동 964-25
+{address}
 </p>
 <span class="badge">행복주택</span>
-<span class="badge">아파트</span>
+<span class="badge">{houseType}</span>
 </div>
 </div>
 

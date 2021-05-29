@@ -15,7 +15,7 @@ import star3 from '../Image/star3.png'
 const Review =(props)=>{
     
 
-    const [modalInput, setModalInput] = useState();
+    const [modalInput, setModalInput] = useState("0");
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
   //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
@@ -134,11 +134,7 @@ const Review =(props)=>{
         })
     }
 
-    function move(){
-        localStorage.setItem("review_id",modalInput);
-        
-        window.location.href ='/reviews/detail'
-    }
+   
     $(function () {     
         
         $(".readReviewDetail").on("click", function () {
@@ -147,11 +143,11 @@ const Review =(props)=>{
             var div = Button.parent().parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            console.log('아이디' +td.eq(0).text());
-            
-           
-            console.log('모델인풋' +modalInput);
-            move();
+            localStorage.setItem("review_id",modalInput);
+        
+            if(localStorage.getItem("review_id")!="0"){
+                window.location.href ='/reviews/detail'
+            }
             
         })
     })
