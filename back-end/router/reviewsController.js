@@ -90,7 +90,7 @@ router.get('/', (req, res) => {
   })
   .catch(err => res.status(500).send(err));
 });
-router.get('/star', (req, res) => { 
+router.post('/star', (req, res) => { 
 
 reviews.findOrderByStar()
 .then((reviews) => {

@@ -43,7 +43,7 @@ const Review =(props)=>{
     <div class="review-block">
         <td className="id">{reviews._id}</td>
         <div id="header" >  
-            <h4 className={"readReviewDetail"}>{reviews.title}</h4>
+            <h4 >{reviews.title}</h4>
         </div>
         <div class="review-item-description-date">
 <span class="review-item-description">
@@ -128,7 +128,7 @@ const Review =(props)=>{
         })
     }
     function readReviewStar () {
-        axios.get('/happyhouse/reviews/star').then(({data}) => {
+        axios.post('/happyhouse/reviews/star').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
@@ -148,6 +148,7 @@ const Review =(props)=>{
             var td = div.children();
             setModalInput(td.eq(0).text());
             console.log('아이디' +td.eq(0).text());
+            
            
             console.log('모델인풋' +modalInput);
             move();
@@ -156,11 +157,11 @@ const Review =(props)=>{
     })
 
     useEffect(() => {
-        // if(localStorage.getItem("option") == 1){
+        if(localStorage.getItem("option") == 1){
       
-        //     readReviewStar();
-        // }else  readReview()
-        readReview();
+            readReviewStar();
+        }else  readReview()
+     
         }
     );
 
@@ -175,15 +176,11 @@ const Review =(props)=>{
                 </div>
 
                 <div className = "search-button-group">
-                    {/* <select id = "review-search-option">
-                        <option >최신순</option>
-                        <option>별점순</option>
-                    </select> */}
+                
                     <select id = "review-search-option"  onChange={handleOptionOnChange}>
                         <option>최신순</option>
                         <option>별점순</option>
                     </select>
-                    <input id="review-search" value=""></input>
                     <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
                 </div>
 
