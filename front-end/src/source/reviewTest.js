@@ -151,13 +151,14 @@ const Review =(props)=>{
     })
 
     useEffect(() => {
-        if(localStorage.getItem("option") == 0){
+        // if(localStorage.getItem("option") == 0){
       
-            readReview()
-        }else  readReviewStar();
-        }
+        //     readReview()
+        // }else  readReviewStar();
+        // }
       
-    
+        readReview()
+    }
     );
 
     return (
