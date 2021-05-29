@@ -141,10 +141,10 @@ const Review =(props)=>{
     //     axios.get(`https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${houseId}`);
     // } 
     useEffect(() => {
-        if(localStorage.getItem("option") == 0){
+        if(localStorage.getItem("option") == 1){
       
-            readReview()
-        }else  readReviewStar();
+            readReviewStar();
+        }else  readReview()
         }
     );
 
