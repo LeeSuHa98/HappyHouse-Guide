@@ -4,6 +4,8 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import numeral from 'numeral'
 
 import SearchBar from './SearchBar'
+import SearchDanjiBar from './SearchDanjiBar'
+import SearchDanjiAlertBar from './SearchDanjiAlterbar'
 import SideBar from './SideBar';
 import './css/SearchBar.css';
 import './css/Menubar.css';
@@ -130,6 +132,8 @@ export const MapMarkers = (props) => {
             {displayMarkers()}
             {displayPlannedMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
+          <SearchDanjiBar setCenter={setCenter} setZoom={setZoom} />
+          <SearchDanjiAlertBar setCenter={setCenter} setZoom={setZoom}/>
         </Map>
         <SideBar houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
       </React.Fragment>

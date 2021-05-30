@@ -1,19 +1,41 @@
 .search-bar {
   position: absolute;
-  width:21.5%;
+  width: 21.5%;
   padding: 7px 7px 7px 7px;
   left: 1.2%;
   top: 7.5%;
   background-color: rgb(255, 255, 255);
-  font-family: 'Nanum Barun Gothic';
-  border:solid .3px rgba(179, 179, 179, 0.774);
+  font-family: "Nanum Barun Gothic";
+  border: solid 0.3px rgba(179, 179, 179, 0.774);
+}
+
+.search-danji-bar {
+  position: absolute;
+  width: 21.5%;
+  padding: 7px 7px 7px 7px;
+  left: 1.2%;
+  top: 15%;
+  background-color: rgb(255, 255, 255);
+  font-family: "Nanum Barun Gothic";
+  border: solid 0.3px rgba(179, 179, 179, 0.774);
+}
+
+.search-danji-alert-bar {
+  position: absolute;
+  width: 21.5%;
+  padding: 7px 7px 7px 7px;
+  left: 1.2%;
+  top: 22.5%;
+  background-color: rgb(255, 255, 255);
+  font-family: "Nanum Barun Gothic";
+  border: solid 0.3px rgba(179, 179, 179, 0.774);
 }
 
 .select-placeholder-text {
-  font-size:11px;
-  font-family: 'Nanum Barun Gothic';
+  font-size: 11px;
+  font-family: "Nanum Barun Gothic";
   color: rgba(121, 121, 121, 0.5);
-  font-weight:500;
+  font-weight: 500;
 }
 
 /* .search-bar select{
