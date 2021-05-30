@@ -4,9 +4,11 @@ mongoose.set('useCreateIndex', true)
 // Define Schemes
 const reviewSchema = new mongoose.Schema({
   danjiCode: { type: String, required: true },
+  danjiName: { type: String, required: true },
   userId: { type: String, required: true },
   region: { type: String, required: true },
   typeName: { type: String, required: true },
+  houseType: {type: String, required: true},
   monthlyRentCharge: { type: String, required: true },
   adminCharge: { type: String, required: true },
   title: { type: String, required: true },

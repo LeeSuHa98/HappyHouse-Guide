@@ -67,10 +67,17 @@ router.post('/update', (req, res) => {
   });
 // Delete by id
 router.post('/delete', (req, res) => {
+ 
+  console.log(req.body)
     var id = req.body._id;
-    communitys.deleteOne({_id: id})
-    .then(() => res.sendStatus(200))
-    .catch(err => res.status(500).send(err));
+    if(req.body.userId == req.body.writeId){
+      communitys.deleteOne({_id: id})
+      .then(() => res.send("게시글 삭제 완료"))
+      .catch(err => res.status(500).send(err));
+    }else{
+      res.send("삭제할 권한이 없습니다.");
+    }
+   
 });
 
 module.exports = router;

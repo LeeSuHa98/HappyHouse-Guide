@@ -42,13 +42,25 @@ const Review =(props)=>{
     <div class="review-block">
         <td className="id">{reviews._id}</td>
         <div id="header" >  
-            <h4 className={"readReviewDetail"}>{reviews.title}</h4>
+            <h4 >{reviews.title}</h4>
         </div>
-        {/* onClick = {()=>{window.location.href ='/reviews/detail'}} */}
+        <div class="review-item-description-date">
+<span class="review-item-description">
+<time class="time">
+            <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
+        </time>
+</span>
+</div>
+
+<div class="review-item-description-user">
+<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">{reviews.userId}</h3> 
+</span>
+</div>
         <div id="writer-writeDate-star">
-            <div>{reviews.userId} /
-                <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
-                <Progress value={reviews.star} max="5"/></div>
+        <span class="starpoint">
+<img src={star3} ></img>
+{reviews.star}
+</span>
         </div>
         <div>
             <table class="houseInfo">
@@ -112,7 +124,7 @@ const Review =(props)=>{
         })
     }
     function readReviewStar () {
-        axios.get('/happyhouse/reviews/star').then(({data}) => {
+        axios.post('/happyhouse/reviews/star').then(({data}) => {
             data = data.reviewList
             setReview(data.map(reviewList))
         })
@@ -127,14 +139,14 @@ const Review =(props)=>{
             setModalInput(td.eq(0).text());
             localStorage.setItem("review_id",modalInput);
         
-            if(localStorage.getItem("review_id")!=="0"){
+            if(localStorage.getItem("review_id")!="0"){
                 window.location.href ='/reviews/detail'
             }
             
         })
     })
     useEffect(() => {
-        if(localStorage.getItem("option") === 1){
+        if(localStorage.getItem("option") == 1){
       
             readReviewStar();
         }else  readReview()
@@ -167,9 +179,7 @@ const Review =(props)=>{
                 {review_list}
 
             </div>
-{/*테스트 */}
 
-{/*테스트 */}
             <div id="center">
                     <div class="pagination">
                         <a href="#">&laquo;</a>

@@ -143,42 +143,90 @@ function ReadReview(props) {
   
     useEffect(() => {
         readReview(); 
+        readHouse();
     }, [])
 
     const updateReview = () => {
        // let newDate = new Date();
-       
-        var form={
-            houseId: "6063083edb67cc10cce15fc0",
-            userId : localStorage.getItem("userID"),
-            _id : localStorage.getItem("review_id"),
-            title : title, 
-            region : region,
-            typeName : typeName,
-            monthlyRentCharge : monthlyRentCharge,
-            adminCharge : adminCharge,           
-            merit : merit,
-            demerit : demerit,
-            picture : picture, 
-            star : star,  
-           // writeDate: newDate     
+       var writeId =userId; 
+        // var form={
+        //     danjiCode: localStorage.getItem("danjiCode"),
+        //     userId : localStorage.getItem("userID"),
+        //     _id : localStorage.getItem("review_id"),
+        //     title : title, 
+        //     region : region,
+        //     typeName : typeName,
+        //     monthlyRentCharge : monthlyRentCharge,
+        //     adminCharge : adminCharge,           
+        //     merit : merit,
+        //     demerit : demerit,
+        //     picture : picture, 
+        //     star : star,  
+        //    // writeDate: newDate     
+        // };
+        const formData = new FormData();
+        formData.append('userId', localStorage.getItem("userID"));
+        formData.append('_id', localStorage.getItem("review_id"));
+        formData.append('title', title);
+        formData.append('region', region);
+        formData.append('typeName', typeName);
+        formData.append('monthlyRentCharge', monthlyRentCharge);
+        formData.append('adminCharge', adminCharge);
+        formData.append('merit', merit);
+        formData.append('demerit', demerit);
+        formData.append('star', star);
+        formData.append('myImage', file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         };
-
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', form).then((res) => {
-            alert("거주후기 수정 완료")
+        if(writeId == localStorage.getItem("userID")){
+            axios.post('/happyhouse/reviews/update', formData,config).then((res) => {
+                alert("거주후기 수정 완료")
+                window.location.href ='/reviews'
+            })
+        }else{
+            alert("수정 권한이 없습니다.")
             window.location.href ='/reviews'
-        })
+        }
     }
-    const deleteReview = () => {    
+    const deleteReview = () => {
+        var writeId =userId;     
          var form={
              _id : localStorage.getItem("review_id"),
          };
  
-         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/delete', form).then((res) => {
+         if(writeId == localStorage.getItem("userID")){
+            axios.post('/happyhouse/reviews/delete', form).then((res) => {
              alert("거주후기 삭제 완료")
              window.location.href ='/reviews'
-         })
+            })
+        }else{
+            alert("삭제 권한이 없습니다.")
+            window.location.href ='/reviews'
+        }
      }
+
+     const readHouse = (e) => {   //주택정보 
+        var form = {
+            danjiCode: localStorage.getItem("danjiCode") //단지code
+        };
+        axios
+            .post('/happyhouse/houseInfos/detail', form)
+            .then((res) => {
+
+                console.log(res.data);
+                setAddress(res.data.houseInfo.address);
+                setHouseType(res.data.houseInfo.houseType);
+                setDanjiName(res.data.houseInfo.danjiName);
+                setSidoName(res.data.houseInfo.sidoName);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+      }
     return (
         <div>
             <React.Fragment>
@@ -195,13 +243,13 @@ function ReadReview(props) {
                         <div class="write-modal-info">
 <div class="review-item-title">
 <a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
-봉천동 964-25
+{danjiName}
 </a>
 <p class="address">
-서울특별시 관악구 봉천동 964-25
+{address}
 </p>
 <span class="badge">행복주택</span>
-<span class="badge">아파트</span>
+<span class="badge">{houseType}</span>
 </div>
 </div>
 

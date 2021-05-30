@@ -116,7 +116,7 @@ const Communities = (props) => {
 
                 <div className="search-button-group">
                     <select id="community-search-option">
-                        <option>최신순</option>
+                        <option>제목</option>
                     </select>
                     <input id="community-search" value=""></input>
                     <button id="community-upload" className={"createCommunityButton"}>UPLOAD</button>
