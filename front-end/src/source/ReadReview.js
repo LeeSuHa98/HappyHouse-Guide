@@ -44,6 +44,12 @@ function ReadReview(props) {
     const [modalInput, setModalInput] = useState("default");
     const [tableData, setTableData] = useState(); //댓글 목록 조회
     const [isReadOnly, setIsReadOnly] = useState(true); //댓글 수정활성화
+   
+    const [address,setAddress] = useState()
+    const [danjiName,setDanjiName] = useState()
+    const [houseType,setHouseType] = useState()
+    const [sidoName,setSidoName] = useState()
+   
     let $imagePreview = null;
     const handleChangeTitle = (e) => {
         e.preventDefault();
@@ -112,7 +118,7 @@ function ReadReview(props) {
             _id: localStorage.getItem("review_id") //거주후기 id
         };
         axios
-            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/detail', form)
+            .post('/happyhouse/reviews/detail', form)
             .then((res) => {
 
                 console.log(res.data);
