@@ -97,9 +97,6 @@ const Review =(props)=>{
         <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
         </div>
         <br></br>
-      
-
-    
     </div>
 
 

@@ -141,7 +141,7 @@ function ReadReview(props) {
 
     const updateReview = () => {
        // let newDate = new Date();
-       
+       var writeId =userId; 
         var form={
             houseId: "6063083edb67cc10cce15fc0",
             userId : localStorage.getItem("userID"),
@@ -154,24 +154,34 @@ function ReadReview(props) {
             merit : merit,
             demerit : demerit,
             picture : picture, 
-            star : star,  
-           // writeDate: newDate     
+            star : star,     
         };
-
-        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', form).then((res) => {
-            alert("거주후기 수정 완료")
+        if(writeId == localStorage.getItem("userID")){
+            axios.post('/happyhouse/reviews/update', form).then((res) => {
+                alert("거주후기 수정 완료")
+                window.location.href ='/reviews'
+            })
+        }else{
+            alert("수정 권한이 없습니다.")
             window.location.href ='/reviews'
-        })
+        }
+        
     }
-    const deleteReview = () => {    
+    const deleteReview = () => {   
+        var writeId =userId; 
          var form={
              _id : localStorage.getItem("review_id"),
          };
- 
-         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/delete', form).then((res) => {
+
+         if(writeId == localStorage.getItem("userID")){
+            axios.post('/happyhouse/reviews/delete', form).then((res) => {
              alert("거주후기 삭제 완료")
              window.location.href ='/reviews'
-         })
+            })
+        }else{
+            alert("삭제 권한이 없습니다.")
+            window.location.href ='/reviews'
+        }
      }
     return (
         <div>

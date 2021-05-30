@@ -29,7 +29,7 @@ router.post('/reply', (req, res) => {  //댓글 조회
  // communitys.find({ groupId: req.body.groupId } ,{replyStep: 1})    
  communitys.find({replyStep: 1, groupId: req.body.groupId})
   .then((communitys) => {
-    console.log(communitys);
+
     if (!communitys) return res.status(404).send({ err: 'communitys not found' });
     res.send({communitysList : communitys});
   })
@@ -39,7 +39,7 @@ router.post('/reply', (req, res) => {  //댓글 조회
 router.post('/', (req, res) => {
     
     const groupId = req.body.writeDate;
-    console.log('groupId',groupId);
+
     req.body.groupId= groupId;  
       communitys.create(req.body)
       .then(communitys => res.send(communitys))
@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
 // Create new reply
 router.post('/create', (req, res) => {
     
-    console.log(req.body);
+
     communitys.create(req.body)
     .then(communitys => res.send(communitys))
     .catch(err => res.status(500).send(err));
@@ -56,7 +56,6 @@ router.post('/create', (req, res) => {
 
 // Update by id
 router.post('/update', (req, res) => {
-    console.log('수정받은커뮤니티',req.body);
     communitys.findOneAndUpdate({_id: req.body._id},{    
       title: req.body.title,
       content: req.body.content
@@ -67,10 +66,17 @@ router.post('/update', (req, res) => {
   });
 // Delete by id
 router.post('/delete', (req, res) => {
+ 
+  console.log(req.body)
     var id = req.body._id;
-    communitys.deleteOne({_id: id})
-    .then(() => res.sendStatus(200))
-    .catch(err => res.status(500).send(err));
+    if(req.body.userId == req.body.writeId){
+      communitys.deleteOne({_id: id})
+      .then(() => res.send("게시글 삭제 완료"))
+      .catch(err => res.status(500).send(err));
+    }else{
+      res.send("삭제할 권한이 없습니다.");
+    }
+   
 });
 
 module.exports = router;
