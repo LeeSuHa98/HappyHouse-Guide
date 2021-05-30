@@ -3,7 +3,7 @@ const communitys = require('../model/community');
 
 // Find All
 router.get('/', (req, res) => {
-  communitys.find({replyStep: 0}).sort({writeDate: -1})
+  communitys.find({replyStep: 0}).sort({writeDate :-1 })
     .then((communitys) => {
       if (!communitys.length) return res.status(404).send({ err: 'communitys not found' });
       res.send({communitysList : communitys});
@@ -13,11 +13,11 @@ router.get('/', (req, res) => {
 
 // Find One by id
 router.post('/detail', (req, res) => {
-
+   // console.log('작동');
     const id = req.body._id;
     communitys.findOneById(id)    
     .then((communitys) => {
-
+   //   console.log(communitys);
       if (!communitys) return res.status(404).send({ err: 'communitys not found' });
       res.send({communitys});
     })
@@ -26,7 +26,6 @@ router.post('/detail', (req, res) => {
 router.post('/reply', (req, res) => {  //댓글 조회
 
   const groupId = req.body.groupId;
-  console.log('그룹 ID   :',groupId)
  // communitys.find({ groupId: req.body.groupId } ,{replyStep: 1})    
  communitys.find({replyStep: 1, groupId: req.body.groupId})
   .then((communitys) => {
@@ -36,24 +35,23 @@ router.post('/reply', (req, res) => {  //댓글 조회
   })
   .catch(err => res.status(500).send(err));
 });
-
 // Create new community
 router.post('/', (req, res) => {
-  //console.log('등록',req.body);
-    const groupId = req.body.groupId;
+    
+    const groupId = req.body.writeDate;
+    console.log('groupId',groupId);
     req.body.groupId= groupId;  
-    communitys.create(req.body)
-    .then(communitys => res.send(communitys))
-    .catch(err => res.status(500).send(err));
+      communitys.create(req.body)
+      .then(communitys => res.send(communitys))
+      .catch(err => res.status(500).send(err));
 });
-
 // Create new reply
 router.post('/create', (req, res) => {
     
-  console.log(req.body);
-  communitys.create(req.body)
-  .then(communitys => res.send(communitys))
-  .catch(err => res.status(500).send(err));
+    console.log(req.body);
+    communitys.create(req.body)
+    .then(communitys => res.send(communitys))
+    .catch(err => res.status(500).send(err));
 });
 
 // Update by id

@@ -4,7 +4,8 @@ import classnames from 'classnames';
 import axios from 'axios'
 import LoginKakao from './KakaoLogin';
 import GoogleLogin from './GoogleLogin';
-import './css/Login.css'
+import './css/Menubar.css';
+import './css/Login.css';
 
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');
@@ -52,10 +53,9 @@ const Login = (props) => {
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/login', form).then((res) => {
             if(res.data.token){
                 alert("환영합니다!")
-                console.log(res.data)
                 localStorage.setItem("userToken", res.data.token)
                 localStorage.setItem("userID", res.data.userID)
-                localStorage.setItem("userName",res.data.name)
+                localStorage.setItem("userName", res.data.name)
                 props.toggle()
             }
         }).catch(function (error){

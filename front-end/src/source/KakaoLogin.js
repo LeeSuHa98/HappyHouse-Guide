@@ -1,5 +1,4 @@
 import KakaoLogin from 'react-kakao-login';
-import loginK from '../Image/kakao_login.png'
 const token = '081bccbedbe006325ef66fd79eeb49e0'
 
 const LoginKakao = (props) => {
@@ -18,12 +17,16 @@ const LoginKakao = (props) => {
         token={token}
         onSuccess={result => loginSuccess(result)}
         onFailure={result => alert(result)}
-        getProfile={true}>
-
-      <div style ={{
-          color:'grey', textAlign:'left', marginLeft:'10px', border:'0'
-      }}><img src={loginK} class="kakaoImage"/></div>
-        </KakaoLogin>
+        getProfile={true}
+        style={{
+          width: '100%',
+          backgroundColor: '#fef01b',
+          borderRadius: '5px',
+          borderColor:  '#fef01b',
+          border: 0,
+          height: '40px'
+        }}
+      />
     </div>
   );
 };

@@ -2,9 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
-const fs = require('fs');
 const app = express();
-
+const fs = require('fs');
 //body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,7 +28,7 @@ var server = app.listen(8080, function () {
 });
 
 app.use('/happyhouse', require('./router/router'))
-app.use('/Image', express.static('uploads'));   //정적파일제공  app.use('/static', express.stati
+app.use('/Image', express.static('uploads'));   //정적파일제공  app.use('/static', express.static(__dirname + '/public'));  <-절대경로
 app.get('/', function (req, res) {
     res.send('Hello World!');
   });

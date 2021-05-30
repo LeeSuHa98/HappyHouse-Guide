@@ -3,9 +3,9 @@
 }
 
 .header_container {
-  height:6%;
-  background:#08080B;
-  position:fixed;
+  height: 6%;
+  background: #08080b;
+  position: fixed;
   width: 100%;
-  z-index:1;
+  z-index: 1;
 }

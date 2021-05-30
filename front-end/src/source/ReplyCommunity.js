@@ -89,11 +89,11 @@ const handReply = () => { //댓글등록
     axios
         .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/create', form)
         .then((res) => {
+            console.log(res)
             alert("댓글 작성 완료")
             window
                 .location
                 .reload();
-            props.toggle()
         })
         .catch(function (error) {
             console.log(error)

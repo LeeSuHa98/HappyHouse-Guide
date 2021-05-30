@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     FormGroup,
     Input,
@@ -10,7 +10,7 @@ import {
     CustomInput
 } from 'reactstrap';
 import axios from 'axios'
-import './css/Review.css'
+import './Review.css'
 import {Image} from 'react-bootstrap';
 import numeral from 'numeral'
 import room1 from '../Image/room1.PNG'
@@ -34,11 +34,7 @@ const CreateReview = (props) => {
     const [file, setFile] = useState()
     const [filename,setFilename] = useState()
 
-    const [address,setAddress] = useState()
-    const [danjiName,setDanjiName] = useState()
-    const [houseType,setHouseType] = useState()
-    const [sidoName,setSidoName] = useState()
-   
+
     //
     const [img,setImage] = useState(null);
 
@@ -90,6 +86,36 @@ const CreateReview = (props) => {
         e.preventDefault();
         setStar(e.target.value);
     };
+    const createReview = () => {
+         let newDate = new Date();
+        
+         var form={
+             houseId: "6063083edb67cc10cce15fc0",
+             userId : localStorage.getItem("userID"),
+             title : title, 
+             region : region,
+             typeName : typeName,
+             monthlyRentCharge : monthlyRentCharge,
+             adminCharge : adminCharge,           
+             merit : merit,
+             demerit : demerit,
+             file : file, 
+             star : star,  
+             writeDate: newDate     
+         };
+        console.log('insert : ',form);
+        //alert("  거주후기 작성 완료1"+file)
+        //  axios.post('/happyhouse/reviews', form).then((res) => {
+        //      alert("거주후기 작성 완료")
+        //      window.location.href ='/reviews'
+        //  })
+        axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews', form
+        ,{headers: {'content-type':'multipart/form-data'}}
+        ).then((res) => {
+            alert("거주후기 작성 완료")
+           // window.location.href ='/reviews'
+        })
+     }
     
      //TEST
      const onChange = (e) => {
@@ -105,18 +131,16 @@ const CreateReview = (props) => {
         setFile(e.target.files[0]);
       }
     
-      const create = (e) => {  //거주후기 등록
+      const create = (e) => {
         e.preventDefault();
         let newDate = new Date();
         
         const formData = new FormData();
-        formData.append('danjiCode', localStorage.getItem("danjiCode"));
-        formData.append('danjiName', danjiName);
+        formData.append('houseId', "6063083edb67cc10cce15fc0");
         formData.append('userId', localStorage.getItem("userID"));
         formData.append('title', title);
-        formData.append('region', sidoName);    //주택정보
-        formData.append('typeName', typeName); 
-        formData.append('houseType', houseType); //주택정보
+        formData.append('region', region);
+        formData.append('typeName', typeName);
         formData.append('monthlyRentCharge', monthlyRentCharge);
         formData.append('adminCharge', adminCharge);
         formData.append('merit', merit);
@@ -129,35 +153,15 @@ const CreateReview = (props) => {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("/happyhouse/reviews",formData,config)
+        axios.post("https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews",formData,config)
             .then((response) => {
                 alert("거주후기 등록 완료");
                 window.location.href ='/reviews'
             }).catch((error) => {
         });
       }
-      const readHouse = (e) => {   //주택정보 
-        var form = {
-            danjiCode: localStorage.getItem("danjiCode") //단지code
-        };
-        axios
-            .post('/happyhouse/houseInfos/detail', form)
-            .then((res) => {
+    //TEST
 
-                console.log(res.data);
-                setAddress(res.data.houseInfo.address);
-                setHouseType(res.data.houseInfo.houseType);
-                setDanjiName(res.data.houseInfo.danjiName);
-                setSidoName(res.data.houseInfo.sidoName);
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-      }
-      useEffect(() => {
-        readHouse(); 
-    }, [])
     return (
     <div className="dv">
 
@@ -215,13 +219,13 @@ const CreateReview = (props) => {
 <div class="write-modal-info">
 <div class="review-item-title">
 <a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
-{danjiName}
+봉천동 964-25
 </a>
 <p class="address">
-{address}
+서울특별시 관악구 봉천동 964-25
 </p>
 <span class="badge">행복주택</span>
-<span class="badge">{houseType}</span>
+<span class="badge">아파트</span>
 </div>
 </div>
 
@@ -323,17 +327,6 @@ const CreateReview = (props) => {
             rows="20"
             onChange={handlChangeTitle}
             value={title}></Input>
-
-    </div>
-    <div id="merit">
-        <div id="b">주택형</div>
-        <Input
-            name="typeName"
-            cols="50"
-            rows="20"
-            placeholder="예)40A,40B,40C"
-            onChange={handlChangeTypeName}
-            value={typeName}></Input>
 
     </div>
     <div id="merit">

@@ -3,14 +3,12 @@ var ObjectId = require('mongoose').Types.ObjectId;
 mongoose.set('useCreateIndex', true)
 // Define Schemes
 const reviewSchema = new mongoose.Schema({
-  danjiCode: { type: String, required: true },
-  danjiName: { type: String, required: true },
+  houseId: { type: String, required: true },
   userId: { type: String, required: true },
   region: { type: String, required: true },
   typeName: { type: String, required: true },
-  houseType: {type: String, required: true},
-  monthlyRentCharge: { type: String, required: true },
-  adminCharge: { type: String, required: true },
+  monthlyRentCharge: { type: Number, required: true },
+  adminCharge: { type: Number, required: true },
   title: { type: String, required: true },
   merit: { type: String, required: true },
   demerit: { type: String, required: true },
@@ -35,7 +33,6 @@ reviewSchema.statics.findOrderByDate = function () {
 reviewSchema.statics.findOrderByStar = function () {
   return this.find().sort({star: -1});
 };
-
 
 reviewSchema.statics.findByUserId = function (userId) {
     return this.find({"userId" : userId});

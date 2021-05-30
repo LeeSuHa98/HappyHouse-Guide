@@ -12,19 +12,16 @@ const reviews = require('../model/reviews');
  });
    const upload =multer({storage: storage});
 //https://gngsn.tistory.com/40 multer s3
-
    router.post('/', upload.single('myImage'),(req,res,next)=>{
-      console.log(req.body);
+ 
      let image = 'http://localhost:8080/Image/' + req.file.filename;
 
      let review = new reviews({
-      danjiCode: req.body.danjiCode,
-      danjiName: req.body.danjiName,
+      houseId: req.body.houseId,
       userId: req.body.userId,
       title: req.body.title,
       region: req.body.region,
       typeName: req.body.typeName,
-      houseType: req.body.houseType,
       monthlyRentCharge: req.body.monthlyRentCharge,
       adminCharge: req.body.adminCharge,
       merit: req.body.merit,
@@ -34,55 +31,29 @@ const reviews = require('../model/reviews');
       picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
     });
+    console.log(req.body)
     review.save()
     .then((result) => {
       console.log(result);
       res.status(201).json(result);
   });
    })
-// Find One by id
-router.get('/:id', (req, res) => {
-  reviews.findOneById(req.params.id)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
 
-router.get('/houseid/:id', (req, res) => {
-
-  // reviews.findByHouseId(req.params.id)
-  reviews.find({danjiCode: req.params.id})
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
-
-router.get('/userid/:id', (req, res) => {
- 
-  reviews.findByUserId(req.params.id)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
-
-router.get('/:houseid/:userid', (req, res) => {
-  reviews.findByUserIdAndHouseId(req.params.houseid,req.params.userid)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
+// Find All
 router.get('/', (req, res) => {
   
 
-  reviews.findOrderByDate()
+    reviews.findOrderByDate()
+    .then((reviews) => {
+      if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+      res.send({reviewList : reviews});
+    
+    })
+    .catch(err => res.status(500).send(err));
+});
+router.get('/star', (req, res) => { 
+
+  reviews.findOrderByStar()
   .then((reviews) => {
     if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
     res.send({reviewList : reviews});
@@ -90,16 +61,45 @@ router.get('/', (req, res) => {
   })
   .catch(err => res.status(500).send(err));
 });
-router.post('/star', (req, res) => { 
 
-reviews.findOrderByStar()
-.then((reviews) => {
-  if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
-  res.send({reviewList : reviews});
-
-})
-.catch(err => res.status(500).send(err));
+// Find One by id
+router.get('/:id', (req, res) => {
+    reviews.findOneById(req.params.id)
+    .then((reviews) => {
+      if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+      res.send({reviews});
+    })
+    .catch(err => res.status(500).send(err));
 });
+
+router.get('/houseid/:id', (req, res) => {
+    reviews.findByHouseId(req.params.id)
+    .then((reviews) => {
+      if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+      res.send({reviews});
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+router.get('/userid/:id', (req, res) => {
+    reviews.findByUserId(req.params.id)
+    .then((reviews) => {
+      if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+      res.send({reviews});
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+router.get('/:houseid/:userid', (req, res) => {
+    reviews.findByUserIdAndHouseId(req.params.houseid,req.params.userid)
+    .then((reviews) => {
+      if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+      res.send({reviews});
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+
 // Find One by id
 router.post('/detail', (req, res) => {
   
@@ -112,11 +112,14 @@ router.post('/detail', (req, res) => {
   })
   .catch(err => res.status(500).send(err));
 });
+// router.post('/create', upload.single('profile_img'), function (req, res, next) {
+//   console.log(req.body);
+//   console.log(req.file);
+//   console.log(req.file.filename);
+// })
 
-
-// Update by id 
-router.post('/update',  upload.single('myImage'),(req,res,next)=> {
-  let image = 'http://localhost:8080/Image/' + req.file.filename;
+// Update by id
+router.post('/update', (req, res) => {
   console.log('수정받은거주후기',req.body);
   reviews.findOneAndUpdate({_id: req.body._id},{    
     title: req.body.title,
@@ -126,7 +129,7 @@ router.post('/update',  upload.single('myImage'),(req,res,next)=> {
     adminCharge: req.body.adminCharge,    
     merit : req.body.merit,
     demerit: req.body.demerit,
-    picture: image,
+    picture: req.body.picture,
     star: req.body.star
   } 
 ).then(reviews => res.send(reviews))
@@ -140,49 +143,6 @@ router.post('/delete', (req, res) => {
     reviews.deleteOne({_id: id})
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).send(err));
-});
-
-
-
-
-
-
-
-// 기본 rest api 용 url
-router.get('/:id', (req, res) => {
-  reviews.findOneById(req.params.id)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
-
-router.get('/houseid/:id', (req, res) => {
-  reviews.findByHouseId(req.params.id)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
-
-router.get('/userid/:id', (req, res) => {
-  reviews.findByUserId(req.params.id)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
-});
-
-router.get('/:houseid/:userid', (req, res) => {
-  reviews.findByUserIdAndHouseId(req.params.houseid,req.params.userid)
-  .then((reviews) => {
-    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-    res.send({reviews});
-  })
-  .catch(err => res.status(500).send(err));
 });
 
 module.exports = router;
