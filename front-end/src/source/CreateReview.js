@@ -10,7 +10,7 @@ import {
     CustomInput
 } from 'reactstrap';
 import axios from 'axios'
-import './Review.css'
+import './css/Review.css'
 import {Image} from 'react-bootstrap';
 import numeral from 'numeral'
 import room1 from '../Image/room1.PNG'
