@@ -17,11 +17,13 @@ const reviews = require('../model/reviews');
      let image = 'http://localhost:8080/Image/' + req.file.filename;
 
      let review = new reviews({
-      houseId: req.body.houseId,
+      danjiCode: req.body.danjiCode,
+      danjiName: req.body.danjiName,
       userId: req.body.userId,
       title: req.body.title,
       region: req.body.region,
       typeName: req.body.typeName,
+      houseType: req.body.houseType,
       monthlyRentCharge: req.body.monthlyRentCharge,
       adminCharge: req.body.adminCharge,
       merit: req.body.merit,
@@ -51,7 +53,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
-router.get('/star', (req, res) => { 
+router.post('/star', (req, res) => { 
 
   reviews.findOrderByStar()
   .then((reviews) => {
@@ -73,12 +75,12 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/houseid/:id', (req, res) => {
-    reviews.findByHouseId(req.params.id)
-    .then((reviews) => {
-      if (!reviews) return res.status(404).send({ err: 'reviews not found' });
-      res.send({reviews});
-    })
-    .catch(err => res.status(500).send(err));
+  reviews.find({danjiCode: req.params.id})
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
 });
 
 router.get('/userid/:id', (req, res) => {
@@ -119,8 +121,8 @@ router.post('/detail', (req, res) => {
 // })
 
 // Update by id
-router.post('/update', (req, res) => {
-  console.log('수정받은거주후기',req.body);
+router.post('/update',  upload.single('myImage'),(req,res,next)=> {
+  let image = 'http://localhost:8080/Image/' + req.file.filename;
   reviews.findOneAndUpdate({_id: req.body._id},{    
     title: req.body.title,
     region : req.body.region,
@@ -129,7 +131,7 @@ router.post('/update', (req, res) => {
     adminCharge: req.body.adminCharge,    
     merit : req.body.merit,
     demerit: req.body.demerit,
-    picture: req.body.picture,
+    picture: image,
     star: req.body.star
   } 
 ).then(reviews => res.send(reviews))

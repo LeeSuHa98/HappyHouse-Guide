@@ -139,17 +139,23 @@ const readReply = () => { //댓글 목록 조회
             console.log(error);
         })
     }
-const deleteCommunity = () => { //게시글 삭제
-    var form = {
-        _id: modalInput
-    };
-    axios
-        .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
-        .then((res) => {
-            // alert("댓글 삭제 완료");
-            window.location.href = '/communities'
-        })
-}
+    const deleteCommunity = () => { //게시글 삭제
+        var form = {
+            _id: localStorage.getItem("community_id"),
+            userId: localStorage.getItem("userID"),
+            writeId: userId
+        };
+        axios
+            .post('/happyhouse/communities/delete', form)
+            .then((res) => {
+                alert(res.data);
+                window.location.reload();
+                window.location.href = '/communities'
+               
+            }).catch(function (error){
+      
+            })
+    }
 const deleteReply = () => { //댓글 삭제
     var form = {
         _id: modalInput
@@ -161,7 +167,18 @@ const deleteReply = () => { //댓글 삭제
             window.location.href = '/communities/reply'
         })
 }
+const readCommunityDetail = () => { //게시글 수정
+    var writeId =userId;
 
+    if(writeId == localStorage.getItem("userID")){
+        window.location.href ='/communities/detail'
+    }else{
+        alert("수정 권한이 없습니다.")
+        window.location.reload();
+        window.location.href = '/communities'
+    }
+  
+}
 useEffect(() => {
 
     readCommunity(); //게시글 상세조회
@@ -182,29 +199,7 @@ useEffect(() => {
                deleteReply();
            }
         })     
-        $(".deleteCommunity").on("click", function () {  //댓글 삭제
-
-            var Button = $(this);
-
-            var ul = Button.parent();
-            var td = ul.children();
-            setModalInput(td.eq(0).text());
-           console.log(modalInput);
-           if(modalInput !=0){
-               deleteCommunity();
-           }
-        })   
-          $(".readCommunityDetail").on("click", function () {
-
-            var Button = $(this);
-            var ul = Button.parent();
-            var td = ul.children();
-            setModalInput(td.eq(0).text());
-            localStorage.setItem("community_id",modalInput);
-            if(localStorage.getItem("community_id")!="0"){
-                window.location.href ='/communities/detail'
-            }
-        })
+         
     })
 
 
@@ -222,11 +217,11 @@ useEffect(() => {
                 <div class="community-block">
                 <ul class="status">
                <td className="id">{_id}</td>            
-                <li className={"deleteCommunity"}>삭제</li>
+               <li onClick={deleteCommunity}>삭제</li>
             </ul>
             <ul class="status">
             <td className="id">{_id}</td>            
-                <li className={"readCommunityDetail"}>수정</li>
+            <li onClick={readCommunityDetail}>수정</li>
             </ul>
                     <td id="header">
                         <h4>

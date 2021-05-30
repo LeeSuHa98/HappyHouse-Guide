@@ -110,7 +110,7 @@ const SideBar = (props) => {
   
   // var reviewCnt = 0;
   function loadReview (code) {
-    var url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${code}`
+    var url = `/happyhouse/reviews/houseid/${code}`
     
       axios.get(url).then(({data}) => {
       data = data.reviews
@@ -212,7 +212,8 @@ const SideBar = (props) => {
                       <div id = "houseInfoSection4">
                         <div class = "test2">
                         <div>거주후기</div>
-                        <button id = "moreReview" onClick = {()=>{window.location.href ='/reviews'}}>더보기</button>
+                        <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews/create'}}>거주후기 작성</button>
+                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button>
 
                         <ul className = "rt">
                           {review_list}
