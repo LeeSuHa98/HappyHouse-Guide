@@ -67,6 +67,12 @@ houseInfoSchema.statics.findByDanjiCode = function (danjiCode) {
   return this.findOne({"danjiCode" : danjiCode});
 };
 
+// Find TypeName
+houseInfoSchema.statics.findTypeName = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode},{_id:0, typeName:1});
+};
+
+
 // Update by id
 houseInfoSchema.statics.updateById = function (_id, payload) {
   // { new: true }: return the modified document rather than the original. defaults to false

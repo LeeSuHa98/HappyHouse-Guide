@@ -33,10 +33,8 @@ const reviews = require('../model/reviews');
       picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
 
     });
-    console.log(req.body)
     review.save()
     .then((result) => {
-      console.log(result);
       res.status(201).json(result);
   });
    })

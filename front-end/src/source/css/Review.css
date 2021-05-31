@@ -54,7 +54,25 @@
     align-items: center;
 
 }
+#review-search-typeName{
 
+  padding-left:5px;
+  font-family: 'Nanum Barun Gothic', sans-serif;
+  font-size:12px;
+  width: 26%;
+  height: 40px;
+  background: 0 0;
+  border: 1px solid #d8dade;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #363b44;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 14px;
+
+  align-items: center;
+
+}
 #b{font-weight: 950;
   font-size:12px;
 }
@@ -69,7 +87,7 @@
     font-size:12px;
 }
 
-#demerit{
+#merit,#demerit{
   margin-top:10px;
 }
 
