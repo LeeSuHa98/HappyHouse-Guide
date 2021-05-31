@@ -23,7 +23,7 @@ const CreateReview = (props) => {
     const [monthlyRentCharge, setMonthlyRentCharge] = useState()
     const [adminCharge, setAdminCharge] = useState()
     const [region, setRegion] = useState()
-    const [typeName, setTypeName] = useState()
+    const [typeName, setTypeName] = useState("전체")
     const [merit, setMerit] = useState()
     const [demerit, setDemerit] = useState()
     const [picture, setPicture] = useState()
@@ -31,7 +31,7 @@ const CreateReview = (props) => {
     const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
     const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
-    const [file, setFile] = useState()
+    const [file, setFile] = useState(0)
     const [filename,setFilename] = useState()
 
     const [address,setAddress] = useState()
@@ -106,34 +106,61 @@ const CreateReview = (props) => {
     
       const create = (e) => {
         e.preventDefault();
-        let newDate = new Date();
-        
-        const formData = new FormData();
-        formData.append('danjiCode', localStorage.getItem("danjiCode"));
-        formData.append('danjiName', danjiName);
-        formData.append('userId', localStorage.getItem("userID"));
-        formData.append('title', title);
-        formData.append('region', sidoName);    //주택정보
-        formData.append('typeName', typeName); 
-        formData.append('houseType', houseType); //주택정보
-        formData.append('monthlyRentCharge', monthlyRentCharge);
-        formData.append('adminCharge', adminCharge);
-        formData.append('merit', merit);
-        formData.append('demerit', demerit);
-        formData.append('star', star);
-        formData.append('writeDate', newDate);
-        formData.append('myImage', file);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("/happyhouse/reviews",formData,config)
+        let newDate = new Date();        
+       
+        if(file !=0){
+            const formData = new FormData();
+            formData.append('danjiCode', localStorage.getItem("danjiCode"));
+            formData.append('danjiName', danjiName);
+            formData.append('userId', localStorage.getItem("userID"));
+            formData.append('title', title);
+            formData.append('region', sidoName);    //주택정보
+            formData.append('typeName', typeName); 
+            formData.append('houseType', houseType); //주택정보
+            formData.append('monthlyRentCharge', monthlyRentCharge);
+            formData.append('adminCharge', adminCharge);
+            formData.append('merit', merit);
+            formData.append('demerit', demerit);
+            formData.append('star', star);
+            formData.append('writeDate', newDate);
+            formData.append('myImage', file);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            };
+
+            axios.post("/happyhouse/reviews",formData,config)
             .then((response) => {
                 alert("거주후기 등록 완료");
                 window.location.href ='/reviews'
             }).catch((error) => {
         });
+        }else{
+            var form={
+                danjiCode: localStorage.getItem("danjiCode"),
+                danjiName : danjiName,
+                userId : localStorage.getItem("userID"),
+                title : title,
+                region: sidoName,
+                typeName: typeName,
+                houseType: houseType,
+                monthlyRentCharge: monthlyRentCharge,
+                adminCharge: adminCharge,
+                merit: merit,
+                demerit: demerit,
+                star: star,
+                writeDate: newDate
+            };
+
+            axios.post("/happyhouse/reviews/create",form)
+            .then((res) => {
+                alert("거주후기 등록 완료");
+                window.location.href ='/reviews'
+            }).catch((error) => {
+        });
+        }
+        
       }
     //TEST
     const readHouse = (e) => {   //주택정보 
@@ -249,6 +276,7 @@ const CreateReview = (props) => {
     <div id="merit">
         <div id="b">주택형</div>
         <select id = "review-search-typeName"  onChange={handlChangeTypeName}>
+        <option>전체</option>
                         {typeName_List}
                     </select>
 
