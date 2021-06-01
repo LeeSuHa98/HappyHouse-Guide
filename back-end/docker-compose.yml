@@ -16,13 +16,10 @@ services:
       - log-data:/var/log/server
     networks:
       - elk
-    depends_on:
-      - logstash
 
 networks:
   elk:
     driver: bridge
 
 volumes:
-  elasticsearch:
   log-data:
