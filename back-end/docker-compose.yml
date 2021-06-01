@@ -1,0 +1,27 @@
+version: "3.2"
+
+services:
+  app:
+    build:
+      context: ./src
+    volumes:
+      - log-data:/app/config/logs
+    ports:
+      - "8080:8080"
+
+  filebeat:
+    build:
+      context: ./filebeat
+    volumes:
+      - log-data:/var/log/server
+    networks:
+      - elk
+    depends_on:
+      - logstash
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  log-data:

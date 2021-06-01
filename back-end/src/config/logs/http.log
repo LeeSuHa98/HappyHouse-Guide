@@ -1,0 +1,1 @@
+{"level":"info","message":"::1 - - [01/Jun/2021:10:12:27 +0000] \"GET /happyhouse/houseInfos HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36\"\n","label":"http","timestamp":"2021-06-01T19:12:14+09:00"}
