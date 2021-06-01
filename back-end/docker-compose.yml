@@ -5,7 +5,7 @@ services:
     build:
       context: ./app
     volumes:
-      - log-data:/config/logs
+      - log-data:/usr/src/app/config/logs
     ports:
       - "8080:8080"
 
