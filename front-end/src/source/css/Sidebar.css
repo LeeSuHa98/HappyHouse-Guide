@@ -184,6 +184,7 @@
   width: 100%;
 }
 
+
 .rt {
   width: 95%;
   list-style: none;
@@ -235,6 +236,15 @@
   border: solid 2px rgba(44, 93, 133, 0.459);
   font-size: 8px;
   height: 30px;
+}
+
+.rev-content{
+  width:100%;
+}
+
+#reviewImg{
+  width:100%;
+  height:250px;
 }
 
 /* CharBot */

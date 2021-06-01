@@ -3,15 +3,20 @@ import Moment from 'react-moment'
 import HappyChart from './Chart';
 import numeral from 'numeral'
 import axios from 'axios';
-import { Spinner } from 'reactstrap';
+import Slider from "react-slick";
+import { FormText, Spinner } from 'reactstrap';
 
 import './css/Sidebar.css';
 
 import undo from '../Image/undo.png'
 import like1 from '../Image/like.png'
 import like2 from '../Image/like-toggle.png'
-import room4 from '../Image/room4.PNG'
 import star from '../Image/star.png'
+
+
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 
 
 const SideBar = (props) => {
@@ -19,17 +24,17 @@ const SideBar = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [typeIndex, SetTypeIndex] = useState(0)
     const [isLike, setIsLike] = useState(false);
-
     
     useEffect(() => {
       loadDibsData(props.houseDetail.danjiCode)
       loadReview(props.houseDetail.danjiCode)
+
+      setReview1(null)
+      setReview2(null)
+      setPicture(null)
     },[props.houseDetail.danjiCode])
 
     function loadDibsData (code) {
-      
-      console.log(code)
-
       setIsLoading(true)
       var userId = localStorage.getItem("userID")
       
@@ -63,7 +68,6 @@ const SideBar = (props) => {
         setIsLike(true)
         
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', insertForm).then((res) => {
-          alert("좋아요")
         // window.location.reload();
         }).catch(function (error){
         console.log(error)  
@@ -75,7 +79,6 @@ const SideBar = (props) => {
         setIsLike(false)
         
         axios.delete('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/dibs', {data:deleteForm}).then((res) => {
-          alert("좋아요  취소")
         // window.location.reload();
         }).catch(function (error){
         console.log(error)  
@@ -93,31 +96,66 @@ const SideBar = (props) => {
     }
 
   // review
-  const [review_list, setReviewList] = useState();
+  const [review1, setReview1] = useState([]);
+  const [review2,setReview2] = useState([]);
+
+  const [isMore3, setIsMore3] = useState(false)
+  const [pictureSrc, setPicture] = useState([]);
+
+
+  var count = 0;
+  function loadReview (code) {
+    
+    var url = `/happyhouse/reviews/houseid/${code}`
+    
+      axios.get(url).then(({data}) => {
+        count = data.reviews.length; // 해당 주택 리뷰 개수        
+        
+        if(count > 3){
+          // setReview2(data.reviews.map(reviews))
+          setReview2(data.reviews.map(reviews))
+          setPicture(data.reviews.map(pictureSource))
+          setIsMore3(true)
+        }
+        else{
+        setReview1(data.reviews.map(reviews))  
+        setIsMore3(false)
+        }
+      })
+  }
 
   const reviews = (review) => (
     <li id="li-reivew">
       <div class = "rev-title">
         <div id="rev-title1">{review.title}</div>
-        <div id= "rev-title2"><img src={star} className="starImg" />{review.star}.0</div>
+        <div id= "rev-title2"><img src={star} className="starImg" />{review.star}</div>
       </div>
-      <div class ="rev-content">
-        <div>장점 : {review.merit}</div>
-        <div>단점 : {review.merit}</div>
-      </div>
-    </li>
+    </li>    
   );
-  
-  // var reviewCnt = 0;
-  function loadReview (code) {
-    var url = `/happyhouse/reviews/houseid/${code}`
-    
-      axios.get(url).then(({data}) => {
-      data = data.reviews
-      setReviewList(data.map(reviews))
-      })
-  }
 
+  const pictureSource = (review) => (
+    <div>
+    <img src={review.picture} id="reviewImg"></img>
+    </div>
+  );
+ 
+
+  function makeCarousel(){
+      const settings = {
+        dots: false,
+        infinite: true,
+        speed: 150,
+        autoplay:true,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      };
+      return (
+          <Slider {...settings}>
+            {pictureSrc}
+          </Slider>
+      );
+
+  }
 
   return (
     <div className="side-bar-wrap">
@@ -148,7 +186,13 @@ const SideBar = (props) => {
                                                                     
               <div className="content">
                 <div className = "imageSection">
-                  <img src={room4} id="roomImage"></img> 
+                 {
+                   pictureSrc != null
+                   ?
+                   makeCarousel()
+                   :
+                   <div></div>
+                 }
                 </div>
 
                 <div id = "houseInfoSection1">
@@ -210,18 +254,34 @@ const SideBar = (props) => {
                     </div>
                       
                       <div id = "houseInfoSection4">
-                        <div class = "test2">
-                        <div>거주후기</div>
-                        <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews/create'}}>거주후기 작성</button>
-                      <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button>
-
-                        <ul className = "rt">
-                          {review_list}
-                        </ul>
+                        <div class = "test2">거주후기
+                          <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews/create'}}>거주후기 작성</button>
+                          <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button>
+                      </div>
                       
+                      <div>
+                      
+                      <div>
+                        {
+                          isMore3
+                          ?
+                          <ul class="rt">
+                            {review2}
+                          </ul>
+                          :
+                          <ul class = "rt">
+                            {review1}
+                          </ul>
+                        }
+                      </div>
+                                           
+                      </div>
+                        
+                        
+                                          
                         </div>
                       </div>
-                </div>
+                
           }
         </div>
   );
