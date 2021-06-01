@@ -79,8 +79,8 @@ const Menubar = (props) => {
             <div class="top-header-right">
                 <ul>
                 <li id="hoverTest"><a onClick = {()=>{window.location.href ='/'}}>Home<span> </span></a></li>
-                    <li id="hoverTest"><a onClick = {()=>{window.location.href ='/reviews'}}>Review<span> </span></a></li>
-                    <li id="hoverTest"><a onClick = {()=>{window.location.href ='/communities'}}>Community</a><span> </span></li>
+                    <li id="hoverTest"><a onClick = {()=>{localStorage.setItem("page",1);window.location.href ='/reviews'}}>Review<span> </span></a></li>
+                    <li id="hoverTest"><a onClick = {()=>{localStorage.setItem("page",1);window.location.href ='/communities'}}>Community</a><span> </span></li>
                     <li id="hoverTest"> {
                         isLogin === true?
                         <div className = "user-container">

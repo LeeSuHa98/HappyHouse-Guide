@@ -2,15 +2,29 @@ const router = require('express').Router();
 const communitys = require('../model/community');
 
 // Find All
-router.get('/', (req, res) => {
-  communitys.find({replyStep: 0}).sort({writeDate :-1 })
+// router.get('/', (req, res) => {
+//   var pageNumber =1;
+//   var nPerPage =10;
+//   communitys.find({replyStep: 0}).sort({writeDate :-1 }).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+//   .limit( nPerPage )
+//     .then((communitys) => {
+//       if (!communitys.length) return res.status(404).send({ err: 'communitys not found' });
+//       res.send({communitysList : communitys});
+//     })
+//     .catch(err => res.status(500).send(err));
+// });
+router.post('/page', (req, res) => {
+  const pageNumber = req.body.page;
+  var nPerPage =2;
+  communitys.find({replyStep: 0}).sort({writeDate :-1 }).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+  .limit( nPerPage )
     .then((communitys) => {
+      
       if (!communitys.length) return res.status(404).send({ err: 'communitys not found' });
       res.send({communitysList : communitys});
     })
     .catch(err => res.status(500).send(err));
 });
-
 // Find One by id
 router.post('/detail', (req, res) => {
    // console.log('작동');

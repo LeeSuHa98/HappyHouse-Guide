@@ -28,12 +28,16 @@ reviewSchema.statics.create = function (payload) {
 };
 
 // 최신순 정렬
-reviewSchema.statics.findOrderByDate = function () {
-  return this.find().sort({writeDate: -1});
+reviewSchema.statics.findOrderByDate = function (pageNumber) {
+  var nPerPage =2;
+  return this.find().sort({writeDate: -1}).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+  .limit( nPerPage );
 };
 // 별점순 정렬
-reviewSchema.statics.findOrderByStar = function () {
-  return this.find().sort({star: -1});
+reviewSchema.statics.findOrderByStar = function (pageNumber) {
+  var nPerPage =2;
+  return this.find().sort({star: -1}).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+  .limit( nPerPage );
 };
 
 reviewSchema.statics.findByUserId = function (userId) {

@@ -64,10 +64,12 @@ const reviews = require('../model/reviews');
  });
   })
 // Find All
-router.get('/', (req, res) => {
-  
+router.post('/date', (req, res) => {
+  const pageNumber = req.body.page;
 
-    reviews.findOrderByDate()
+ 
+
+    reviews.findOrderByDate(pageNumber)
     .then((reviews) => {
       if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
       res.send({reviewList : reviews});
@@ -76,8 +78,8 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 router.post('/star', (req, res) => { 
-
-  reviews.findOrderByStar()
+  const pageNumber = req.body.page;
+  reviews.findOrderByStar(pageNumber)
   .then((reviews) => {
     if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
     res.send({reviewList : reviews});
