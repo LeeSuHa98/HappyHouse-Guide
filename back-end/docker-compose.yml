@@ -3,9 +3,9 @@ version: "3.2"
 services:
   app:
     build:
-      context: ./src
+      context: ./app
     volumes:
-      - log-data:/app/config/logs
+      - log-data:/config/logs
     ports:
       - "8080:8080"
 
