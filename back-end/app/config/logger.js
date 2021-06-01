@@ -18,7 +18,7 @@ const httpLogger = createLogger({ // NOTE: http status 로그를 남기기 위�
     format.json()
   ),
   transports: [
-    new transports.File({ filename: path.join(__dirname, 'logs', date.format('YYYY-MM-DD'), 'http.log') }),
+    new transports.File({ filename: path.join(__dirname, './logs')}),
   ],
 });
 
