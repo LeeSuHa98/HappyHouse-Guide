@@ -27,11 +27,13 @@ const Review =(props)=>{
         {            
            // setOption(0);
             localStorage.setItem("option", 0)
-           // readReview();
+            
+         readReview();
         }else{
           //  setOption(1);
             localStorage.setItem("option", 1)
-            //readReviewStar();
+           
+            readReviewStar();
         }
     }
     const [page, setPage] =useState(1);
@@ -39,7 +41,7 @@ const Review =(props)=>{
         e.preventDefault();
         setPage(e.target.value);
         localStorage.setItem("page",1);
-        window.location.reload();
+      //  window.location.reload();
         if(localStorage.getItem("option") == 1){
       
             readReviewStar();
@@ -52,7 +54,7 @@ const Review =(props)=>{
         e.preventDefault();
         setPage(e.target.value);
         localStorage.setItem("page",2);
-        window.location.reload();
+     //   window.location.reload();
         if(localStorage.getItem("option") == 1){
       
             readReviewStar();
@@ -62,7 +64,7 @@ const Review =(props)=>{
         e.preventDefault();
         setPage(e.target.value);
         localStorage.setItem("page",3);
-        window.location.reload();
+    //    window.location.reload();
         if(localStorage.getItem("option") == 1){
       
             readReviewStar();
@@ -72,7 +74,7 @@ const Review =(props)=>{
         e.preventDefault();
         setPage(e.target.value);
         localStorage.setItem("page",4);
-        window.location.reload();
+     //   window.location.reload();
         if(localStorage.getItem("option") == 1){
       
             readReviewStar();
@@ -82,7 +84,7 @@ const Review =(props)=>{
         e.preventDefault();
         setPage(e.target.value);
         localStorage.setItem("page",5);
-        window.location.reload();
+    //    window.location.reload();
         if(localStorage.getItem("option") == 1){
       
             readReviewStar();
@@ -241,13 +243,13 @@ const Review =(props)=>{
 
             <div id="center">
                     <div class="pagination">
-                    <a onClick={pageChange1}>&laquo;</a>
-                    <a onClick={pageChange1}>1</a>
-                    <a onClick={pageChange2}>2</a>
-                    <a onClick={pageChange3}>3</a>
-                    <a onClick={pageChange4}>4</a>
-                    <a onClick={pageChange5}>5</a>
-                    <a onClick={pageChange5}>&raquo;</a>
+                    <a href="#" onClick={pageChange1}>&laquo;</a>
+                    <a href="#" onClick={pageChange1}>1</a>
+                    <a href="#" onClick={pageChange2}>2</a>
+                    <a href="#" onClick={pageChange3}>3</a>
+                    <a href="#" onClick={pageChange4}>4</a>
+                    <a href="#" onClick={pageChange5}>5</a>
+                    <a href="#" onClick={pageChange5}>&raquo;</a>
                     </div>
             </div>
 
