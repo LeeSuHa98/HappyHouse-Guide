@@ -3,7 +3,7 @@ version: "3.2"
 services:
   app:
     build:
-      context: ./app
+      context: ./src
     volumes:
       - log-data:/app/config/logs
     ports:
