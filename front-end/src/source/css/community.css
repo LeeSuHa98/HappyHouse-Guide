@@ -135,8 +135,8 @@
   .community-content{
       margin-top:10px;
       font-family: 'Nanum Barun Gothic', sans-serif;
-      border:1px gray solid;
-      height:200px;
+      border:0.5px gray solid;
+      height:100px;
       border-radius: 3px;
   }
   
@@ -292,4 +292,8 @@
 
 .create_container{
   padding: 15px;
+}
+.page{
+  background: #ffff;
+  border: 0;
 }

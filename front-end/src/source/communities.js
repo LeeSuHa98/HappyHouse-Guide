@@ -18,6 +18,44 @@ const Communities = (props) => {
     const toggleReadCommunity = () => setModalReadCommunity(!modalReadCommunity);
 
     const [activityHistoryList, setActivityHistoryList] = useState();
+    const [page, setPage] =useState(1);
+    const pageChange1 = (e) => {
+        e.preventDefault();
+        setPage(e.target.value);
+        localStorage.setItem("page",1);
+        window.location.reload();
+        readActivityHistory();
+       
+    };
+    const pageChange2 = (e) => {
+        e.preventDefault();
+        setPage(e.target.value);
+        localStorage.setItem("page",2);
+        window.location.reload();
+        readActivityHistory();
+    };
+    const pageChange3 = (e) => {
+        e.preventDefault();
+        setPage(e.target.value);
+        localStorage.setItem("page",3);
+        window.location.reload();
+        readActivityHistory();
+    };
+    const pageChange4 = (e) => {
+        e.preventDefault();
+        setPage(e.target.value);
+        localStorage.setItem("page",4);
+        window.location.reload();
+        readActivityHistory();
+    };
+    const pageChange5 = (e) => {
+        e.preventDefault();
+        setPage(e.target.value);
+        localStorage.setItem("page",5);
+        window.location.reload();
+        readActivityHistory();
+    };
+    
 
     const communityList = (community) => (
 
@@ -56,10 +94,24 @@ const Communities = (props) => {
         </li>
     );
 
+    // function readActivityHistory() {
+    //     axios
+    //         .get('/happyhouse/communities')
+    //         .then(({data}) => {
+    //             console.log(page);
+    //             data = data.communitysList
+    //             setActivityHistoryList(data.map(communityList))
+
+    //         })
+    // }
     function readActivityHistory() {
+        var form={
+           page: localStorage.getItem("page")
+        };
         axios
-            .get('/happyhouse/communities')
+            .post('/happyhouse/communities/page',form)
             .then(({data}) => {
+                console.log(page);
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))
 
@@ -128,13 +180,17 @@ const Communities = (props) => {
 
             <div id="center">
                 <div class="pagination">
-                    <a href="#">&laquo;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">&raquo;</a>
+                  
+                   
+                    <a onClick={pageChange1}>&laquo;</a>
+                    <a onClick={pageChange1}>1</a>
+                    <a onClick={pageChange2}>2</a>
+                    <a onClick={pageChange3}>3</a>
+                    <a onClick={pageChange4}>4</a>
+                    <a onClick={pageChange5}>5</a>
+                    <a onClick={pageChange5}>&raquo;</a>
+                               
+                  
                 </div>
             </div>
 
