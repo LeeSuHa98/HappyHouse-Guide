@@ -5,7 +5,7 @@ services:
     build:
       context: ./app
     volumes:
-      - log-data:/app/logs
+      - log-data:/app/config/logs
     ports:
       - "8080:8080"
 
