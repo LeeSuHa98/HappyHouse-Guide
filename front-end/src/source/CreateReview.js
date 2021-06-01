@@ -23,7 +23,7 @@ const CreateReview = (props) => {
     const [monthlyRentCharge, setMonthlyRentCharge] = useState()
     const [adminCharge, setAdminCharge] = useState()
     const [region, setRegion] = useState()
-    const [typeName, setTypeName] = useState()
+    const [typeName, setTypeName] = useState("전체")
     const [merit, setMerit] = useState()
     const [demerit, setDemerit] = useState()
     const [picture, setPicture] = useState()
@@ -31,7 +31,7 @@ const CreateReview = (props) => {
     const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
     const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
-    const [file, setFile] = useState()
+    const [file, setFile] = useState(0)
     const [filename,setFilename] = useState()
 
     const [address,setAddress] = useState()
@@ -39,6 +39,7 @@ const CreateReview = (props) => {
     const [houseType,setHouseType] = useState()
     const [sidoName,setSidoName] = useState()
 
+    const [typeName_List, setTypeNameList] = useState();  //TYPENAME
     //
     const [img,setImage] = useState(null);
 
@@ -90,9 +91,6 @@ const CreateReview = (props) => {
         e.preventDefault();
         setStar(e.target.value);
     };
-   
-    
-     //TEST
      const onChange = (e) => {
         let reader = new FileReader();
         let file = e
@@ -108,34 +106,61 @@ const CreateReview = (props) => {
     
       const create = (e) => {
         e.preventDefault();
-        let newDate = new Date();
-        
-        const formData = new FormData();
-        formData.append('danjiCode', localStorage.getItem("danjiCode"));
-        formData.append('danjiName', danjiName);
-        formData.append('userId', localStorage.getItem("userID"));
-        formData.append('title', title);
-        formData.append('region', sidoName);    //주택정보
-        formData.append('typeName', typeName); 
-        formData.append('houseType', houseType); //주택정보
-        formData.append('monthlyRentCharge', monthlyRentCharge);
-        formData.append('adminCharge', adminCharge);
-        formData.append('merit', merit);
-        formData.append('demerit', demerit);
-        formData.append('star', star);
-        formData.append('writeDate', newDate);
-        formData.append('myImage', file);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews",formData,config)
+        let newDate = new Date();        
+       
+        if(file !=0){
+            const formData = new FormData();
+            formData.append('danjiCode', localStorage.getItem("danjiCode"));
+            formData.append('danjiName', danjiName);
+            formData.append('userId', localStorage.getItem("userID"));
+            formData.append('title', title);
+            formData.append('region', sidoName);    //주택정보
+            formData.append('typeName', typeName); 
+            formData.append('houseType', houseType); //주택정보
+            formData.append('monthlyRentCharge', monthlyRentCharge);
+            formData.append('adminCharge', adminCharge);
+            formData.append('merit', merit);
+            formData.append('demerit', demerit);
+            formData.append('star', star);
+            formData.append('writeDate', newDate);
+            formData.append('myImage', file);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            };
+
+            axios.post("/happyhouse/reviews",formData,config)
             .then((response) => {
                 alert("거주후기 등록 완료");
                 window.location.href ='/reviews'
             }).catch((error) => {
         });
+        }else{
+            var form={
+                danjiCode: localStorage.getItem("danjiCode"),
+                danjiName : danjiName,
+                userId : localStorage.getItem("userID"),
+                title : title,
+                region: sidoName,
+                typeName: typeName,
+                houseType: houseType,
+                monthlyRentCharge: monthlyRentCharge,
+                adminCharge: adminCharge,
+                merit: merit,
+                demerit: demerit,
+                star: star,
+                writeDate: newDate
+            };
+
+            axios.post("/happyhouse/reviews/create",form)
+            .then((res) => {
+                alert("거주후기 등록 완료");
+                window.location.href ='/reviews'
+            }).catch((error) => {
+        });
+        }
+        
       }
     //TEST
     const readHouse = (e) => {   //주택정보 
@@ -157,8 +182,37 @@ const CreateReview = (props) => {
                 console.log(error);
             })
       }
+
+      const readTypeNameList = () => { 
+
+        var form = {
+            danjiCode: localStorage.getItem("danjiCode")
+        };
+        axios
+            .post('/happyhouse/houseInfos/type', form)
+            .then(({data}) => {
+               // data = data.communitysList
+               data = data.houseInfoList
+                setTypeNameList(data.map(typeNameList))
+    
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+
+        const typeNameList = (houseInfo) => (
+
+            
+     <option>{ houseInfo.typeName }</option>
+               
+           
+        );
+
+
       useEffect(() => {
         readHouse(); 
+        readTypeNameList();
     }, [])
     return (
     <div className="dv">
@@ -169,51 +223,9 @@ const CreateReview = (props) => {
                 <div className="review-title">
                     <div id="title">거주 후기 작성</div>
                 </div>
-
                 <br></br>
                 <div>
                     <div class="review-block">
-                        {/* <div id="header">
-                            <h4>제목
-                                <Input name="title" onChange={handlChangeTitle} value={title}></Input>
-                            </h4>
-                        </div> */}
-
-                        {/* <div id="writer-writeDate-star">
-                            <div>
-                            <fieldset class="rating">
-  <input  onChange={handlChangeStar} type="radio" id="star5" name="rating" value="5.0" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star4" name="rating" value="4.0" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star3" name="rating" value="3.0" /><label class="full" for="star3" title="Meh - 3 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-  <input  onChange={handlChangeStar} type="radio" id="star1" name="rating" value="1.0" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
-  <input  onChange={handlChangeStar} type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-</fieldset>
-                                <Progress value={star} max="5"/>평점(0~5)</div>
-                            <Input
-                                placeholder="평점(0~5)"
-                                name="star"
-                                onChange={handlChangeStar}
-                                value={star}></Input>
-
-                        </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="write-modal-info">
 <div class="review-item-title">
 <a class="danji" target="_blank" href="/building/3db0dda56e3?title=봉천동 964-25">
@@ -236,62 +248,6 @@ const CreateReview = (props) => {
 2. 실제로 거주했던 집에만 후기를 남겨주세요.<br/>
 위 가이드라인을 지키지 않은 리뷰는 관리자에 의해 삭제될 수 있습니다.
 </p>
-                        {/* <div>
-                            <table class="houseInfo">
-                                <tr>
-                                    <td id="a">지역</td>
-                                    <td id="a">
-                                        <Input name="content" onChange={handlChangeRegion} value={region}></Input>
-                                    </td>
-                                    <td id="a">작성자ID</td>
-                                    <td id="a">
-                                        <Input
-                                            name="userId"
-                                            value={localStorage.getItem("userID")}
-                                            readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">임대종류</td>
-                                    <td>
-                                        <Input value="행복주택" readOnly={isReadOnly}></Input>
-                                    </td>
-                                    <td id="a">유형</td>
-                                    <td>
-                                        <Input value="아파트" readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">주택형</td>
-                                    <td id="a">
-                                        <Input name="content" onChange={handlChangeTypeName} value={typeName}></Input>
-                                    </td>
-
-                                    <td id="a">공급수</td>
-                                    <td>
-                                        <Input value="32 세대" readOnly={isReadOnly}></Input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="a">월세</td>
-                                    <td id="a">
-                                        <Input
-                                            name="monthlyRentCharge"
-                                            onChange={handlChangeMonthlyRentCharge}
-                                            value={numeral(monthlyRentCharge).format('0,0')}></Input>
-                                    </td>
-
-                                    <td id="a">관리비</td>
-                                    <td id="a">
-                                        <Input
-                                            name="adminCharge"
-                                            onChange={handlChangeAdminCharge}
-                                            value={numeral(adminCharge).format('0,0')}></Input>
-                                    </td>
-
-                                </tr>
-                            </table>
-                        </div> */}
 
                    <div class="review-content">
 
@@ -318,6 +274,14 @@ const CreateReview = (props) => {
         </td>
     </tr>
     <div id="merit">
+        <div id="b">주택형</div>
+        <select id = "review-search-typeName"  onChange={handlChangeTypeName}>
+        <option>전체</option>
+                        {typeName_List}
+                    </select>
+
+    </div>
+    <div id="merit">
         <div id="b">거주후기 제목</div>
         <Input
             name="title"
@@ -327,7 +291,7 @@ const CreateReview = (props) => {
             value={title}></Input>
 
     </div>
-    <div id="merit">
+    {/* <div id="merit">
         <div id="b">주택형</div>
         <Input
             name="typeName"
@@ -337,7 +301,8 @@ const CreateReview = (props) => {
             onChange={handlChangeTypeName}
             value={typeName}></Input>
 
-    </div>
+    </div> */}
+    
     <div id="merit">
         <div id="b">장점</div>
         <Input

@@ -11,7 +11,7 @@ const reviews = require('../model/reviews');
     }
  });
    const upload =multer({storage: storage});
-//https://gngsn.tistory.com/40 multer s3
+   
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
      let image = 'http://localhost:8080/Image/' + req.file.filename;
@@ -20,27 +20,49 @@ const reviews = require('../model/reviews');
       danjiCode: req.body.danjiCode,
       danjiName: req.body.danjiName,
       userId: req.body.userId,
-      title: req.body.title,
       region: req.body.region,
       typeName: req.body.typeName,
       houseType: req.body.houseType,
       monthlyRentCharge: req.body.monthlyRentCharge,
       adminCharge: req.body.adminCharge,
+      title: req.body.title,
       merit: req.body.merit,
       demerit: req.body.demerit,
-      star: req.body.star,
       writeDate: req.body.writeDate,
       picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
-
+      star: req.body.star,
     });
-    console.log(req.body)
     review.save()
     .then((result) => {
-      console.log(result);
       res.status(201).json(result);
   });
    })
 
+   //NO FILE CREATE REVIEW
+   router.post('/create', (req, res) => {
+ 
+    console.log("받은거",req.body)
+    let review = new reviews({
+     danjiCode: req.body.danjiCode,
+     danjiName: req.body.danjiName,
+     userId: req.body.userId,
+     region: req.body.region,
+     typeName: req.body.typeName,
+     houseType: req.body.houseType,
+     monthlyRentCharge: req.body.monthlyRentCharge,
+     adminCharge: req.body.adminCharge,
+     title: req.body.title,
+     merit: req.body.merit,
+     demerit: req.body.demerit,
+     writeDate: req.body.writeDate,
+     picture: 0, //  
+     star: req.body.star,
+   });
+   review.save()
+   .then((result) => {
+     res.status(201).json(result);
+ });
+  })
 // Find All
 router.get('/', (req, res) => {
   
