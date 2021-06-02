@@ -5,4 +5,4 @@ filebeat.inputs:
       - "/var/log/server/*.log"
 
 output.logstash:
-  hosts: ["18.223.126.163:5000"]
+  hosts: ["http://ec2-3-22-77-136.us-east-2.compute.amazonaws.com:5000"]
