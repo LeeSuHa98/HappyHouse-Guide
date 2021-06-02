@@ -20,7 +20,7 @@ const Communities = (props) => {
     const [activityHistoryList, setActivityHistoryList] = useState();
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
-    const [pageSize, setPageSize] = useState(2);
+    const [pageSize, setPageSize] = useState(3);
     
     const handlePageChange = (page) => {
         localStorage.setItem("page", page);

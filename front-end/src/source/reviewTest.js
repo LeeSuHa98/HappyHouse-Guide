@@ -19,7 +19,7 @@ const Review = (props) => {
     const [review_list, setReview] = useState();
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
-    const [pageSize, setPageSize] = useState(2);
+    const [pageSize, setPageSize] = useState(3); //1페이지당 거주후기 3개
     const handleOptionOnChange = (e) => {
         e.preventDefault();
         //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로

@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 router.post('/page', (req, res) => {
   const pageNumber = req.body.page;
-  var nPerPage =2;
+  var nPerPage =3;
   communitys.find({replyStep: 0}).sort({writeDate :-1 }).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
   .limit( nPerPage )
     .then((communitys) => {
