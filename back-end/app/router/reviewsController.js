@@ -64,6 +64,18 @@ const upload = require('../modules/multer');
      res.status(201).json(result);
  });
   })
+// review all count
+router.get('/', (req, res) => { 
+
+    reviews.find()
+    .then((reviews) => {
+      if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+      res.send({count : reviews.length});
+    
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 // Find All
 router.post('/date', (req, res) => {
   const pageNumber = req.body.page;

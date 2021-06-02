@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-    Progress
-} from 'reactstrap';
+import {Progress} from 'reactstrap';
 import axios from 'axios'
 import Moment from 'react-moment'
 import numeral from 'numeral'
@@ -10,263 +8,221 @@ import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
 import star3 from '../Image/star3.png'
+import Pagination from '../source/Pagination'
 
+const Review = (props) => {
 
-const Review =(props)=>{
-    
     const [modalInput, setModalInput] = useState("0");
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
-  //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
+    //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
-
-    const handleOptionOnChange = (e) => { 
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState();
+    const [pageSize, setPageSize] = useState(2);
+    const handleOptionOnChange = (e) => {
         e.preventDefault();
         //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
-        if(e.target.value === "최신순")
-        {            
-           // setOption(0);
+        if (e.target.value === "최신순") {
+            // setOption(0);
             localStorage.setItem("option", 0)
-            
-         readReview();
-        }else{
-          //  setOption(1);
+
+            readReview();
+        } else {
+            //  setOption(1);
             localStorage.setItem("option", 1)
-           
+
             readReviewStar();
         }
     }
-    const [page, setPage] =useState(1);
-    const pageChange1 = (e) => {
-        e.preventDefault();
-        setPage(e.target.value);
-        localStorage.setItem("page",1);
-      //  window.location.reload();
-        if(localStorage.getItem("option") == 1){
-      
-            readReviewStar();
-        }else  readReview()
-     
-        
-       
-    };
-    const pageChange2 = (e) => {
-        e.preventDefault();
-        setPage(e.target.value);
-        localStorage.setItem("page",2);
-     //   window.location.reload();
-        if(localStorage.getItem("option") == 1){
-      
-            readReviewStar();
-        }else  readReview()
-    };
-    const pageChange3 = (e) => {
-        e.preventDefault();
-        setPage(e.target.value);
-        localStorage.setItem("page",3);
-    //    window.location.reload();
-        if(localStorage.getItem("option") == 1){
-      
-            readReviewStar();
-        }else  readReview()
-    };
-    const pageChange4 = (e) => {
-        e.preventDefault();
-        setPage(e.target.value);
-        localStorage.setItem("page",4);
-     //   window.location.reload();
-        if(localStorage.getItem("option") == 1){
-      
-            readReviewStar();
-        }else  readReview()
-    };
-    const pageChange5 = (e) => {
-        e.preventDefault();
-        setPage(e.target.value);
-        localStorage.setItem("page",5);
-    //    window.location.reload();
-        if(localStorage.getItem("option") == 1){
-      
-            readReviewStar();
-        }else  readReview()
-    };
 
+    const handlePageChange = (page) => {
+        localStorage.setItem("page", page);
+    }
 
     const reviewList = (reviews) => (
         <li className="li" key={reviews._id} id={reviews._id}>
-    <div class="review-block">
-        <td className="id">{reviews._id}</td>
-        <div id="header" >  
-            <h4 >{reviews.title}</h4>
-        </div>
-        <div class="review-item-description-date">
-<span class="review-item-description">
-<time class="time">
-            <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
-        </time>
-</span>
-</div>
+            <div class="review-block">
+                <td className="id">{reviews._id}</td>
+                <div id="header">
+                    <h4 >{reviews.title}</h4>
+                </div>
+                <div class="review-item-description-date">
+                    <span class="review-item-description">
+                        <time class="time">
+                            <Moment format="YY.MM.DD">{reviews.writeDate}</Moment>
+                        </time>
+                    </span>
+                </div>
 
-<div class="review-item-description-user">
-<span class="review-item-description-title"><img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img><h3 class="user">{reviews.userId}</h3> 
-</span>
-</div>
-        <div id="writer-writeDate-star">
-        <span class="starpoint">
-<img src={star3} ></img>
-{reviews.star}
-</span>
-        </div>
-        <div>
-            <table class="houseInfo">
-                <tr>
-                    <td id="a">단지명</td>
-                    <td colspan="3">{reviews.danjiName}</td>
-                </tr>
-                <tr>
-                    <td id="a">지역</td>
-                    <td>{reviews.region}</td>
-                    <td id="a">임대종류</td>
-                    <td>행복주택</td>                    
-                </tr>
-                <tr>
-                    <td id="a">유형</td>
-                    <td>{reviews.houseType}</td>
-                    <td id="a">주택형</td>
-                    <td>{reviews.typeName}</td>
-                    
-                </tr>
-                <tr>
-                    <td id="a">월세</td>
-                    <td>{numeral(reviews.monthlyRentCharge).format('0,0')}</td>
-                    <td id="a">관리비</td>
-                    <td>{numeral(reviews.adminCharge).format('0,0')}</td>
-                </tr>
-            </table>
-        </div>
+                <div class="review-item-description-user">
+                    <span class="review-item-description-title">
+                        <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+                        <h3 class="user">{reviews.userId}</h3>
+                    </span>
+                </div>
+                <div id="writer-writeDate-star">
+                    <span class="starpoint">
+                        <img src={star3}></img>
+                        {reviews.star}
+                    </span>
+                </div>
+                <div>
+                    <table class="houseInfo">
+                        <tr>
+                            <td id="a">단지명</td>
+                            <td colspan="3">{reviews.danjiName}</td>
+                        </tr>
+                        <tr>
+                            <td id="a">지역</td>
+                            <td>{reviews.region}</td>
+                            <td id="a">임대종류</td>
+                            <td>행복주택</td>
+                        </tr>
+                        <tr>
+                            <td id="a">유형</td>
+                            <td>{reviews.houseType}</td>
+                            <td id="a">주택형</td>
+                            <td>{reviews.typeName}</td>
 
-        <div >
-          <br></br>
+                        </tr>
+                        <tr>
+                            <td id="a">월세</td>
+                            <td>{numeral(reviews.monthlyRentCharge).format('0,0')}</td>
+                            <td id="a">관리비</td>
+                            <td>{numeral(reviews.adminCharge).format('0,0')}</td>
+                        </tr>
+                    </table>
+                </div>
 
-            
-            <img  class="review-image" src={reviews.picture}></img>
-           
-        </div>
+                <div >
+                    <br></br>
 
-        <div class="review-content">
-            <div id="merit">
-                <div id="b">장점</div>{reviews.merit}</div>
-            <div id="demerit">
-                <div id="b">단점</div>{reviews.demerit}</div>
-        </div>
-        <br></br>
-        <div className="button-container">
-        <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
-        </div>
-        <br></br>
-      
+                    <img class="review-image" src={reviews.picture}></img>
 
-    
-    </div>
+                </div>
 
+                <div class="review-content">
+                    <div id="merit">
+                        <div id="b">장점</div>{reviews.merit}</div>
+                    <div id="demerit">
+                        <div id="b">단점</div>{reviews.demerit}</div>
+                </div>
+                <br></br>
+                <div className="button-container">
+                    <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
+                </div>
+                <br></br>
 
-</li>
+            </div>
+
+        </li>
     );
-    function readReview () {
-        var form={
-            page: localStorage.getItem("page")
-         };
-        axios.post('/happyhouse/reviews/date',form).then(({data}) => {
-            data = data.reviewList
-            setReview(data.map(reviewList))
-        })
+    function readReviewCount() {
+
+        axios
+            .get('/happyhouse/reviews')
+            .then(({data}) => {
+                setCount(data.count);
+            })
     }
-    function readReviewStar () {
-        var form={
+    function readReview() {
+        var form = {
             page: localStorage.getItem("page")
-         };
-        axios.post('/happyhouse/reviews/star',form).then(({data}) => {
-            data = data.reviewList
-            setReview(data.map(reviewList))
-        })
+        };
+        axios
+            .post('/happyhouse/reviews/date', form)
+            .then(({data}) => {
+                data = data.reviewList
+                setReview(data.map(reviewList))
+            })
     }
-    $(function () {     
-        
+    function readReviewStar() {
+        var form = {
+            page: localStorage.getItem("page")
+        };
+        axios
+            .post('/happyhouse/reviews/star', form)
+            .then(({data}) => {
+                data = data.reviewList
+                setReview(data.map(reviewList))
+            })
+    }
+    $(function () {
+
         $(".readReviewDetail").on("click", function () {
 
             var Button = $(this);
-            var div = Button.parent().parent();
+            var div = Button
+                .parent()
+                .parent();
             var td = div.children();
             setModalInput(td.eq(0).text());
-            localStorage.setItem("review_id",modalInput);
-        
-            if(localStorage.getItem("review_id")!="0"){
-                window.location.href ='/reviews/detail'
+            localStorage.setItem("review_id", modalInput);
+
+            if (localStorage.getItem("review_id") != "0") {
+                window.location.href = '/reviews/detail'
             }
-            
+
         })
     })
     useEffect(() => {
-        if(localStorage.getItem("option") == 1){
-      
+        readReviewCount();
+        if (localStorage.getItem("option") == 1) {
+
             readReviewStar();
-        }else  readReview()
-     
-        }
-    );
+        } else 
+            readReview()
+
+    });
 
     return (
         <div>
-        <React.Fragment>
-            <div className="dv">
+            <React.Fragment>
+                <div className="dv">
 
-            <div className = "review-wrap">
-                <div className = "review-title">
-                    <div id = "title">거주 후기</div>   
-                </div>
-                
-                <div className = "search-button-group">
-         
-                    <select id = "review-search-option"  onChange={handleOptionOnChange}>
-                        <option>최신순</option>
-                        <option>별점순</option>
-                    </select>
-                    <button id="review-upload" onClick = {()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
-                 
-                </div>
-              
-            
-                
-                {review_list}
+                    <div className="review-wrap">
+                        <div className="review-title">
+                            <div id="title">거주 후기</div>
+                        </div>
 
-            </div>
+                        <div className="search-button-group">
 
-            <div id="center">
-                    <div class="pagination">
-                    <a href="#" onClick={pageChange1}>&laquo;</a>
-                    <a href="#" onClick={pageChange1}>1</a>
-                    <a href="#" onClick={pageChange2}>2</a>
-                    <a href="#" onClick={pageChange3}>3</a>
-                    <a href="#" onClick={pageChange4}>4</a>
-                    <a href="#" onClick={pageChange5}>5</a>
-                    <a href="#" onClick={pageChange5}>&raquo;</a>
+                            <select id="review-search-option" onChange={handleOptionOnChange}>
+                                <option>최신순</option>
+                                <option>별점순</option>
+                            </select>
+                            <button
+                                id="review-upload"
+                                onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
+
+                        </div>
+
+                        {review_list}
+
                     </div>
-            </div>
 
-        </div>
+                    <div id="center">
+                        <div class="pagination">
+                            <Pagination
+                                itemsCount={count}
+                                pageSize={pageSize}
+                                currentPage={1}
+                                onPageChange={handlePageChange}/>
+                        </div>
+                    </div>
 
-        </React.Fragment>
+                </div>
 
-        <Modal isOpen={modalCreateReview}>
+            </React.Fragment>
+
+            <Modal isOpen={modalCreateReview}>
                 <ModalHeader toggle={toggleCreateReview}>거주후기 작성</ModalHeader>
                 <CreateReview></CreateReview>
             </Modal>
 
-           
-    </div>
+        </div>
     );
 }
-
-
 
 export default Review;
