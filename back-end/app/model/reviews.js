@@ -27,6 +27,18 @@ reviewSchema.statics.create = function (payload) {
   return review.save();
 };
 
+
+// 최신순 3개
+reviewSchema.statics.findOrderOfThree = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode}).sort({writeDate: -1}).limit(3);
+};
+
+// 최신순 3개
+reviewSchema.statics.findPictures = function (danjiCode) {
+  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: null } });
+};
+
+
 // 최신순 정렬
 reviewSchema.statics.findOrderByDate = function (pageNumber) {
   var nPerPage =2;
