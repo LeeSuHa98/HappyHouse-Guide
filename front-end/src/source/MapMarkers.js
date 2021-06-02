@@ -7,6 +7,8 @@ import SearchBar from './SearchBar'
 import SearchDanjiBar from './SearchDanjiBar'
 import SearchDanjiAlertBar from './SearchDanjiAlterbar'
 import SideBar from './SideBar';
+import PlannedSideBar from './PlannedSideBar'
+
 import './css/SearchBar.css';
 import './css/Menubar.css';
 import './css/Sidebar.css';
@@ -40,11 +42,27 @@ export const MapMarkers = (props) => {
       medical: ""
     });
 
+    const [plannedDetail, setPlannedDetail] = useState({
+      _id:"",
+      region: "",
+      type: [{
+        면적: "",
+        공급호수: "",
+      }],
+      supply: "",
+      move: "",
+      address: "",
+      convenience: "",
+      safety: "",
+      medical: ""
+    });
+
     const [center, setCenter] = useState()
     const [zoom, setZoom] = useState()
 
     useEffect(() => {
       sidebarHide()
+      sidebarHide2()
       setCenter({lat: 37.5, lng: 127})
       setZoom(15)
       loadAsyncData();
@@ -96,8 +114,8 @@ export const MapMarkers = (props) => {
           scaledSize: new props.google.maps.Size(30,30),
         }}
         onClick={() =>{
-          sidebarShow(setHouseDetail(data));
-        }}
+          sidebarShow2();
+          setPlannedDetail(data);}}
         />
         ))
   })
@@ -117,8 +135,33 @@ export const MapMarkers = (props) => {
 
     const sidebarShow = () => {
       var con = document.getElementById("sideBar");
+      var con2 = document.getElementById("sideBar2");
+
       if(con.style.display!=='block'){
         con.style.display='block';
+      }else if( con2.style.display === 'block'){
+        con2.style.display = 'none';
+        con.style.display = 'block';
+      }else{
+        con.style.display='block';
+      }
+    }
+    const sidebarHide2 = () => {
+      var con = document.getElementById("sideBar2");
+      if(con.style.display==='block'){
+      con.style.display='none';
+      }
+    }
+
+    const sidebarShow2 = () => {
+      var con = document.getElementById("sideBar2");
+      var con2 = document.getElementById("sideBar2");
+
+      if(con.style.display!=='block'){
+        con.style.display='block';
+      }else if( con.style.display === 'block'){
+        con.style.display = 'none';
+        con2.style.display = 'block';
       }else{
         con.style.display='block';
       }
@@ -135,7 +178,8 @@ export const MapMarkers = (props) => {
           <SearchDanjiBar setCenter={setCenter} setZoom={setZoom} />
           <SearchDanjiAlertBar setCenter={setCenter} setZoom={setZoom}/>
         </Map>
-        <SideBar houseDetail = {houseDetail} toggle = {()=>sidebarHide()}></SideBar>
+        <SideBar houseDetail = {houseDetail} toggle = {()=> sidebarHide()}></SideBar>
+        <PlannedSideBar plannedDetail = {plannedDetail} toggle = {() => sidebarHide2()}></PlannedSideBar>
       </React.Fragment>
     </div>
     );
