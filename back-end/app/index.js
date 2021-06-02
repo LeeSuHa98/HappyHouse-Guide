@@ -26,7 +26,17 @@ var apm = require('elastic-apm-node').start({
   secretToken: '',
 
   // Set custom APM Server URL (default: http://localhost:8200)
-  serverUrl: 'http://ec2-18-224-43-150.us-east-2.compute.amazonaws.com/:8200'
+  serverUrl: 'http://ec2-18-224-43-150.us-east-2.compute.amazonaws.com:8200',
+
+  
+  auth: {
+    username: "elastic",
+    password: process.env.elasticsearch_password || "changeme",
+  },
+  ssl: {
+    ca: process.env.elasticsearch_certificate,
+    rejectUnauthorized: false,
+  },
 })
 
 //connerct db

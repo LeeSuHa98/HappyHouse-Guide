@@ -5,7 +5,15 @@ const path = require('path');
 const mt = require('moment-timezone');
 
 const client = new Client({
-  node: "http://ec2-18-224-43-150.us-east-2.compute.amazonaws.com:9200/"
+  node: "http://ec2-18-224-43-150.us-east-2.compute.amazonaws.com:9200/",
+  auth: {
+    username: "elastic",
+    password: process.env.elasticsearch_password || "changeme",
+  },
+  ssl: {
+    ca: process.env.elasticsearch_certificate,
+    rejectUnauthorized: false,
+  },
 });
 
 const date = mt().tz('Asia/Seoul'); // NOTE: 날짜는 한국 시간으로 하고 싶다.
