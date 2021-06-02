@@ -16,8 +16,6 @@ services:
       - log-data:/var/log/server
     networks:
       - elk
-    depends_on:
-      - logstash
 
 networks:
   elk:
