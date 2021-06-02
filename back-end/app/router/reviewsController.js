@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
  const path = require("path");
-   const multer = require("multer");
+   //const multer = require("multer");
    const fs = require('fs');
 
-   const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
-    destination: "./uploads/",
-    filename: function(req, file, cb){
-       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-    }
- });
-   const upload =multer({storage: storage});
-   
+//    const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+//     destination: "./uploads/",
+//     filename: function(req, file, cb){
+//        cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+//     }
+//  });
+  //  const upload =multer({storage: storage});
+  const upload = require('../modules/multer');
+
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
      let image = 'http://localhost:8080/Image/' + req.file.filename;
