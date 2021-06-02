@@ -1,21 +1,22 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
- const path = require("path");
-   const multer = require("multer");
-   const fs = require('fs');
+const path = require("path");
+//const multer = require("multer");
+const fs = require('fs');
 
-   const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
-    destination: "./uploads/",
-    filename: function(req, file, cb){
-       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-    }
- });
-   const upload =multer({storage: storage});
-   
+// const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+//     destination: "./uploads/",
+//     filename: function(req, file, cb){
+//        cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+//     }
+//  });
+//    const upload =multer({storage: storage});
+const upload = require('../modules/multer');
+
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
-     let image = 'http://localhost:8080/Image/' + req.file.filename;
-
+    //  let image = 'https://carrykimsbucket.s3.amazonaws.com/Image/' + req.file.filename;
+ 
      let review = new reviews({
       danjiCode: req.body.danjiCode,
       danjiName: req.body.danjiName,
@@ -29,7 +30,7 @@ const reviews = require('../model/reviews');
       merit: req.body.merit,
       demerit: req.body.demerit,
       writeDate: req.body.writeDate,
-      picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+      picture: req.file.location, 
       star: req.body.star,
     });
     review.save()
@@ -63,6 +64,18 @@ const reviews = require('../model/reviews');
      res.status(201).json(result);
  });
   })
+// review all count
+router.get('/', (req, res) => { 
+
+    reviews.find()
+    .then((reviews) => {
+      if (!reviews.length) return res.status(404).send({ err: 'reviews not found' });
+      res.send({count : reviews.length});
+    
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 // Find All
 router.post('/date', (req, res) => {
   const pageNumber = req.body.page;
@@ -77,6 +90,8 @@ router.post('/date', (req, res) => {
     })
     .catch(err => res.status(500).send(err));
 });
+
+
 router.post('/star', (req, res) => { 
   const pageNumber = req.body.page;
   reviews.findOrderByStar(pageNumber)
@@ -99,6 +114,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/houseid/:id', (req, res) => {
+  console.log("tset")
   reviews.find({danjiCode: req.params.id})
   .then((reviews) => {
     if (!reviews) return res.status(404).send({ err: 'reviews not found' });
@@ -125,6 +141,24 @@ router.get('/:houseid/:userid', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+
+router.get('/houseid/:id/lastThree', (req, res) => {
+  reviews.findOrderOfThree(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
+
+router.get('/houseid/:id/onlyPicture', (req, res) => {
+  reviews.findPictures(req.params.id)
+  .then((reviews) => {
+    if (!reviews) return res.status(404).send({ err: 'reviews not found' });
+    res.send({reviews});
+  })
+  .catch(err => res.status(500).send(err));
+});
 
 // Find One by id
 router.post('/detail', (req, res) => {

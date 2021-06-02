@@ -27,15 +27,27 @@ reviewSchema.statics.create = function (payload) {
   return review.save();
 };
 
+
+// 최신순 3개
+reviewSchema.statics.findOrderOfThree = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode}).sort({writeDate: -1}).limit(3);
+};
+
+// 최신순 3개
+reviewSchema.statics.findPictures = function (danjiCode) {
+  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: null } });
+};
+
+
 // 최신순 정렬
 reviewSchema.statics.findOrderByDate = function (pageNumber) {
-  var nPerPage =2;
+  var nPerPage =3;
   return this.find().sort({writeDate: -1}).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
   .limit( nPerPage );
 };
 // 별점순 정렬
 reviewSchema.statics.findOrderByStar = function (pageNumber) {
-  var nPerPage =2;
+  var nPerPage =3;
   return this.find().sort({star: -1}).skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
   .limit( nPerPage );
 };
