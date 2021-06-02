@@ -1,21 +1,22 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
 const path = require("path");
-const multer = require("multer");
+//const multer = require("multer");
 const fs = require('fs');
 
-const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
-    destination: "./uploads/",
-    filename: function(req, file, cb){
-       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-    }
- });
-   const upload =multer({storage: storage});
-   
+// const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
+//     destination: "./uploads/",
+//     filename: function(req, file, cb){
+//        cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+//     }
+//  });
+//    const upload =multer({storage: storage});
+const upload = require('../modules/multer');
+
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
-     let image = 'http://localhost:8080/Image/' + req.file.filename;
-
+    //  let image = 'https://carrykimsbucket.s3.amazonaws.com/Image/' + req.file.filename;
+ 
      let review = new reviews({
       danjiCode: req.body.danjiCode,
       danjiName: req.body.danjiName,
@@ -29,7 +30,7 @@ const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역�
       merit: req.body.merit,
       demerit: req.body.demerit,
       writeDate: req.body.writeDate,
-      picture: image, //  <- ./uploads 파일에 저장되어있는 이미지 고유name
+      picture: req.file.location, 
       star: req.body.star,
     });
     review.save()
