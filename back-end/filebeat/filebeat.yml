@@ -1,8 +1,0 @@
-filebeat.inputs:
-  - type: log
-    enabled: true
-    paths:
-      - "/var/log/server/*.log"
-
-output.logstash:
-  hosts: ["http://ec2-3-22-77-136.us-east-2.compute.amazonaws.com:5000"]

@@ -1,17 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const logger = require('./config/logger')
+const logger = require("./config/logger")
 const helmet = require('helmet');
 const app = express();
 const fs = require('fs');
+
+morgan.token('id', function getId(req) { return req.id })
+
+
 //body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(helmet());
 
+app.use(morgan(":remote-addr :remote-user :method :url :status :http-version", { stream: logger.httpLogStream }));
 
-app.use((morgan("combined", { stream: logger.httpLogStream })));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 
 //connerct db
