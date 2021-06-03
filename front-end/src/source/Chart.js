@@ -4,7 +4,7 @@ import './css/Sidebar.css'
 
 const HappyChart = (props) => {
     const data = {
-        labels: ['Convenience', 'Safety', 'Medical'],
+        labels: ['편의시설', '안전', '의료'],
         datasets: [
           {
             label: props.danjiName,
