@@ -217,15 +217,16 @@ const SideBar = (props) => {
                             </tr>
                             <tr>
                               <td id="td1">임대 보증금</td>
-                              <td> {numeral(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).format('0,0')} 원</td>
+                              <td> {(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).substring(0,4)} 만원</td>
                             </tr>
                             <tr>
                               <td id="td1">월 임대료</td>
-                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).format('0,0')} 원</td>
+                              <td>{(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).substring(0,2)} 만원</td>
                             </tr>
                             <tr>
                               <td id="td1">전환 보증금</td>
-                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')} 원</td>
+                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')} 만원</td>
+
                             </tr>
                             <tr>
                               <td id="td1">공공 공용면적</td>

@@ -147,16 +147,19 @@
 #typeButton {
   width: 70px;
   height: 30px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   margin-right: 10px;
   margin-bottom: 5px;
   background-color: white;
-  border: solid 2px #8aa6e2;
+  border: 0;
+  /* border: solid 2px #8aa6e2; */
+
 }
 
 #typeButton:hover{
-  background-color: #8aa6e2;
-  color: rgb(255, 255, 255);
+  color: rgb(24, 24, 24);
+  border-bottom: 2px solid rgb(43, 43, 43);
+
 }
 
 .houseInfoTable2 {
