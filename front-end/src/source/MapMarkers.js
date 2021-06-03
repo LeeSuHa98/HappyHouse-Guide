@@ -13,8 +13,8 @@ import './css/SearchBar.css';
 import './css/Menubar.css';
 import './css/Sidebar.css';
 
-import image from '../Image/placeholder.png'
-import plan from '../Image/placeholder2.png'
+import image from '../Image/apt.png'
+import plan from '../Image/planned_apt.png'
 
 
 export const MapMarkers = (props) => { 
@@ -73,6 +73,7 @@ export const MapMarkers = (props) => {
         let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseinfos/address`;
 
         axios.get(url).then(({data}) => {
+          console.log(data)
             data = data.houseInfoList
             setItem(data);
         })
@@ -87,7 +88,7 @@ export const MapMarkers = (props) => {
       })
     }
 
-
+    
     const displayMarkers = useCallback(() => {
       return item.map((data) => (
           <Marker className='marker-image' 
@@ -95,7 +96,13 @@ export const MapMarkers = (props) => {
           position={{lat:data.lat, lng:data.lng}}
           icon={{
             url: image,
-            scaledSize: new props.google.maps.Size(30,30),
+            scaledSize: new props.google.maps.Size(50,40),
+          }}
+          label={{
+            text: `${(data.houseDetailInfo[0].bassRentDeposit).substring(0,4)} 만원 `,
+            fontSize: "12px",
+            color: "white",
+            className: 'label'
           }}
           onClick = {()=>{
           sidebarShow();
@@ -111,7 +118,13 @@ export const MapMarkers = (props) => {
         position={{lat:data.lat, lng:data.lng}}
         icon={{
           url: plan,
-          scaledSize: new props.google.maps.Size(30,30),
+          scaledSize: new props.google.maps.Size(50,50),
+        }}
+        label={{
+          text: `공급예정`,
+          fontSize: "12px",
+          color: "white",
+          className: 'planned-label'
         }}
         onClick={() =>{
           sidebarShow2();
@@ -175,8 +188,7 @@ export const MapMarkers = (props) => {
             {displayMarkers()}
             {displayPlannedMarkers()}
           <SearchBar setCenter={setCenter} setZoom={setZoom} />
-          <SearchDanjiBar setCenter={setCenter} setZoom={setZoom} />
-          <SearchDanjiAlertBar setCenter={setCenter} setZoom={setZoom}/>
+          {/* <SearchDanjiBar setCenter={setCenter} setZoom={setZoom} /> */}
         </Map>
         <SideBar houseDetail = {houseDetail} toggle = {()=> sidebarHide()}></SideBar>
         <PlannedSideBar plannedDetail = {plannedDetail} toggle = {() => sidebarHide2()}></PlannedSideBar>
