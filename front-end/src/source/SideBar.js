@@ -28,10 +28,7 @@ const SideBar = (props) => {
     useEffect(() => {
       loadDibsData(props.houseDetail.danjiCode)
       loadReview(props.houseDetail.danjiCode)
-
-      setReview1(null)
-      setReview2(null)
-      setPicture(null)
+      loadReviewPicture(props.houseDetail.danjiCode)
     },[props.houseDetail.danjiCode])
 
     function loadDibsData (code) {
@@ -96,34 +93,16 @@ const SideBar = (props) => {
     }
 
   // review
-  const [review1, setReview1] = useState([]);
-  const [review2,setReview2] = useState([]);
-
-  const [isMore3, setIsMore3] = useState(false)
+  const [lastThreeReview, setReview] = useState([]);
   const [pictureSrc, setPicture] = useState([]);
 
-
-  var count = 0;
   function loadReview (code) {
-    
-    var url = `/happyhouse/reviews/houseid/${code}`
-    
-      axios.get(url).then(({data}) => {
-        count = data.reviews.length; // 해당 주택 리뷰 개수        
-        
-        if(count > 3){
-          // setReview2(data.reviews.map(reviews))
-          setReview2(data.reviews.map(reviews))
-          setPicture(data.reviews.map(pictureSource))
-          setIsMore3(true)
-        }
-        else{
-        setReview1(data.reviews.map(reviews))  
-        setIsMore3(false)
-        }
+    var url = `/happyhouse/reviews/houseid/${code}/lastThree`
+      axios.get(url).then(({data}) => { 
+        setReview(data.reviews.map(reviews))  
       })
   }
-
+  
   const reviews = (review) => (
     <li id="li-reivew">
       <div class = "rev-title">
@@ -133,11 +112,21 @@ const SideBar = (props) => {
     </li>    
   );
 
+  function loadReviewPicture(code) {
+    var url = `/happyhouse/reviews/houseid/${code}/onlyPicture`
+    axios.get(url).then(({data}) => { 
+      setPicture(data.reviews.map(pictureSource))  
+    })
+  }
+
   const pictureSource = (review) => (
     <div>
     <img src={review.picture} id="reviewImg"></img>
     </div>
   );
+
+ 
+
  
 
   function makeCarousel(){
@@ -208,9 +197,9 @@ const SideBar = (props) => {
 
                 <div id = "houseInfoSection2">
                       <div class = "test2">주택정보</div>
-                          
+                          <div class ="typeGroup">
                           {typeButton(props.houseDetail.houseDetailInfo)}
-
+                          </div>
                           <table class="houseInfoTable2">
                           <tr>
                               <td id = "td1">공급세대</td>
@@ -259,23 +248,14 @@ const SideBar = (props) => {
                           <button id = "moreReview" onClick = {()=>{localStorage.setItem("danjiCode",props.houseDetail.danjiCode); window.location.href ='/reviews'}}>더보기</button>
                       </div>
                       
-                      <div>
                       
                       <div>
-                        {
-                          isMore3
-                          ?
-                          <ul class="rt">
-                            {review2}
-                          </ul>
-                          :
-                          <ul class = "rt">
-                            {review1}
-                          </ul>
-                        }
+                        <ul class = "rt">
+                        {lastThreeReview}
+                        </ul>
                       </div>
-                                           
-                      </div>
+                      
+                           
                         
                         
                                           

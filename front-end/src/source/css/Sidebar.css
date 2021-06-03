@@ -127,9 +127,7 @@
 }
 
 .typeGroup {
-  padding-top: 1em;
-  padding-bottom: 0.65em;
-  padding-left: 10px;
+  padding:1em;
 }
 
 #typeButton {
@@ -189,7 +187,7 @@
   width: 95%;
   list-style: none;
   margin-left: 2.5%;
-  padding: 15px 10px 10px 10px;
+  padding: 15px 10px 0px 10px;
 }
 
 #li-reivew {
@@ -204,10 +202,10 @@
 
 .rev-title {
   font-family: inherit;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 450;
+  font-size: 14px;
   width: 100%;
-  line-height: 30px;
+  line-height:25px;
 }
 
 .starImg {
