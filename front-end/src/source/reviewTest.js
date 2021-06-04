@@ -121,7 +121,7 @@ const Review = (props) => {
     function readReviewCount() {
 
         axios
-            .get('/happyhouse/reviews')
+            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews')
             .then(({data}) => {
                 setCount(data.count);
             })
@@ -131,7 +131,7 @@ const Review = (props) => {
             page: localStorage.getItem("page")
         };
         axios
-            .post('/happyhouse/reviews/date', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/date', form)
             .then(({data}) => {
                 data = data.reviewList
                 setReview(data.map(reviewList))
@@ -142,7 +142,7 @@ const Review = (props) => {
             page: localStorage.getItem("page")
         };
         axios
-            .post('/happyhouse/reviews/star', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/star', form)
             .then(({data}) => {
                 data = data.reviewList
                 setReview(data.map(reviewList))
@@ -178,7 +178,7 @@ const Review = (props) => {
         } else 
             readReview()
 
-    });
+    },[]);
 
     return (
         <div>
@@ -201,7 +201,7 @@ const Review = (props) => {
                                 onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button> */}
                             <button
                                 id="review-upload"
-                                className={"createReviewButton"}>UPLOAD</button>
+                                className={"createReviewButton"}>글쓰기</button>
                         </div>
 
                         {review_list}

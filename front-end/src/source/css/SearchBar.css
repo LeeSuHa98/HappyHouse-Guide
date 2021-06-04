@@ -1,12 +1,27 @@
-.search-bar {
-  position: absolute;
-  width: 21.5%;
-  padding: 7px 7px 7px 7px;
-  left: 1.2%;
-  top: 7.5%;
-  background-color: rgb(255, 255, 255);
-  font-family: "Nanum Barun Gothic";
-  border: solid 0.3px rgba(179, 179, 179, 0.774);
+@media (min-width: 601px) {
+  .search-bar {
+    position: absolute;
+    width: 21.5%;
+    padding: 7px 7px 7px 7px;
+    left: 1.2%;
+    top: 7.5%;
+    background-color: rgb(255, 255, 255);
+    font-family: "Nanum Barun Gothic";
+    border: solid 0.3px rgba(179, 179, 179, 0.774);
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar {
+    position: absolute;
+    width: 100%;
+    padding: 7px 7px 7px 7px;
+    top: 7.5%;
+    margin-right: 3%;
+    background-color: rgb(255, 255, 255);
+    font-family: "Nanum Barun Gothic";
+    border: solid 0.3px rgba(179, 179, 179, 0.774);
+  }
 }
 
 .search-danji-bar {

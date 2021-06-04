@@ -97,7 +97,7 @@ const SideBar = (props) => {
   const [pictureSrc, setPicture] = useState([]);
 
   function loadReview (code) {
-    var url = `/happyhouse/reviews/houseid/${code}/lastThree`
+    var url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${code}/lastThree`
       axios.get(url).then(({data}) => { 
         setReview(data.reviews.map(reviews))  
       })
@@ -113,7 +113,7 @@ const SideBar = (props) => {
   );
 
   function loadReviewPicture(code) {
-    var url = `/happyhouse/reviews/houseid/${code}/onlyPicture`
+    var url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/houseid/${code}/onlyPicture`
     axios.get(url).then(({data}) => { 
       setPicture(data.reviews.map(pictureSource))  
     })
@@ -151,7 +151,7 @@ const SideBar = (props) => {
       {
           isLoading ?
           <div className="side-bar" id="sideBar" style ={{display : "none"}}>
-            <div>
+            <div class = "loading-wrap">
               <Spinner style={{ width: '3rem', height: '3rem' }} color="primary" />
             </div>
           </div>

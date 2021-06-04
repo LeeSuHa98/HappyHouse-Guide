@@ -146,7 +146,7 @@ const readReply = () => { //댓글 목록 조회
             writeId: userId
         };
         axios
-            .post('/happyhouse/communities/delete', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
             .then((res) => {
                 alert(res.data);
                 window.location.reload();
@@ -215,31 +215,29 @@ useEffect(() => {
             </div>
             <br></br>
                 <div class="community-block">
-                <ul class="status">
-               <td className="id">{_id}</td>            
-               <li onClick={deleteCommunity}>삭제</li>
-            </ul>
-            <ul class="status">
-            <td className="id">{_id}</td>            
-            <li onClick={readCommunityDetail}>수정</li>
-            </ul>
+                    
+                <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+                <div class="profile">
+                    <h3 class="user">{userId}</h3>
+                    <Moment format="작성일 : YYYY.MM.DD" className ="writeDate">{writeDate}</Moment>
+                    
+                    <ul class="status">
+                        <td className="id">{_id}</td>            
+                        <li onClick={deleteCommunity}>삭제</li>
+                    </ul>
+                    <ul class="status">
+                        <td className="id">{_id}</td>            
+                        <li onClick={readCommunityDetail}>수정</li>
+                    </ul>
+                </div>
+
                     <td id="header">
                         <h4>
-                            <td name="title">{title}</td>
+                            {title}
                         </h4>
                       
                     </td>
                     <div>
-                    <table class="houseInfo">
-                        <tr>
-                            <td id="a">작성자</td>
-                            <td>{userId}</td>
-                            <td id="a">작성일</td>
-                            <td>
-                                <Moment format="YY.MM.DD">{writeDate}</Moment>
-                            </td>
-                        </tr>
-                    </table>
                 </div>
                      <div class="community-content">
                         <td

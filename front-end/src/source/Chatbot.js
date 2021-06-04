@@ -3,11 +3,17 @@ import chatbot2 from '../Image/helpEx.png'
 import cancel from '../Image/loupe.png'
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
-import config from '../chatbot/config';
+import config from '../chatbot/config';    
+import {useMediaQuery} from "react-responsive";
+
 import './css/Menubar.css'
 import './css/Sidebar.css'
 
 const HappyChatbot = (props) => {
+
+  const isPc = useMediaQuery({query: "(min-width: 601px)"})
+  const isMobile = useMediaQuery({query: "(max-width: 600px"})
+
     
   const chatbotFAQ = () => {
     var con = document.getElementById("chatbot");
@@ -30,10 +36,12 @@ const HappyChatbot = (props) => {
           actionProvider={ActionProvider} 
           messageParser={MessageParser}/>
         </div>
+        {isPc&&
         <div id = "chatbotM">
             <div id = "messageText1"><img src={cancel} id="cancelImg"/>청년 행복주택 알리미 </div>
             <div id = "messageText2">무엇을 도와드릴까요?</div>
         </div>
+        }
         <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQ()}/>
 
     </div>

@@ -7,6 +7,8 @@ import CreateCommunity from './CreateCommunity'
 import ReadCommunity from './ReadCommunity';
 import Moment from 'react-moment'
 import Pagination from '../source/Pagination'
+import {useMediaQuery} from "react-responsive";
+
 const Communities = (props) => {
     const [modalInput, setModalInput] = useState("0");
     const [modalInputReply, setModalInputReply] = useState("0");
@@ -18,6 +20,8 @@ const Communities = (props) => {
     const toggleReadCommunity = () => setModalReadCommunity(!modalReadCommunity);
 
     const [activityHistoryList, setActivityHistoryList] = useState();
+    const [activityHistoryListOfMobile, setActivityHistoryListOfMobile] = useState();
+    
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
     const [pageSize, setPageSize] = useState(3);
@@ -28,10 +32,9 @@ const Communities = (props) => {
     }
 
     const communityList = (community) => (
-
         <li className="li" key={community._id} id={community._id}>
 
-            <div class="community-block" id="second">
+            <div class="community-block" id="second" onClick>
                 <td className="id">{community._id}</td>
                 <td className="id">{community.writeDate}</td>
                 <td id="header" className={"readCommunity"}>
@@ -64,10 +67,36 @@ const Communities = (props) => {
         </li>
     );
 
+    const communityListOfMobile = (community) => (
+
+        <li className="li" key={community._id} id={community._id}>
+        
+            <div class="community-block readCommunityReplyOnMobile" id="second">
+                <td className="id">{community._id}</td>
+                <td className="id">{community.writeDate}</td>
+
+                <img src="https://cf-fpi.everytime.kr/0.png" class="picture-medium"></img>
+                <div class="profile">
+                    <h3 class="user">{community.userId}</h3>
+                    <Moment format="작성일 : YYYY.MM.DD" className ="writeDate">{community.writeDate}</Moment>
+                    
+                </div>
+
+                <td id="header" className={"readCommunity"}>
+                    <h5>{community.title}</h5>
+                </td>
+
+                <div class="community-content">
+                    {community.content}
+                </div>
+            </div>
+        </li>
+    );
+
     function readCommunityCount() {
 
         axios
-            .get('/happyhouse/communities')
+            .get('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities')
             .then(({data}) => {
                 setCount(data.count);
             })
@@ -77,12 +106,12 @@ const Communities = (props) => {
            page: localStorage.getItem("page")
         };
         axios
-            .post('/happyhouse/communities/page',form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/page',form)
             .then(({data}) => {
                 console.log(page);
                 data = data.communitysList
                 setActivityHistoryList(data.map(communityList))
-
+                setActivityHistoryListOfMobile(data.map(communityListOfMobile))
             })
     }
     $(function () {
@@ -122,30 +151,54 @@ const Communities = (props) => {
                 window.location.href ='/communities/reply'
             }
         })
+        
+        $(".readCommunityReplyOnMobile").on("click", function () {
+
+            var li = $(this);
+            var div = li.children();
+            setModalInput(div.eq(0).text());
+            setModalInputReply(div.eq(1).text());
+            localStorage.setItem("community_id",modalInput);
+            localStorage.setItem("groupId",modalInputReply);
+            if(localStorage.getItem("community_id")!="0" && localStorage.getItem("groupId")!="0"){
+                window.location.href ='/communities/reply'
+            }
+        })
     })
 
     useEffect(() => {
         readCommunityCount();
         readActivityHistory(); //getlist
     }, []);
+
+    
+
+    const isPc = useMediaQuery({query: "(min-width: 601px)"})
+    const isMobile = useMediaQuery({query: "(max-width: 600px"})
+
+
     return (
         <div className="dv">
             <div className="createCommunity">
                 <div className="community-title">
                     <div id="title">커뮤니티</div>
                 </div>
-
+                {isPc&&
                 <div className="search-button-group">
                     <select id="community-search-option">
                         <option>제목</option>
                     </select>
-                    <input id="community-search" value=""></input>
-                    <button id="community-upload" className={"createCommunityButton"}>UPLOAD</button>
+                    <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
                 </div>
-
+                }
+                {isMobile&&
+                
+                <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
+                }
             </div>
 
-            {activityHistoryList}
+            { isPc && activityHistoryList}
+            { isMobile && activityHistoryListOfMobile}
 
             <div id="center">
                 <div class="pagination">

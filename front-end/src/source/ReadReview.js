@@ -118,7 +118,7 @@ function ReadReview(props) {
             _id: localStorage.getItem("review_id") //거주후기 id
         };
         axios
-            .post('/happyhouse/reviews/detail', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/detail', form)
             .then((res) => {
 
                 console.log(res.data);
@@ -182,7 +182,7 @@ function ReadReview(props) {
             }
         };
         if(writeId == localStorage.getItem("userID")){
-            axios.post('/happyhouse/reviews/update', formData,config).then((res) => {
+            axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', formData,config).then((res) => {
                 alert("거주후기 수정 완료")
                 window.location.href ='/reviews'
             })
@@ -198,7 +198,7 @@ function ReadReview(props) {
          };
  
          if(writeId == localStorage.getItem("userID")){
-            axios.post('/happyhouse/reviews/delete', form).then((res) => {
+            axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/delete', form).then((res) => {
              alert("거주후기 삭제 완료")
              window.location.href ='/reviews'
             })
@@ -213,7 +213,7 @@ function ReadReview(props) {
             danjiCode: localStorage.getItem("danjiCode") //단지code
         };
         axios
-            .post('/happyhouse/houseInfos/detail', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos/detail', form)
             .then((res) => {
 
                 console.log(res.data);

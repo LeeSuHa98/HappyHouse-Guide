@@ -2,6 +2,50 @@
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 @import url("http://fonts.cdnfonts.com/css/malgun-gothic-boot");
 
+@media (max-width: 600px) {
+  .side-bar {
+    /*menubar_height만큼 side-bar top위치 조정*/
+    top: 6%;
+    border-left: solid 0.5px rgb(187, 187, 187);
+    position: absolute;
+    width: 100%;
+    height: 94%;
+    overflow: auto;
+    flex-direction: column;
+    border-radius: 0;
+    border-color: rgba(199, 199, 199, 0.693);
+    background-color: rgb(255, 255, 255);
+    display: none;
+    z-index: 3;
+  }
+}
+
+@media (min-width: 601px) {
+  .side-bar {
+    /*menubar_height만큼 side-bar top위치 조정*/
+    top: 6%;
+    left: 73%;
+    border-left: solid 0.5px rgb(187, 187, 187);
+    position: absolute;
+    width: 27%;
+    height: 94%;
+    overflow: auto;
+    flex-direction: column;
+    border-radius: 0;
+    border-color: rgba(199, 199, 199, 0.693);
+    background-color: rgb(255, 255, 255);
+    display: none;
+  }
+}
+
+.loading-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .label {
   /* border: 2px solid rgb(36, 72, 105);
     background-color: rgb(36, 72, 105); */
@@ -47,22 +91,6 @@
 /* SideBar */
 .side-bar-wrap {
   height: 100%;
-}
-
-.side-bar {
-  /*menubar_height만큼 side-bar top위치 조정*/
-  top: 6%;
-  left: 73%;
-  border-left: solid 0.5px rgb(187, 187, 187);
-  position: absolute;
-  width: 27%;
-  height: 94%;
-  overflow: auto;
-  flex-direction: column;
-  border-radius: 0;
-  border-color: rgba(199, 199, 199, 0.693);
-  background-color: rgb(255, 255, 255);
-  display: none;
 }
 
 .content {
@@ -141,7 +169,7 @@
 }
 
 .typeGroup {
-  padding:1em;
+  padding: 1em;
 }
 
 #typeButton {
@@ -153,13 +181,11 @@
   background-color: white;
   border: 0;
   /* border: solid 2px #8aa6e2; */
-
 }
 
-#typeButton:hover{
+#typeButton:hover {
   color: rgb(24, 24, 24);
   border-bottom: 2px solid rgb(43, 43, 43);
-
 }
 
 .houseInfoTable2 {
@@ -204,7 +230,6 @@
   width: 100%;
 }
 
-
 .rt {
   width: 95%;
   list-style: none;
@@ -227,7 +252,7 @@
   font-weight: 450;
   font-size: 14px;
   width: 100%;
-  line-height:25px;
+  line-height: 25px;
 }
 
 .starImg {
@@ -258,13 +283,13 @@
   height: 30px;
 }
 
-.rev-content{
-  width:100%;
+.rev-content {
+  width: 100%;
 }
 
-#reviewImg{
-  width:100%;
-  height:250px;
+#reviewImg {
+  width: 100%;
+  height: 250px;
 }
 
 /* CharBot */
@@ -340,4 +365,4 @@ span {
 .react-chatbot-kit-chat-inner-container {
   box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%),
     0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
-  }
+}

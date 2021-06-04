@@ -1,216 +1,297 @@
-@import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
-.dv {
-    padding-top:10%;
-    padding-bottom:10%;
-    height:100%;
-    width:80%;
-    padding-left:20%;
-  } 
-  
-.li{
-  list-style:none;
- padding-top: 10px;
-}
+@import url("http://www.openhiun.com/hangul/nanumbarungothic.css");
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
-.id{
-  display:none;
-}
+@media (max-width: 600px) {
+  #header {
+    margin-top: 0.3em;
+    padding-top: 3%;
+    padding-bottom: 1%;
+    margin-bottom: 0.3em;
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 10px;
+    background-color: #e2e2e2;
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+  }
 
-  .community-wrap{
-      width:80%;
-      height:90%;
-  
-      margin-left:10%;
+  .createCommunity {
+    padding-top: 10%;
   }
-  
-  /* review-title */
-  .community-title{
-      width:100%;
+  .li {
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
   }
-  
-  #title{
-      height:50px;
-      border:solid 2.3px rgba(160, 160, 160, 0.514);
-      font-family: 'Do Hyeon', sans-serif;
-      font-size:24px;
-      color:rgb(53, 53, 53);
-      padding-top:5px;
-      padding-left:10px;
+
+  /* On mouse-over, add a deeper shadow */
+  .li:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
-  
-  /* search-button-group */
-  .search-button-group{
-      width:100%;
-      margin-top:.5em;
+
+  .dv {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
-  
-  #community-search-option{
-      width:100px;
-      height:29px;
-      border:solid 2px rgba(160, 160, 160, 0.514);
-      
-      padding-left:5px;
-      font-family: 'Nanum Barun Gothic', sans-serif;
-      font-size:12px;
-  }
-  
-  #b{font-weight: 950;
-    font-size:12px;
-  }
-  
-  #community-search{
-      width:250px;
-      height:29px;
-      margin-left:10px;
-      border:solid 2px rgba(160, 160, 160, 0.514);
-      
-      font-family: 'Nanum Barun Gothic', sans-serif;
-      font-size:12px;
-  }
-  
-  #demerit{
-    margin-top:10px;
-  }
-  
-  #community-upload{
-      border-radius: 10px;
-      width:100px;
-      height:29px;
-      float:right;
-      border:solid 2px rgba(160, 160, 160, 0.514);
-      background-color:rgba(160, 160, 160, 0.214);
-      font-family: 'Nanum Barun Gothic', sans-serif;
-      font-size:11px;
-  }
-  
-  /* reviews */
-  .community-container{
-    width:100%;
-    margin-top:1.3em;
-    height:100%;
-    display:flex;
-    flex-direction: row;
-  }
-  
-  
+
   .community-block {
     margin: 0px 5px;
-    flex-basis:49%;
-    border:solid 1px black;
+    flex-basis: 49%;
+    box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.1);
+    padding: 20px 35px;
+    font-family: "Nanum Barun Gothic", sans-serif;
+  }
+  .community-content {
+    margin-top: 10px;
+    font-family: "Nanum Barun Gothic", sans-serif;
+    border: 0.5px gray solid;
+    height: 100px;
+    border-radius: 3px;
+    padding: 5px;
+  }
+
+  #community-upload {
+    border-radius: 10px;
+    width: 100px;
+    height: 29px;
+    border: solid 2px rgba(160, 160, 160, 0.514);
+    background-color: rgba(160, 160, 160, 0.214);
+    font-family: "Nanum Barun Gothic", sans-serif;
+    font-size: 11px;
+    margin-left: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 601px) {
+  #header {
+    margin-bottom: 0.3em;
+    text-align: center;
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 15px;
+  }
+  .dv {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 100%;
+    width: 80%;
+    padding-left: 20%;
+  }
+
+  .community-block {
+    margin: 0px 5px;
+    flex-basis: 49%;
+    border: solid 1px black;
     box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.1);
     padding: 20px 35px;
     border-radius: 3px;
-    font-family: 'Nanum Barun Gothic', sans-serif;
-  }
-  
-  #header {
-    margin-bottom: .3em;
-    text-align: center;
-    font-family: 'Do Hyeon', sans-serif;
-    font-size:15px;
-  }
-  #writer-writeDate-star{
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:13px;
-    float:right;
-    margin-bottom: .3em;
-  }
-  
-  .houseInfo{
-    width:100%;
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:13px;
-    text-align: center;
-  }
-  
-  .houseInfo td{
-    border:solid 1px grey;
-  }
-  
-  #a{
-    background-color:rgba(59, 89, 114, 0.288);
+    font-family: "Nanum Barun Gothic", sans-serif;
   }
 
-  .community-content{
-      margin-top:10px;
-      font-family: 'Nanum Barun Gothic', sans-serif;
-      border:0.5px gray solid;
-      height:100px;
-      border-radius: 3px;
+  .community-content {
+    margin-top: 10px;
+    font-family: "Nanum Barun Gothic", sans-serif;
+    border: 0.5px gray solid;
+    height: 100px;
+    border-radius: 3px;
   }
-  
-  #merit, #demerit{
-      font-size:12.5px;
+
+  #community-upload {
+    border-radius: 10px;
+    width: 100px;
+    height: 29px;
+    float: right;
+    border: solid 2px rgba(160, 160, 160, 0.514);
+    background-color: rgba(160, 160, 160, 0.214);
+    font-family: "Nanum Barun Gothic", sans-serif;
+    font-size: 11px;
   }
-  
-  #center {
-      margin-top:2em;
-      width:100%;
-    }
-    
-    .pagination {
-      justify-content: center;
-      display: inline-block;    
-    }
-    
-    .pagination a:hover:not(.active) {background-color: #ddd;}
-  
-    .pagination a {
-      color: black;
-      float: left;
-      padding: 8px 16px;
-      text-decoration: none;
-      transition: background-color .3s;
-      border: 1px solid #ddd;
-      margin: 0 4px;
-    }
-    
-    .pagination a.active {
-      background-color: #4c87afa2;
-      color: white;
-      border: 1px solid #4c87afa2;
-    }
-
-
-    .popup{
-      width:100%;            
-      max-width:400px;          
-      border-radius:10px;      
-      overflow:hidden;         
-      background-color:#264db5; 
-      
-      box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
-    }
-
-    .button-container{
-
-      padding: 5px;
-    }
-
- 
-
-
-
-    
-  dl, ul, ol, menu, li {
-    list-style: none;
+  .profile {
+    margin-bottom: 10px;
+  }
 }
-.status{
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.writeDate {
+  font-size: 10px;
+}
+
+.li {
+  list-style: none;
+  padding-top: 10px;
+}
+
+.id {
+  display: none;
+}
+
+.community-wrap {
+  width: 80%;
+  height: 90%;
+
+  margin-left: 10%;
+}
+
+/* review-title */
+.community-title {
+  width: 100%;
+}
+
+#title {
+  height: 50px;
+  border: solid 2.3px rgba(160, 160, 160, 0.514);
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 24px;
+  color: rgb(53, 53, 53);
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+/* search-button-group */
+.search-button-group {
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+#community-search-option {
+  width: 100px;
+  height: 29px;
+  border: solid 2px rgba(160, 160, 160, 0.514);
+
+  padding-left: 5px;
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 12px;
+}
+
+#b {
+  font-weight: 950;
+  font-size: 12px;
+}
+
+#community-search {
+  width: 250px;
+  height: 29px;
+  margin-left: 10px;
+  border: solid 2px rgba(160, 160, 160, 0.514);
+
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 12px;
+}
+
+#demerit {
+  margin-top: 10px;
+}
+
+/* reviews */
+.community-container {
+  width: 100%;
+  margin-top: 1.3em;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#writer-writeDate-star {
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 13px;
   float: right;
-  
-    margin-left: 8px;
-    padding: 0 2px;
-    height: 20px;
-    line-height: 20px;
-    color: #a6a6a6;
-    font-size: 12px;
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 11px 11px;
-    cursor: pointer;
+  margin-bottom: 0.3em;
 }
-.user{
+
+.houseInfo {
+  width: 100%;
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 13px;
+  text-align: center;
+}
+
+.houseInfo td {
+  border: solid 1px grey;
+}
+
+#a {
+  background-color: rgba(59, 89, 114, 0.288);
+}
+
+#merit,
+#demerit {
+  font-size: 12.5px;
+}
+
+#center {
+  margin-top: 2em;
+  width: 100%;
+}
+
+.pagination {
+  justify-content: center;
+  display: inline-block;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4c87afa2;
+  color: white;
+  border: 1px solid #4c87afa2;
+}
+
+.popup {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #264db5;
+
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
+}
+
+.button-container {
+  padding: 5px;
+}
+
+dl,
+ul,
+ol,
+menu,
+li {
+  list-style: none;
+}
+.status {
+  float: right;
+
+  margin-left: 8px;
+  padding: 0 2px;
+  height: 20px;
+  line-height: 20px;
+  color: #a6a6a6;
+  font-size: 12px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 11px 11px;
+  cursor: pointer;
+}
+.user {
   float: left;
   max-width: 90px;
   margin: 0 10px 5px 0;
@@ -221,7 +302,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.time{
+.time {
   float: left;
   margin-bottom: 5px;
   height: 20px;
@@ -229,9 +310,7 @@
   font-size: 12px;
   color: #a6a6a6;
 }
-.reply{
- 
-  
+.reply {
   line-height: 20px;
   color: #444444;
   font-size: 14px;
@@ -240,16 +319,14 @@
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  
 }
-.article{
- 
-    padding: 10px 10px 0 10px;
-    border: 1px solid #e3e3e3;
-    background-color: #f9f9f9;
+.article {
+  padding: 10px 10px 0 10px;
+  border: 1px solid #e3e3e3;
+  background-color: #f9f9f9;
 }
 
-.picture-medium{
+.picture-medium {
   float: left;
   margin: 0 5px 5px 0;
   width: 20px;
@@ -257,23 +334,22 @@
   border-radius: 4px;
 }
 
-.text1{
-
+.text1 {
   margin: 0;
-    padding: 10px 85px 10px 10px;
-    border: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 20px;
-    box-sizing: border-box;
-    color: #262626;
-    font-size: 13px;
-    overflow: hidden;
-    resize: none;
-    background-color: transparent
+  padding: 10px 85px 10px 10px;
+  border: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  box-sizing: border-box;
+  color: #262626;
+  font-size: 13px;
+  overflow: hidden;
+  resize: none;
+  background-color: transparent;
 }
 
-.community-submit{
+.community-submit {
   border: 0;
   width: 100%;
   height: 48px;
@@ -290,10 +366,10 @@
   justify-content: center;
 }
 
-.create_container{
+.create_container {
   padding: 15px;
 }
-.page{
+.page {
   background: #ffff;
   border: 0;
 }
