@@ -5,8 +5,8 @@
 .label {
   /* border: 2px solid rgb(36, 72, 105);
     background-color: rgb(36, 72, 105); */
-  border: 1px solid rgba(0, 0, 0, 0.13);
-  background-color: rgba(46, 61, 94);
+  border: 2px solid rgb(66, 106, 151);
+  background-color: rgb(63, 133, 151);
   text-align: center;
   padding: 3px;
   border-radius: 13px;
@@ -14,6 +14,20 @@
   padding-left: 7px;
   padding-right: 7px;
   margin-bottom: 170px;
+  font-weight: 600;
+}
+
+.planned-label {
+  border: 2px solid rgb(172, 92, 17);
+  background-color: rgb(196, 105, 21);
+  text-align: center;
+  padding: 3px;
+  border-radius: 13px;
+  padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-bottom: 170px;
+  font-weight: 600;
 }
 
 .toggle-menu {
@@ -133,11 +147,19 @@
 #typeButton {
   width: 70px;
   height: 30px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   margin-right: 10px;
   margin-bottom: 5px;
   background-color: white;
-  border: solid 1.35px rgba(43, 77, 104, 0.452);
+  border: 0;
+  /* border: solid 2px #8aa6e2; */
+
+}
+
+#typeButton:hover{
+  color: rgb(24, 24, 24);
+  border-bottom: 2px solid rgb(43, 43, 43);
+
 }
 
 .houseInfoTable2 {
@@ -296,7 +318,7 @@
 }
 .chatbot-show {
   text-align: center;
-  bottom: 15%;
+  bottom: 13%;
   left: 3%;
   position: fixed;
   justify-content: center;
@@ -314,3 +336,8 @@
 span {
   word-break: break-all;
 }
+
+.react-chatbot-kit-chat-inner-container {
+  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%),
+    0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+  }

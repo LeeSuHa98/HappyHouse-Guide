@@ -202,6 +202,10 @@ const SideBar = (props) => {
                           </div>
                           <table class="houseInfoTable2">
                           <tr>
+                              <td id="td1">주택형</td>
+                              <td>{props.houseDetail.houseDetailInfo[typeIndex].typeName}</td>
+                            </tr>
+                          <tr>
                               <td id = "td1">공급세대</td>
                               <td>{props.houseDetail.houseHoldNum} 세대</td>
                             </tr>
@@ -211,30 +215,26 @@ const SideBar = (props) => {
                                 <Moment format="YYYY / MM / DD">{props.houseDetail.competeDate}</Moment>
                               </td>
                             </tr>
-                                
-                            <tr>
-                              <td id="td1">주택형</td>
-                              <td>{props.houseDetail.houseDetailInfo[typeIndex].typeName}</td>
-                            </tr>
-                            <tr>
-                              <td id="td1">공공 공용면적</td>
-                              <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyCommuseArea}(㎡)</td>
-                            </tr>
-                            <tr>
-                              <td id="td1"> 개인 공용면적</td>
-                              <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyPrivateArea}</td>
-                            </tr>
                             <tr>
                               <td id="td1">임대 보증금</td>
-                              <td> {numeral(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).format('0,0')}</td>
-                            </tr>
-                            <tr>
-                              <td id="td1">전환 보증금</td>
-                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')}</td>
+                              <td> {(props.houseDetail.houseDetailInfo[typeIndex].bassRentDeposit).substring(0,4)} 만원</td>
                             </tr>
                             <tr>
                               <td id="td1">월 임대료</td>
-                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).format('0,0')}</td>
+                              <td>{(props.houseDetail.houseDetailInfo[typeIndex].bassMonthlyRentCharge).substring(0,2)} 만원</td>
+                            </tr>
+                            <tr>
+                              <td id="td1">전환 보증금</td>
+                              <td>{numeral(props.houseDetail.houseDetailInfo[typeIndex].bassConversionDeposit).format('0,0')} 만원</td>
+
+                            </tr>
+                            <tr>
+                              <td id="td1">공공 공용면적</td>
+                              <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyCommuseArea} (㎡)</td>
+                            </tr>
+                            <tr>
+                              <td id="td1"> 개인 공용면적</td>
+                              <td>{props.houseDetail.houseDetailInfo[typeIndex].suplyPrivateArea} (㎡)</td>
                             </tr>
                           </table>
                           

@@ -9,7 +9,7 @@ import {Modal, ModalHeader} from 'reactstrap';
 import CreateReview from './CreateReview'
 import star3 from '../Image/star3.png'
 import Pagination from '../source/Pagination'
-
+import SearchHouse from '../source/SearchHouse'
 const Review = (props) => {
 
     const [modalInput, setModalInput] = useState("0");
@@ -149,7 +149,11 @@ const Review = (props) => {
             })
     }
     $(function () {
+        $(".createReviewButton").on("click", function () {
 
+            
+            toggleCreateReview();
+        })
         $(".readReviewDetail").on("click", function () {
 
             var Button = $(this);
@@ -192,10 +196,12 @@ const Review = (props) => {
                                 <option>최신순</option>
                                 <option>별점순</option>
                             </select>
+                            {/* <button
+                                id="review-upload"
+                                onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button> */}
                             <button
                                 id="review-upload"
-                                onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button>
-
+                                className={"createReviewButton"}>UPLOAD</button>
                         </div>
 
                         {review_list}
@@ -217,8 +223,8 @@ const Review = (props) => {
             </React.Fragment>
 
             <Modal isOpen={modalCreateReview}>
-                <ModalHeader toggle={toggleCreateReview}>거주후기 작성</ModalHeader>
-                <CreateReview></CreateReview>
+                <ModalHeader toggle={toggleCreateReview}>주택 검색</ModalHeader>
+                <SearchHouse></SearchHouse>
             </Modal>
 
         </div>

@@ -9,14 +9,18 @@ import './css/Sidebar.css'
 
 const HappyChatbot = (props) => {
     
-    const chatbotFAQ = () => {
-        var con = document.getElementById("chatbot");
-        if(con.style.display==='none'){
-          con.style.display='block';
-        }else{
-          con.style.display='none';
-        }
-      }
+  const chatbotFAQ = () => {
+    var con = document.getElementById("chatbot");
+    var con2 = document.getElementById("chatbotM");
+    if(con.style.display==='none'){
+      con.style.display='block';
+      con2.style.display='none';
+    }else{
+      con.style.display='none';
+      con.style.display='none'; 
+      con2.style.display='block';
+    }
+  }
 
   return (
     <div>
