@@ -28,7 +28,7 @@ const httpLogStream = {
     client.index({
       index: "http-error-logs",
       body: {
-        'address' : message.split(' ')[0],
+        'ip_4' : message.split(' ')[0].split(':')[3],
         'user' : message.split(' ')[1],
         'method' : message.split(' ')[2],
         'url' : message.split(' ')[3],

@@ -35,7 +35,7 @@ reviewSchema.statics.findOrderOfThree = function (danjiCode) {
 
 // 최신순 3개
 reviewSchema.statics.findPictures = function (danjiCode) {
-  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: null } });
+  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: 0 } });
 };
 
 
