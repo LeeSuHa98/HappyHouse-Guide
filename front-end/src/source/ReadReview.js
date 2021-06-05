@@ -348,7 +348,7 @@ function ReadReview(props) {
         <br></br>
         {!$imagePreview &&
         <Image src={imagePreviewUrl} className="mw-100"></Image>}
-    </div>s
+    </div>
 
 
 
