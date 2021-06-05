@@ -1,20 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {
-    FormGroup,
     Input,
-    Button,
     InputGroup,
-    InputGroupAddon,
-    Progress,
-    InputGroupText,
     CustomInput
 } from 'reactstrap';
 import axios from 'axios'
 import './css/Review.css'
 import {Image} from 'react-bootstrap';
 import numeral from 'numeral'
-import room1 from '../Image/room1.PNG'
-import Moment from 'react-moment'
 
 const CreateReview = (props) => {
     const [_id, set_id] = useState(props._id);
@@ -29,8 +22,6 @@ const CreateReview = (props) => {
     const [picture, setPicture] = useState()
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [star, setStar] = useState(5)
-    const [writeDate, setWriteDate] = useState()
-    const [isReadOnly, setIsReadOnly] = useState(true); // 수정활성화
     const [file, setFile] = useState(0)
     const [filename,setFilename] = useState()
 
@@ -40,8 +31,6 @@ const CreateReview = (props) => {
     const [sidoName,setSidoName] = useState()
 
     const [typeName_List, setTypeNameList] = useState();  //TYPENAME
-    //
-    const [img,setImage] = useState(null);
 
 
     let $imagePreview = null;
@@ -74,19 +63,6 @@ const CreateReview = (props) => {
         e.preventDefault();
         setDemerit(e.target.value);
     };
-    const handleChangeFile = (e) => {
-        e.preventDefault();
-        setFilename(e.target.value);
-         let reader = new FileReader();
-         let file = e
-             .target
-             .files[0];
-         reader.onloadend = () => {
-             setFile(file);
-             setImagePreviewUrl(reader.result);
-         }
-         reader.readAsDataURL(file);
-    }
     const handlChangeStar = (e) => {
         e.preventDefault();
         setStar(e.target.value);
@@ -162,7 +138,6 @@ const CreateReview = (props) => {
         }
         
       }
-    //TEST
     const readHouse = (e) => {   //주택정보 
         var form = {
             danjiCode: localStorage.getItem("danjiCode") //단지code
@@ -191,7 +166,6 @@ const CreateReview = (props) => {
         axios
             .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos/type', form)
             .then(({data}) => {
-               // data = data.communitysList
                data = data.houseInfoList
                 setTypeNameList(data.map(typeNameList))
     

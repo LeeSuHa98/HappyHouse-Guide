@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from 'react-select'
-import { FormGroup, Input, Button,InputGroup,InputGroupAddon, InputGroupText} from 'reactstrap';
 import axios from 'axios'
 
 
@@ -23,10 +22,7 @@ const SearchHouse = (props) => {
     }
   
 
-  const onChange = (code) => {
-console.log(code);
 
-  }
 
 
   const customStyles = {
@@ -36,7 +32,6 @@ console.log(code);
         color: 'rgb(51, 51, 51)',
         padding: 20,
         ":hover": {
-          // Overwrittes the different states of border
           backgroundColor: 'lightgray',
         },
         fontFamily: 'Do Hyeon',
@@ -71,7 +66,7 @@ console.log(code);
                     },
                   })}
                 styles={customStyles}
-                onChange={(value) => { onChange(value.code);
+                onChange={(value) => { 
                   localStorage.setItem("danjiCode",value.code);
                 }}/>
         </div>
