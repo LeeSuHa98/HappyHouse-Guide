@@ -321,10 +321,16 @@ function ReadReview(props) {
                 label="사진 선택"
                 onChange={onChange}></CustomInput>
         </InputGroup>
-
         <br></br>
-        {/* {!$imagePreview &&
-        <Image src={imagePreviewUrl} className="mw-100"></Image>} */}
+        {!$imagePreview &&
+        <Image src={imagePreviewUrl} className="mw-100"></Image>}
+            <div className="button-container-review">
+        <button id="review-upload" onClick={updateReview}>수정</button>
+        <button id="review-upload" onClick={deleteReview}>삭제</button>
+        </div>
+        <div className="button-container-review">
+        <button id="review-upload-cancel" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
+        </div>
     </div>
 
 
@@ -447,12 +453,6 @@ function ReadReview(props) {
                                         ></Input>
                                 </div>
                             </div> */}
-                            <br></br>
-                            <div className="button-container">
-        <button id="review-upload" onClick={updateReview}>수정</button>
-        <button id="review-upload" onClick={deleteReview}>삭제</button>
-        <button id="review-upload-cancel" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
-        </div>
                         </div>
                 </div>
             </React.Fragment>

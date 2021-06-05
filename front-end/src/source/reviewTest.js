@@ -221,7 +221,7 @@ const Review = (props) => {
                                 onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button> */}
                             <button
                                 id="review-upload"
-                                className={"createReviewButton"}>글쓰기</button>
+                                className={"createReviewButton"}>거주후기 작성하기</button>
                         </div>
 
                         {review_list}

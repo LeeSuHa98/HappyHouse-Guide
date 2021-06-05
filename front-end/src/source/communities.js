@@ -184,7 +184,7 @@ const Communities = (props) => {
                     <div id="title">커뮤니티</div>
                 </div>
                 {isPc&&
-                <div className="search-button-group">
+                <div className="search-button-group-com">
                     <select id="community-search-option">
                         <option>제목</option>
                     </select>
@@ -193,7 +193,12 @@ const Communities = (props) => {
                 }
                 {isMobile&&
                 
-                <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
+                <div className="search-button-group-com">
+                    <select id="community-search-option">
+                        <option>제목</option>
+                    </select>
+                    <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
+                </div>
                 }
             </div>
 
