@@ -37,7 +37,7 @@ function ReadReview(props) {
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [star, setStar] = useState(5)
     const [writeDate, setWriteDate] = useState()
-    const [file, setFile] = useState()
+    const [file, setFile] = useState(0)
     const [filename,setFilename] = useState()
     const [img,setImage] = useState(null);
 
@@ -49,7 +49,7 @@ function ReadReview(props) {
     const [danjiName,setDanjiName] = useState()
     const [houseType,setHouseType] = useState()
     const [sidoName,setSidoName] = useState()
-   
+    const [typeName_List, setTypeNameList] = useState();  //TYPENAME
     let $imagePreview = null;
     const handleChangeTitle = (e) => {
         e.preventDefault();
@@ -96,7 +96,7 @@ function ReadReview(props) {
         e.preventDefault();
         setStar(e.target.value);
     };
-   
+ 
     // const toggleIsReadOnly = () => {
     //     setIsReadOnly(!isReadOnly);
     // }
@@ -140,20 +140,47 @@ function ReadReview(props) {
             })
         }
 
-   
+        const readTypeNameList = () => { 
+
+            var form = {
+                danjiCode: localStorage.getItem("danjiCode")
+            };
+            axios
+                .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos/type', form)
+                .then(({data}) => {
+                   // data = data.communitysList
+                   data = data.houseInfoList
+                    setTypeNameList(data.map(typeNameList))
+        
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+        const typeNameList = (houseInfo) => (
+
+            
+            <option>{ houseInfo.typeName }</option>
+                      
+                  
+               );
   
     useEffect(() => {
         readReview(); 
         readHouse();
+        readTypeNameList();
     }, [])
 
     const updateReview = () => {
 
+        if(file!=0){
         const formData = new FormData();
+        formData.append('danjiCode', localStorage.getItem("danjiCode"));
+        formData.append('danjiName', danjiName);
         formData.append('userId', localStorage.getItem("userID"));
         formData.append('_id', localStorage.getItem("review_id"));
         formData.append('title', title);
-        formData.append('region', region);
+        formData.append('region', sidoName);    //주택정보
         formData.append('typeName', typeName);
         formData.append('monthlyRentCharge', monthlyRentCharge);
         formData.append('adminCharge', adminCharge);
@@ -166,11 +193,38 @@ function ReadReview(props) {
                 'content-type': 'multipart/form-data'
             }
         };
-       
-            axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', formData,config).then((res) => {
+        
+            axios.post('/happyhouse/reviews/update', formData,config).then((res) => {
                 alert("거주후기 수정 완료")
                 window.location.href ='/reviews'
             })
+            
+        }else{
+            var form={
+                _id:localStorage.getItem("review_id"),
+                danjiCode: localStorage.getItem("danjiCode"),
+                danjiName : danjiName,
+                userId : localStorage.getItem("userID"),
+                title : title,
+                region: sidoName,
+                typeName: typeName,                
+                monthlyRentCharge: monthlyRentCharge,
+                adminCharge: adminCharge,
+                merit: merit,
+                demerit: demerit,
+                star: star,
+                picture: picture,
+            };
+
+            axios.post("/happyhouse/reviews/updateNofile",form)
+            .then((res) => {
+                alert("거주후기 수정 완료");
+                window.location.href ='/reviews'
+            }).catch((error) => {
+        });
+        }
+        
+            
         
     }
     const deleteReview = () => {    
@@ -260,6 +314,14 @@ function ReadReview(props) {
         </td>
     </tr>
     <div id="merit">
+        <div id="b">주택형</div>
+        <select id = "review-search-typeName"  onChange={handleChangeTypeName}>
+        <option>{typeName}</option>
+                        {typeName_List}
+                    </select>
+
+    </div>
+    <div id="merit">
         <div id="b">거주후기 제목</div>
         <Input
             name="title"
@@ -322,8 +384,8 @@ function ReadReview(props) {
                 onChange={onChange}></CustomInput>
         </InputGroup>
         <br></br>
-        {!$imagePreview &&
-        <Image src={imagePreviewUrl} className="mw-100"></Image>}
+        {/* {!$imagePreview &&
+        <Image src={imagePreviewUrl} className="mw-100"></Image>} */}
             <div className="button-container-review">
         <button id="review-upload" onClick={updateReview}>수정</button>
         <button id="review-upload" onClick={deleteReview}>삭제</button>

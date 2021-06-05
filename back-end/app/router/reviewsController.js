@@ -1,21 +1,13 @@
 const router = require('express').Router();
 const reviews = require('../model/reviews');
 const path = require("path");
-//const multer = require("multer");
 const fs = require('fs');
 
-// const storage = multer.diskStorage({   //이미지형식으로 바꿔주는역할 
-//     destination: "./uploads/",
-//     filename: function(req, file, cb){
-//        cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-//     }
-//  });
-//    const upload =multer({storage: storage});
+
 const upload = require('../modules/multer');
 
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
-    //  let image = 'https://carrykimsbucket.s3.amazonaws.com/Image/' + req.file.filename;
  
      let review = new reviews({
       danjiCode: req.body.danjiCode,
@@ -42,7 +34,6 @@ const upload = require('../modules/multer');
    //NO FILE CREATE REVIEW
    router.post('/create', (req, res) => {
  
-    console.log("받은거",req.body)
     let review = new reviews({
      danjiCode: req.body.danjiCode,
      danjiName: req.body.danjiName,
@@ -56,7 +47,7 @@ const upload = require('../modules/multer');
      merit: req.body.merit,
      demerit: req.body.demerit,
      writeDate: req.body.writeDate,
-     picture: 0, //  
+     picture: 0,
      star: req.body.star,
    });
    review.save()
@@ -79,8 +70,6 @@ router.get('/', (req, res) => {
 // Find All
 router.post('/date', (req, res) => {
   const pageNumber = req.body.page;
-
- 
 
     reviews.findOrderByDate(pageNumber)
     .then((reviews) => {
@@ -114,7 +103,6 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/houseid/:id', (req, res) => {
-  console.log("tset")
   reviews.find({danjiCode: req.params.id})
   .then((reviews) => {
     if (!reviews) return res.status(404).send({ err: 'reviews not found' });
@@ -172,15 +160,10 @@ router.post('/detail', (req, res) => {
   })
   .catch(err => res.status(500).send(err));
 });
-// router.post('/create', upload.single('profile_img'), function (req, res, next) {
-//   console.log(req.body);
-//   console.log(req.file);
-//   console.log(req.file.filename);
-// })
 
 // Update by id
 router.post('/update',  upload.single('myImage'),(req,res,next)=> {
-  let image = 'http://localhost:8080/Image/' + req.file.filename;
+ 
   reviews.findOneAndUpdate({_id: req.body._id},{    
     title: req.body.title,
     region : req.body.region,
@@ -189,14 +172,31 @@ router.post('/update',  upload.single('myImage'),(req,res,next)=> {
     adminCharge: req.body.adminCharge,    
     merit : req.body.merit,
     demerit: req.body.demerit,
-    picture: image,
+    picture: req.file.location,
     star: req.body.star
   } 
 ).then(reviews => res.send(reviews))
 .catch(err => res.status(500).send(err));
     
 });
-
+// Update No file by id 
+router.post('/updateNofile', (req, res) => {
+ 
+  reviews.findOneAndUpdate({_id: req.body._id},{    
+    title: req.body.title,
+    region : req.body.region,
+    typeName: req.body.typeName,
+    monthlyRentCharge: req.body.monthlyRentCharge,
+    adminCharge: req.body.adminCharge,    
+    merit : req.body.merit,
+    demerit: req.body.demerit,
+    picture: req.body.picture,
+    star: req.body.star
+  } 
+).then(reviews => res.send(reviews))
+.catch(err => res.status(500).send(err));
+    
+});
 // Delete by id
 router.post('/delete', (req, res) => {
   var id = req.body._id;
