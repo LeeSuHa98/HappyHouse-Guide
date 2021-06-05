@@ -13,9 +13,10 @@ import SearchHouse from '../source/SearchHouse'
 const Review = (props) => {
 
     const [modalInput, setModalInput] = useState("0");
+    const [modalInputCode, setModalInputCode] = useState("0");
+    const [modalInputWriterId, setModalInputWriterId] = useState("0");
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
-    //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
@@ -38,12 +39,19 @@ const Review = (props) => {
 
     const handlePageChange = (page) => {
         localStorage.setItem("page", page);
+        if (localStorage.getItem("option") == 1) {
+
+            readReviewStar();
+        } else 
+            readReview()
     }
 
     const reviewList = (reviews) => (
         <li className="li" key={reviews._id} id={reviews._id}>
             <div class="review-block">
                 <td className="id">{reviews._id}</td>
+                <td className="id">{reviews.danjiCode}</td>
+                <td className="id">{reviews.userId}</td>
                 <div id="header">
                     <h4 className="header-title">{reviews.title}</h4>
                 </div>
@@ -110,7 +118,7 @@ const Review = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
-                    <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
+                    <button id="review-upload" className={"readReviewDetail"} onClick={readReviewDetail}>수정/삭제</button>
                 </div>
                 <br></br>
 
@@ -148,10 +156,22 @@ const Review = (props) => {
                 setReview(data.map(reviewList))
             })
     }
+    function readReviewDetail() {
+      
+     
+       if (localStorage.getItem("review_id") != "0"&& localStorage.getItem("danjiCode")!="0") {
+        if(localStorage.getItem("userID")!=localStorage.getItem("writerId")){
+                    
+            alert("수정 권한이 없습니다.")
+            window.location.href = '/reviews'
+        }else{
+            window.location.href = '/reviews/detail'
+        }
+    }
+    }
     $(function () {
         $(".createReviewButton").on("click", function () {
 
-            
             toggleCreateReview();
         })
         $(".readReviewDetail").on("click", function () {
@@ -163,10 +183,10 @@ const Review = (props) => {
             var td = div.children();
             setModalInput(td.eq(0).text());
             localStorage.setItem("review_id", modalInput);
-
-            if (localStorage.getItem("review_id") != "0") {
-                window.location.href = '/reviews/detail'
-            }
+            setModalInputCode(td.eq(1).text());
+            localStorage.setItem("danjiCode",modalInputCode);
+            setModalInputWriterId(td.eq(2).text());
+            localStorage.setItem("writerId",modalInputWriterId);
 
         })
     })
