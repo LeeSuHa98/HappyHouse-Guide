@@ -474,7 +474,7 @@ function ReadReview(props) {
                             <div className="button-container">
         <button id="review-upload" onClick={updateReview}>수정</button>
         <button id="review-upload" onClick={deleteReview}>삭제</button>
-        <button id="review-upload" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
+        <button id="review-upload-cancel" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
         </div>
                         </div>
                 </div>
