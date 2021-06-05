@@ -8,7 +8,6 @@ const upload = require('../modules/multer');
 
    router.post('/', upload.single('myImage'),(req,res,next)=>{
  
- 
      let review = new reviews({
       danjiCode: req.body.danjiCode,
       danjiName: req.body.danjiName,
@@ -47,7 +46,7 @@ const upload = require('../modules/multer');
      merit: req.body.merit,
      demerit: req.body.demerit,
      writeDate: req.body.writeDate,
-     picture: 0,
+     picture: "https://carrykimsbucket.s3.amazonaws.com/1622914183566.gif",
      star: req.body.star,
    });
    review.save()
