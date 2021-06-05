@@ -213,7 +213,7 @@ function ReadReview(props) {
             danjiCode: localStorage.getItem("danjiCode") //단지code
         };
         axios
-            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseInfos/detail', form)
+            .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/happyhouse/houseInfos/detail', form)
             .then((res) => {
 
                 console.log(res.data);
@@ -228,16 +228,14 @@ function ReadReview(props) {
             })
       }
     return (
-        <div>
+        <div className ="dv">
             <React.Fragment>
 
                 <div className="review-wrap">
                     <div className="review-title">
-                        <div id="title">거주 후기</div>
+                        <div id="title">거주 후기 수정</div>
                     </div>
-
-                    
-                    <div class="review-container">
+        <br></br>
                         <div class="review-block">
 
                         <div class="write-modal-info">
@@ -479,7 +477,6 @@ function ReadReview(props) {
         <button id="review-upload" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
         </div>
                         </div>
-                    </div>
                 </div>
             </React.Fragment>
         </div>

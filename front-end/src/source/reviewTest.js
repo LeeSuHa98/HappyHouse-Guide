@@ -45,7 +45,7 @@ const Review = (props) => {
             <div class="review-block">
                 <td className="id">{reviews._id}</td>
                 <div id="header">
-                    <h4 >{reviews.title}</h4>
+                    <h4 className="header-title">{reviews.title}</h4>
                 </div>
                 <div class="review-item-description-date">
                     <span class="review-item-description">

@@ -2,6 +2,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
 @media (max-width: 600px) {
+  #title {
+    height: 50px;
+    border: solid 2.3px rgba(160, 160, 160, 0.514);
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 24px;
+    color: rgb(53, 53, 53);
+    padding-top: 5px;
+    padding-left: 10px;
+    text-align: center;
+  }
+
   #header {
     margin-top: 0.3em;
     padding-top: 3%;
@@ -68,6 +79,16 @@
 }
 
 @media (min-width: 601px) {
+  #title {
+    height: 50px;
+    border: solid 2.3px rgba(160, 160, 160, 0.514);
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 24px;
+    color: rgb(53, 53, 53);
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+
   #header {
     margin-bottom: 0.3em;
     text-align: center;
@@ -143,16 +164,6 @@
 /* review-title */
 .community-title {
   width: 100%;
-}
-
-#title {
-  height: 50px;
-  border: solid 2.3px rgba(160, 160, 160, 0.514);
-  font-family: "Do Hyeon", sans-serif;
-  font-size: 24px;
-  color: rgb(53, 53, 53);
-  padding-top: 5px;
-  padding-left: 10px;
 }
 
 /* search-button-group */

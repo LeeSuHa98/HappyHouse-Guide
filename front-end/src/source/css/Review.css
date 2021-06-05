@@ -1,64 +1,86 @@
-@import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url("http://www.openhiun.com/hangul/nanumbarungothic.css");
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
-.dv {
-  padding-top:7%;
-  padding-bottom:3%;
-  height:100%;
-} 
+@media (max-width: 600px) {
+  .dv {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 
-.review-wrap{
-    width:80%;
-    height:90%;
+  .review-wrap {
+    height: 90%;
+  }
 
-    margin-left:10%;
+  .header-title {
+    font-size: 15px;
+  }
+
+  .review-title {
+    padding-top: 10%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 601px) {
+  .dv {
+    padding-top: 7%;
+    padding-bottom: 3%;
+    height: 100%;
+  }
+  .review-wrap {
+    width: 80%;
+    height: 90%;
+
+    margin-left: 10%;
+  }
+
+  .review-title {
+    width: 100%;
+  }
 }
 
 /* review-title */
-.review-title{
-    width:100%;
-}
 
-#title{
-    height:50px;
-    border:solid 2.3px rgba(160, 160, 160, 0.514);
-    font-family: 'Do Hyeon', sans-serif;
-    font-size:24px;
-    color:rgb(53, 53, 53);
-    padding-top:5px;
-    padding-left:10px;
+#title {
+  height: 50px;
+  border: solid 2.3px rgba(160, 160, 160, 0.514);
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 24px;
+  color: rgb(53, 53, 53);
+  padding-top: 5px;
+  padding-left: 10px;
 }
 
 /* search-button-group */
-.search-button-group{
-    width:100%;
-    margin-top:.5em;
+.search-button-group {
+  width: 100%;
+  margin-top: 0.5em;
 }
 
-#review-search-option{
+#review-search-option {
+  padding-left: 5px;
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 12px;
+  width: 30%;
+  height: 29px;
+  background: 0 0;
+  border: 1px solid #d8dade;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #363b44;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 14px;
 
-    padding-left:5px;
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:12px;
-    width: 30%;
-    height: 29px;
-    background: 0 0;
-    border: 1px solid #d8dade;
-    box-sizing: border-box;
-    border-radius: 8px;
-    color: #363b44;
-    z-index: 1;
-    cursor: pointer;
-    font-size: 14px;
-
-    align-items: center;
-
+  align-items: center;
 }
-#review-search-typeName{
-
-  padding-left:5px;
-  font-family: 'Nanum Barun Gothic', sans-serif;
-  font-size:12px;
+#review-search-typeName {
+  padding-left: 5px;
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 12px;
   width: 26%;
   height: 40px;
   background: 0 0;
@@ -71,190 +93,192 @@
   font-size: 14px;
 
   align-items: center;
-
 }
-#b{font-weight: 950;
-  font-size:12px;
-}
-
-#review-search{
-    width:250px;
-    height:29px;
-    margin-left:10px;
-    border:solid 2px rgba(160, 160, 160, 0.514);
-    
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:12px;
+#b {
+  font-weight: 950;
+  font-size: 12px;
 }
 
-#merit,#demerit{
-  margin-top:10px;
+#review-search {
+  width: 250px;
+  height: 29px;
+  margin-left: 10px;
+  border: solid 2px rgba(160, 160, 160, 0.514);
+
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 12px;
 }
 
-#review-upload{
-    border-radius: 10px;
-    width:100px;
-    height:29px;
-    float:right;
-    border:solid 2px rgba(160, 160, 160, 0.514);
-    background-color:rgba(160, 160, 160, 0.214);
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    font-size:11px;
+#merit,
+#demerit {
+  margin-top: 10px;
+}
+
+#review-upload {
+  border-radius: 10px;
+  width: 100px;
+  height: 29px;
+  float: right;
+  border: solid 2px rgba(160, 160, 160, 0.514);
+  background-color: rgba(160, 160, 160, 0.214);
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 11px;
 }
 
 /* reviews */
-.review-container{
-  width:100%;
-  margin-top:1.3em;
-  height:100%;
-  display:flex;
+.review-container {
+  width: 100%;
+  margin-top: 1.3em;
+  height: 100%;
+  display: flex;
   flex-direction: row;
 }
-.create-review-container{
-  margin-top:1.3em;
-  display:flex;
+.create-review-container {
+  margin-top: 1.3em;
+  display: flex;
   flex-direction: row;
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 .review-block {
   margin: 0px 5px;
-  flex-basis:49%;
-  border:solid 1px black;
+  flex-basis: 49%;
+  border: solid 1px black;
   box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.1);
   padding: 20px 35px;
   border-radius: 3px;
-  font-family: 'Nanum Barun Gothic', sans-serif;
+  font-family: "Nanum Barun Gothic", sans-serif;
 }
 
 #header {
-  margin-bottom: .3em;
+  margin-bottom: 0.3em;
   text-align: center;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size:15px;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 15px;
 }
 
-#writer-writeDate-star{
-  font-family: 'Nanum Barun Gothic', sans-serif;
-  font-size:13px;
-  float:right;
-  margin-bottom: .3em;
+#writer-writeDate-star {
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 13px;
+  float: right;
+  margin-bottom: 0.3em;
 }
 
-.houseInfo{
-  width:100%;
-  font-family: 'Nanum Barun Gothic', sans-serif;
-  font-size:13px;
+.houseInfo {
+  width: 100%;
+  font-family: "Nanum Barun Gothic", sans-serif;
+  font-size: 13px;
   text-align: center;
 }
 
-.houseInfo td{
-  border:solid 1px grey;
+.houseInfo td {
+  border: solid 1px grey;
 }
 
-#a{
-  background-color:rgba(59, 89, 114, 0.288);
+#a {
+  background-color: rgba(59, 89, 114, 0.288);
 }
 
-.review-image{
-    width:100%;
-    float:center;
-    height: 350px;
+.review-image {
+  width: 100%;
+  float: center;
+  height: auto;
 }
 
-#reviewImage{
-  margin-top:1em;
-  width:100%;
-  height:270px;
-  border:solid .5px rgb(173, 173, 173);
+#reviewImage {
+  margin-top: 1em;
+  width: 100%;
+  height: 270px;
+  border: solid 0.5px rgb(173, 173, 173);
 }
 
-.review-content{
-    margin-top:10px;
-    font-family: 'Nanum Barun Gothic', sans-serif;
+.review-content {
+  margin-top: 10px;
+  font-family: "Nanum Barun Gothic", sans-serif;
 }
 
-#merit, #demerit{
-    font-size:12.5px;
+#merit,
+#demerit {
+  font-size: 12.5px;
 }
 
 #center {
-    margin-top:2em;
-    width:100%;
-  }
-  
-  .pagination {
-    justify-content: center;
-    display: inline-block;    
-  }
-  
-  .pagination a:hover:not(.active) {background-color: #ddd;}
-
-  .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-    margin: 0 4px;
-  }
-  
-  .pagination a.active {
-    background-color: #4c87afa2;
-    color: white;
-    border: 1px solid #4c87afa2;
-  }
-  
-  select.sorting {
-    width: 50%;
-    height: 40px;
-    background: 0 0;
-    border: 1px solid #d8dade;
-    box-sizing: border-box;
-    border-radius: 8px;
-    color: #363b44;
-    z-index: 1;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    position: relative;
+  margin-top: 2em;
+  width: 100%;
 }
 
-.review-item{
+.pagination {
+  justify-content: center;
+  display: inline-block;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4c87afa2;
+  color: white;
+  border: 1px solid #4c87afa2;
+}
+
+select.sorting {
+  width: 50%;
+  height: 40px;
+  background: 0 0;
+  border: 1px solid #d8dade;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #363b44;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.review-item {
   margin: auto;
   width: 80%;
   padding: 15px;
   border: 1px solid #e1e3e7;
   position: relative;
-    
-  }
+}
 
 .review-item-title {
-    height: 72px;
-    display: inline-block;
-    overflow: hidden;
-    
+  height: 72px;
+  display: inline-block;
+  overflow: hidden;
 }
 .review-item-title .danji {
   text-decoration: none;
   line-height: 20px;
   font-size: 16px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   color: #111;
 }
 .review-item-title .address {
   font-size: 12px;
   line-height: 22px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   color: #5f6877;
   margin: 0 0 2px;
 }
 span.starpoint {
-  float:right;
+  float: right;
   width: 63px;
   font-size: 16px;
   top: 15px;
@@ -263,7 +287,7 @@ span.starpoint {
   align-items: center;
   justify-content: flex-end;
   color: #111;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 .badge {
   background: #fff;
@@ -283,7 +307,7 @@ span.starpoint {
   word-break: break-word;
   font-size: 15px;
   line-height: 22px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   color: #5f6877;
 }
 .review-item-description {
@@ -291,7 +315,7 @@ span.starpoint {
   word-break: break-word;
   font-size: 15px;
   line-height: 22px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   color: #5f6877;
 }
 .review-item-description-header {
@@ -300,22 +324,17 @@ span.starpoint {
   color: #111;
   font-weight: 950;
   text-align: center;
-
-
 }
 .review-item-description-date {
   font-size: 16px;
   line-height: 28px;
   color: #111;
-
-
 }
 .review-item-description-title {
   font-size: 16px;
   line-height: 28px;
   color: #111;
   font-weight: 950;
-
 }
 .review-veil {
   width: 100%;
@@ -328,7 +347,7 @@ span.starpoint {
   border-radius: 8px;
   font-size: 13px;
   line-height: 19px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   padding: 12px;
   box-sizing: border-box;
 }
@@ -346,24 +365,24 @@ span.starpoint img {
   background-size: cover;
 }
 
-.status{
+.status {
   float: right;
-  
-    margin-left: 8px;
-    padding: 0 2px;
-    height: 20px;
-    line-height: 20px;
-    color: #a6a6a6;
-    font-size: 12px;
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 11px 11px;
-    color: #363b44;
-    z-index: 1;
-    cursor: pointer;
+
+  margin-left: 8px;
+  padding: 0 2px;
+  height: 20px;
+  line-height: 20px;
+  color: #a6a6a6;
+  font-size: 12px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 11px 11px;
+  color: #363b44;
+  z-index: 1;
+  cursor: pointer;
 }
-.user{
-  float:none;
+.user {
+  float: none;
   max-width: 90px;
   margin: 0 10px 5px 0;
   height: 20px;
@@ -373,7 +392,7 @@ span.starpoint img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.time{
+.time {
   float: none;
   margin-bottom: 5px;
   height: 20px;
@@ -382,14 +401,13 @@ span.starpoint img {
   color: #a6a6a6;
 }
 
-.picture-medium{
+.picture-medium {
   float: left;
   margin: 0 5px 5px 0;
   width: 20px;
   height: 20px;
   border-radius: 4px;
 }
-
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 fieldset,
@@ -407,7 +425,6 @@ h1 {
   margin: 10px;
 }
 
-
 /****** Style Star Rating Widget *****/
 
 .rating {
@@ -415,11 +432,11 @@ h1 {
   float: left;
 }
 
-.rating>input {
+.rating > input {
   display: none;
 }
 
-.rating>label:before {
+.rating > label:before {
   margin: 5px;
   font-size: 1.25em;
   font-family: FontAwesome;
@@ -427,16 +444,15 @@ h1 {
   content: "\f005";
 }
 
-.rating>.half:before {
+.rating > .half:before {
   content: "\f089";
   position: absolute;
 }
 
-.rating>label {
+.rating > label {
   color: #ddd;
   float: right;
 }
-
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
@@ -449,9 +465,8 @@ h1 {
 /* hover current star */
 
 .rating:not(:checked)>label:hover~label {
-  color: #FFD700;
+  color: #ffd700;
 }
-
 
 /* hover previous stars in list */
 
@@ -465,18 +480,18 @@ h1 {
 /* lighten current selection */
 
 .rating>input:checked~label:hover~label {
-  color: #FFED85;
+  color: #ffed85;
 }
 
-.p{
-    font-size: 12px;
-    font-size: 11px;
-    background: #f9f9f9;
-    padding: 14px;
-    margin-top: 0;
-    line-height: 20px;
-    margin-bottom: 20px;
-    color: #5f6877;
+.p {
+  font-size: 12px;
+  font-size: 11px;
+  background: #f9f9f9;
+  padding: 14px;
+  margin-top: 0;
+  line-height: 20px;
+  margin-bottom: 20px;
+  color: #5f6877;
 }
 
 .write-modal-info {
@@ -486,14 +501,13 @@ h1 {
   overflow: hidden;
 }
 
-
-#create-review-item{
+#create-review-item {
   font-weight: 950;
-  font-size:12px;
-  margin-top:10px;
+  font-size: 12px;
+  margin-top: 10px;
 }
 
-.review-submit{
+.review-submit {
   border: 0;
   width: 100%;
   height: 48px;
@@ -509,5 +523,3 @@ h1 {
   text-align: center;
   justify-content: center;
 }
-
-   

@@ -83,7 +83,7 @@ const Communities = (props) => {
                 </div>
 
                 <td id="header" className={"readCommunity"}>
-                    <h5>{community.title}</h5>
+                    <h4 className = "header-title">{community.title}</h4>
                 </td>
 
                 <div class="community-content">
