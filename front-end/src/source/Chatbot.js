@@ -22,9 +22,17 @@ const HappyChatbot = (props) => {
       con.style.display='block';
       con2.style.display='none';
     }else{
-      con.style.display='none';
       con.style.display='none'; 
       con2.style.display='block';
+    }
+  }
+
+  const chatbotFAQM = () => {
+    var con = document.getElementById("chatbot");
+    if(con.style.display==='none'){
+      con.style.display='block';
+    }else{
+      con.style.display='none';
     }
   }
 
@@ -37,12 +45,21 @@ const HappyChatbot = (props) => {
           messageParser={MessageParser}/>
         </div>
         {isPc&&
+        <div>
         <div id = "chatbotM">
             <div id = "messageText1"><img src={cancel} id="cancelImg"/>청년 행복주택 알리미 </div>
             <div id = "messageText2">무엇을 도와드릴까요?</div>
         </div>
-        }
         <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQ()}/>
+
+        </div>
+        }
+
+        {isMobile&&
+        <div id = "chatbot">
+                  <img alt="chatbot" src={chatbot2} className="chatbot-button" onClick={() => chatbotFAQM()}/>
+        </div>
+        }
 
     </div>
   );
