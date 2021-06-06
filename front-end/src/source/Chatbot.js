@@ -4,16 +4,14 @@ import cancel from '../Image/loupe.png'
 import MessageParser from '../chatbot/MessageParser';
 import ActionProvider from '../chatbot/ActionProvider';
 import config from '../chatbot/config';    
-import {useMediaQuery} from "react-responsive";
+import {useMediaQuery} from './useMediaQuery.js'
 
 import './css/Menubar.css'
 import './css/Sidebar.css'
 
 const HappyChatbot = (props) => {
-
-  const isPc = useMediaQuery({query: "(min-width: 601px)"})
-  const isMobile = useMediaQuery({query: "(max-width: 600px"})
-
+    
+  const isMobile = useMediaQuery('(max-width: 600px)')
     
   const chatbotFAQ = () => {
     var con = document.getElementById("chatbot");
@@ -44,7 +42,7 @@ const HappyChatbot = (props) => {
           actionProvider={ActionProvider} 
           messageParser={MessageParser}/>
         </div>
-        {isPc&&
+        {!isMobile&&
         <div>
         <div id = "chatbotM">
             <div id = "messageText1"><img src={cancel} id="cancelImg"/>청년 행복주택 알리미 </div>

@@ -7,7 +7,7 @@ import CreateCommunity from './CreateCommunity'
 import ReadCommunity from './ReadCommunity';
 import Moment from 'react-moment'
 import Pagination from '../source/Pagination'
-import {useMediaQuery} from "react-responsive";
+import {useMediaQuery} from './useMediaQuery.js'
 
 const Communities = (props) => {
     const [modalInput, setModalInput] = useState("0");
@@ -170,8 +170,7 @@ const Communities = (props) => {
 
     
 
-    const isPc = useMediaQuery({query: "(min-width: 601px)"})
-    const isMobile = useMediaQuery({query: "(max-width: 600px"})
+    const isMobile = useMediaQuery('(max-width: 600px)')
 
 
     return (
@@ -180,7 +179,7 @@ const Communities = (props) => {
                 <div className="community-title">
                     <div id="title">커뮤니티</div>
                 </div>
-                {isPc&&
+                {!isMobile&&
                 <div className="search-button-group-com">
                     <select id="community-search-option">
                         <option>제목</option>
@@ -199,7 +198,7 @@ const Communities = (props) => {
                 }
             </div>
 
-            { isPc && activityHistoryList}
+            { !isMobile && activityHistoryList}
             { isMobile && activityHistoryListOfMobile}
 
             <div id="center">

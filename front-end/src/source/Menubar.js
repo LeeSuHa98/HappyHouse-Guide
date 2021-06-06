@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import axios from 'axios';
-import {useMediaQuery} from "react-responsive";
-
 import { Spinner } from 'reactstrap';
 
 import './css/Menubar.css';
@@ -12,17 +10,16 @@ import notify from '../Image/bell.png'
 import list from '../Image/check.png'
 import cancel from '../Image/cancel.png'
 
-
 import{
     Modal,
     ModalBody
 } from 'reactstrap';
 import Login from'./Login'
+import {useMediaQuery} from './useMediaQuery.js'
 
 const Menubar = (props) => {
     
-    const isPc = useMediaQuery({query: "(min-width: 601px)"})
-    const isMobile = useMediaQuery({query: "(max-width: 600px"})
+    const isMobile = useMediaQuery('(max-width: 600px)')
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -118,7 +115,7 @@ return (
             </div>
         </div>
         }
-        {isPc &&
+        {!isMobile &&
         <div>
         <div class="wrap">
                 <div class="top-header-right">
