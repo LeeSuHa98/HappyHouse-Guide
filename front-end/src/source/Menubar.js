@@ -94,7 +94,7 @@ return (
                 >
                     <img src={menu}/>
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu className="header-item">
                     <DropdownItem ><a onClick = {()=>{window.location.href ='/'}}>HOME</a></DropdownItem>
                     <DropdownItem ><a onClick = {()=>{window.location.href ='/reviews'}}>Review</a></DropdownItem>
                     <DropdownItem ><a onClick = {()=>{window.location.href ='/communities'}}>Community</a></DropdownItem>

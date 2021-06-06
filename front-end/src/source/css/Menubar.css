@@ -61,6 +61,11 @@
   height: 100%;
   margin: 0 auto;
 }
+
+.header-item {
+  z-index: 100;
+}
+
 .top-header {
   height: 100%;
   background: #08080b;
