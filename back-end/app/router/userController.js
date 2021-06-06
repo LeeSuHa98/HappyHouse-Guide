@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const users = require('../model/users');
-
+const salt  = require(path.join(__dirname, 'config', 'db.json'))
+ .salt
+const hashing = require(path.join(__dirname, 'config', 'hashing.js'))
 // Find All
 router.get('/', (req, res) => {
     users.findAll()
@@ -23,9 +25,13 @@ router.get('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-    users.create(req.body)
-    .then(users => res.send(users))
-    .catch(err => res.status(500).send(err));
+    console.log(req.body);
+    const hash = hashing.enc(req.body.id, req.body.password, salt);
+    console.log('1. salt 값 : ' , salt)
+    console.log('3. hash 결과 : ', hash)
+    // users.create(req.body)
+    // .then(users => res.send(users))
+    // .catch(err => res.status(500).send(err));
 });
 
 // Update by id
