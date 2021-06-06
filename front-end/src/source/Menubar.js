@@ -7,8 +7,6 @@ import {useMediaQuery} from "react-responsive";
 import { Spinner } from 'reactstrap';
 
 import './css/Menubar.css';
-import logo from '../Image/home.png'
-import menu from '../Image/menu.png'
 import logoutLogo from '../Image/logout.png'
 import notify from '../Image/bell.png'
 import list from '../Image/check.png'
@@ -92,7 +90,6 @@ return (
                     data-toggle="dropdown"
                     aria-expanded={dropdownOpen}
                 >
-                    {/* <img src={menu}/> */}
                     <div class="menu">MENU</div>
                 </DropdownToggle>
                 <DropdownMenu className="header-item">
@@ -124,8 +121,6 @@ return (
         {isPc &&
         <div>
         <div class="wrap">
-            {/* <div class="top-header-left" onClick = {()=>{window.location.href ='/'}} > */}
-            {/* </div> */}
                 <div class="top-header-right">
                     <ul>
                     <li id="hoverTest"><a onClick = {()=>{window.location.href ='/'}}>Home<span> </span></a></li>

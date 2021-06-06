@@ -265,17 +265,6 @@ const CreateReview = (props) => {
             value={title}></Input>
 
     </div>
-    {/* <div id="merit">
-        <div id="b">주택형</div>
-        <Input
-            name="typeName"
-            cols="50"
-            rows="20"
-            placeholder="예)40A,40B,40C"
-            onChange={handlChangeTypeName}
-            value={typeName}></Input>
-
-    </div> */}
     
     <div id="merit">
         <div id="b">장점</div>
@@ -336,18 +325,8 @@ const CreateReview = (props) => {
     </div>
     <br></br>
     <button class="review-submit" onClick={create}>작성</button>
-
-</div>
+    </div>
                             <br></br>
-                            {/* <div className="button-container">
-                                <button id="review-upload" onClick={create}>작성</button>
-                                <button
-                                    id="review-upload"
-                                    onClick ={()=>{window.location.href ='/reviews'}}
-                                    style={{
-                                        float: 'left'
-                                    }}>취소</button>
-                            </div> */}
                         </div>
                     </div>
                 </div>
