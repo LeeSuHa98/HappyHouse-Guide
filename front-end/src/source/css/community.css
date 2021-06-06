@@ -73,8 +73,12 @@
     font-family: "Nanum Barun Gothic", sans-serif;
     font-size: 11px;
     margin-left: auto;
-    margin-top: 5px;
     margin-bottom: 5px;
+  }
+  .search-button-group-com {
+    width: 100%;
+    margin-top: 0.5em;
+    display: flex;
   }
 }
 
@@ -134,6 +138,10 @@
   .profile {
     margin-bottom: 10px;
   }
+  .search-button-group-com {
+    width: 100%;
+    margin-top: 0.5em;
+  }
 }
 
 .profile {
@@ -167,7 +175,7 @@
 }
 
 /* search-button-group */
-.search-button-group {
+.search-button-group-com {
   width: 100%;
   margin-top: 0.5em;
 }
@@ -382,5 +390,14 @@ li {
 }
 .page {
   background: #ffff;
+  border: 0;
+}
+/* reply-css */
+.input-group>.custom-file, .input-group>.custom-select, .input-group>.form-control, .input-group>.form-control-plaintext {
+  font-size: 13px;
+}
+.input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text, .input-group>.input-group-prepend:first-child>.btn:not(:first-child), .input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child), .input-group>.input-group-prepend:not(:first-child)>.btn, .input-group>.input-group-prepend:not(:first-child)>.input-group-text{
+  font-size: 13px;
+  background-color: rgb(63, 133, 151);
   border: 0;
 }

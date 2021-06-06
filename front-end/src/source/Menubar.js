@@ -92,7 +92,8 @@ return (
                     data-toggle="dropdown"
                     aria-expanded={dropdownOpen}
                 >
-                    <img src={menu}/>
+                    {/* <img src={menu}/> */}
+                    <div class="menu">MENU</div>
                 </DropdownToggle>
                 <DropdownMenu className="header-item">
                     <DropdownItem ><a onClick = {()=>{window.location.href ='/'}}>HOME</a></DropdownItem>

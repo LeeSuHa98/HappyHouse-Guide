@@ -1,25 +1,9 @@
 import React, {useEffect, useState} from 'react';
-// import '../Css/test.css'; import DeleteReply from './DeleteReply.js'; import
-// CreateReply from './CreateReply.js';
-import $ from 'jquery';
 import {
-    Button,
-    Col,
-    Container,
-    Form,
-    FormGroup,
     Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Modal,
-    ModalHeader,
-    Row,
-    Table
 } from 'reactstrap';
 import axios from 'axios';
 import './css/community.css'
-import Moment from 'react-moment'
 
 function ReadCommunity(props) {
 
@@ -45,8 +29,6 @@ function ReadCommunity(props) {
         setContent(e.target.value);
     }
 
-    // const toggleIsReadOnly = () => {     setIsReadOnly(!isReadOnly); }
-
     const readCommunity = () => {
 
         var form = {
@@ -67,25 +49,13 @@ function ReadCommunity(props) {
                 console.log(error);
             })
         }
-
-//   function getReplyList(form) {
-//     var form = new FormData;
-//     form.append("postId", postId);
-//     axios
-//         .post('/community/readReply', form)
-//         .then((response) => {
-//             setReplyArrays(response.data);
-//             setTableData(replyArrays.map(renderInput));
-//         });
-// }
 const updateCommunity = () => {
-   // let newDate = new Date();
+
     var form = {
         userId: localStorage.getItem("userID"),
         _id: localStorage.getItem("community_id"),
         title: title,
         content: content,
-       // writeDate: writeDate
     };
     
     console.log('수정커뮤니티', form);
@@ -98,28 +68,8 @@ const updateCommunity = () => {
     })
 }
 
-// const createReply = () => {
-//     var form = new FormData;
-//     form.append('userToken', localStorage.getItem("userToken"));
-//     form.append('postId', postId);
-//     form.append('reply', reply);
-//     axios
-//         .post("/community/createReply", form, {
-//             headers: {
-//                 'content-type': 'multipart/form-data'
-//             }
-//         })
-//         .then((response) => {
-//             window
-//                 .location
-//                 .reload();
-//         })
-// }
-
     useEffect(() => {
-    
-        readCommunity(); //게시글 상세조회
-        // getReplyList(form);
+        readCommunity(); 
     }, [])
     return (
        
@@ -138,22 +88,7 @@ const updateCommunity = () => {
                         <h4>
                             <Input name="title" onChange={handleChangeTitle} value={title}></Input>
                         </h4>
-                    </td>
-{/* 
-                    <div>
-                        <table class="houseInfo">
-                            <tr>
-                                <td id="a">작성자</td>
-                                <td>{userId}</td>
-                                <td id="a">작성일</td>
-                                <td>
-                                    <Moment format="YY.MM.DD">{writeDate}</Moment>
-                                </td>
-                            </tr>
-                        </table>
-                    </div> 
-    */}
-                   
+                    </td>                
                     <div id="b"></div>
         <Input
            type="textarea"
@@ -171,41 +106,6 @@ const updateCommunity = () => {
                     
                     <br></br>
                  </div> 
-
-        
-           
-
-            {/* <Modal isOpen={modalCreateReply}>
-                        <ModalHeader toggle={toggleCreateReply}>댓글 등록</ModalHeader>
-
-                         <CreateReply postId={modalInput}></CreateReply>
-            </Modal>
-            <Modal isOpen={modalDeleteReply}>
-                        <ModalHeader toggle={toggleDeleteReply}>댓글 삭제</ModalHeader>
-
-                         <DeleteReply postId={modalInput}></DeleteReply>
-            </Modal> */
-            }
-            {/* <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>댓글</InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                        type="textarea"
-                        name="content"
-                        placeholder="댓글"
-                        onChange={handleReplyOnChange}
-                        value={reply}></Input>
-                </InputGroup>
-                <Button
-                    className="btn btn-primary btn-block w-25"
-                    color={"primary"}
-                    style={{
-                        float: 'right'
-                    }}
-                    type="post"
-                    onClick={createReply}>{"댓글작성"}</Button> */
-            }
         </div>
 
     )

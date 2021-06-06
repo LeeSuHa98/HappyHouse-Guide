@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
-import { FormGroup, Input, Button,InputGroup,InputGroupAddon, InputGroupText} from 'reactstrap';
+import {Input} from 'reactstrap';
 import axios from 'axios'
 
 
 const CreateCommunity = (props) => {
     
-    
-   
+
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
-   
-    
+
     const handleChangeTitle = (e) => {
         e.preventDefault();
         setTitle(e.target.value);

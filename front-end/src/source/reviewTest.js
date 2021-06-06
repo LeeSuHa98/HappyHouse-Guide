@@ -1,35 +1,31 @@
 import React, {useState, useEffect} from 'react';
-import {Progress} from 'reactstrap';
 import axios from 'axios'
 import Moment from 'react-moment'
 import numeral from 'numeral'
 import './css/Review.css'
 import $ from 'jquery';
 import {Modal, ModalHeader} from 'reactstrap';
-import CreateReview from './CreateReview'
 import star3 from '../Image/star3.png'
 import Pagination from '../source/Pagination'
 import SearchHouse from '../source/SearchHouse'
 const Review = (props) => {
 
     const [modalInput, setModalInput] = useState("0");
+    const [modalInputCode, setModalInputCode] = useState("0");
+    const [modalInputWriterId, setModalInputWriterId] = useState("0");
     const [modalCreateReview, setModalCreateReview] = useState(false);
     const toggleCreateReview = () => setModalCreateReview(!modalCreateReview);
-    //  const toggleReadReview = () => setModalReadReview(!modalReadReview);
     const [review_list, setReview] = useState();
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
-    const [pageSize, setPageSize] = useState(3); //1페이지당 거주후기 3개
+    const [pageSize, setPageSize] = useState(3); 
     const handleOptionOnChange = (e) => {
         e.preventDefault();
-        //선택안함 이면 옵션 0으로, 다른 옵션도 선택안함으로
         if (e.target.value === "최신순") {
-            // setOption(0);
             localStorage.setItem("option", 0)
 
             readReview();
         } else {
-            //  setOption(1);
             localStorage.setItem("option", 1)
 
             readReviewStar();
@@ -38,12 +34,19 @@ const Review = (props) => {
 
     const handlePageChange = (page) => {
         localStorage.setItem("page", page);
+        if (localStorage.getItem("option") == 1) {
+
+            readReviewStar();
+        } else 
+            readReview()
     }
 
     const reviewList = (reviews) => (
         <li className="li" key={reviews._id} id={reviews._id}>
             <div class="review-block">
                 <td className="id">{reviews._id}</td>
+                <td className="id">{reviews.danjiCode}</td>
+                <td className="id">{reviews.userId}</td>
                 <div id="header">
                     <h4 className="header-title">{reviews.title}</h4>
                 </div>
@@ -110,7 +113,7 @@ const Review = (props) => {
                 </div>
                 <br></br>
                 <div className="button-container">
-                    <button id="review-upload" className={"readReviewDetail"}>수정/삭제</button>
+                    <button id="review-upload" className={"readReviewDetail"} onClick={readReviewDetail}>수정/삭제</button>
                 </div>
                 <br></br>
 
@@ -148,10 +151,22 @@ const Review = (props) => {
                 setReview(data.map(reviewList))
             })
     }
+    function readReviewDetail() {
+      
+     
+       if (localStorage.getItem("review_id") != "0"&& localStorage.getItem("danjiCode")!="0") {
+        if(localStorage.getItem("userID")!=localStorage.getItem("writerId")){
+                    
+            alert("수정 권한이 없습니다.")
+            window.location.href = '/reviews'
+        }else{
+            window.location.href = '/reviews/detail'
+        }
+    }
+    }
     $(function () {
         $(".createReviewButton").on("click", function () {
 
-            
             toggleCreateReview();
         })
         $(".readReviewDetail").on("click", function () {
@@ -163,10 +178,10 @@ const Review = (props) => {
             var td = div.children();
             setModalInput(td.eq(0).text());
             localStorage.setItem("review_id", modalInput);
-
-            if (localStorage.getItem("review_id") != "0") {
-                window.location.href = '/reviews/detail'
-            }
+            setModalInputCode(td.eq(1).text());
+            localStorage.setItem("danjiCode",modalInputCode);
+            setModalInputWriterId(td.eq(2).text());
+            localStorage.setItem("writerId",modalInputWriterId);
 
         })
     })
@@ -196,12 +211,9 @@ const Review = (props) => {
                                 <option>최신순</option>
                                 <option>별점순</option>
                             </select>
-                            {/* <button
-                                id="review-upload"
-                                onClick={()=>{window.location.href ='/reviews/create'}}>UPLOAD</button> */}
                             <button
                                 id="review-upload"
-                                className={"createReviewButton"}>글쓰기</button>
+                                className={"createReviewButton"}>거주후기 작성하기</button>
                         </div>
 
                         {review_list}

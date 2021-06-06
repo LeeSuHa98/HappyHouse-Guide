@@ -18,10 +18,8 @@ const Communities = (props) => {
         !modalCreateCommunity
     );
     const toggleReadCommunity = () => setModalReadCommunity(!modalReadCommunity);
-
     const [activityHistoryList, setActivityHistoryList] = useState();
-    const [activityHistoryListOfMobile, setActivityHistoryListOfMobile] = useState();
-    
+    const [activityHistoryListOfMobile, setActivityHistoryListOfMobile] = useState();    
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
     const [pageSize, setPageSize] = useState(3);
@@ -60,7 +58,6 @@ const Communities = (props) => {
                 <br></br>
                 <div className="button-container">
                     <button id="review-upload" className={"readCommunityReply"}>댓글</button>
-                    {/* <button id="review-upload" className={"readCommunityDetail"}>수정/삭제</button> */}
                 </div>
                 <br></br>
             </div>
@@ -168,7 +165,7 @@ const Communities = (props) => {
 
     useEffect(() => {
         readCommunityCount();
-        readActivityHistory(); //getlist
+        readActivityHistory(); 
     }, []);
 
     
@@ -184,7 +181,7 @@ const Communities = (props) => {
                     <div id="title">커뮤니티</div>
                 </div>
                 {isPc&&
-                <div className="search-button-group">
+                <div className="search-button-group-com">
                     <select id="community-search-option">
                         <option>제목</option>
                     </select>
@@ -193,7 +190,12 @@ const Communities = (props) => {
                 }
                 {isMobile&&
                 
-                <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
+                <div className="search-button-group-com">
+                    <select id="community-search-option">
+                        <option>제목</option>
+                    </select>
+                    <button id="community-upload" className={"createCommunityButton"}>글쓰기</button>
+                </div>
                 }
             </div>
 
@@ -202,15 +204,7 @@ const Communities = (props) => {
 
             <div id="center">
                 <div class="pagination">
-                  
-                   
-                    {/* <a onClick={pageChange1}>&laquo;</a>
-                    <a onClick={pageChange1}>1</a>
-                    <a onClick={pageChange2}>2</a>
-                    <a onClick={pageChange3}>3</a>
-                    <a onClick={pageChange4}>4</a>
-                    <a onClick={pageChange5}>5</a>
-                    <a onClick={pageChange5}>&raquo;</a> */}
+            
                      <Pagination
                                 itemsCount={count}
                                 pageSize={pageSize}

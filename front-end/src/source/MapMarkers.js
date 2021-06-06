@@ -63,8 +63,8 @@ export const MapMarkers = (props) => {
     useEffect(() => {
       sidebarHide()
       sidebarHide2()
-      setCenter({lat: 37.5, lng: 127})
-      setZoom(15)
+      setCenter({lat: 37.50757993, lng: 127.0016692})
+      setZoom(14)
       loadAsyncData();
       loadAsyncPlannedData();
     }, [])

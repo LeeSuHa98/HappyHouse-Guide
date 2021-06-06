@@ -1,19 +1,10 @@
-import React, {useEffect, useState} from 'react'; //https://github.com/imtaekh/my_app/blob/4485452eee5a48e94d2ee0b7892ef0181ba4302c/models/User.js
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
 import {
     Button,
-    Col,
-    Container,
-    Form,
-    FormGroup,
     Input,
     InputGroup,
     InputGroupAddon,
-    InputGroupText,
-    Modal,
-    ModalHeader,
-    Row,
-    Table
 } from 'reactstrap';
 import axios from 'axios';
 import './css/community.css'
@@ -163,7 +154,6 @@ const deleteReply = () => { //댓글 삭제
     axios
         .post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/communities/delete', form)
         .then((res) => {
-            // alert("댓글 삭제 완료");
             window.location.href = '/communities/reply'
         })
 }

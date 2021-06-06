@@ -54,7 +54,6 @@ var server = app.listen(8080, function () {
 });
 
 app.use('/happyhouse', require('./router/router'))
-// app.use('/Image', express.static('uploads'));   //정적파일제공  app.use('/static', express.static(__dirname + '/public'));  <-절대경로
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
