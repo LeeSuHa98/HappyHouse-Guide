@@ -73,7 +73,6 @@ export const MapMarkers = (props) => {
         let url = `https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/houseinfos/address`;
 
         axios.get(url).then(({data}) => {
-          console.log(data)
             data = data.houseInfoList
             setItem(data);
         })

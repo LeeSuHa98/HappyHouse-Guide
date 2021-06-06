@@ -249,7 +249,7 @@
 
 .pagination {
   justify-content: center;
-  display: inline-block;
+  display: flex;
 }
 
 .pagination a:hover:not(.active) {
@@ -453,10 +453,6 @@ fieldset,
 label {
   margin: 0;
   padding: 0;
-}
-
-body {
-  margin: 20px;
 }
 
 h1 {

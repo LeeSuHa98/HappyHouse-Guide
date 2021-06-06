@@ -70,7 +70,6 @@ const Login = (props) => {
             name : name.toString(),
             phoneNum : phoneNum.toString()
         };
-        console.log(form)
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/users', form).then((res) => {
             if(res.data.userID){
                 alert("회원가입 성공")
