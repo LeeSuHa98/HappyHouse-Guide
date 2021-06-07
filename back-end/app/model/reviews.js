@@ -72,12 +72,12 @@ reviewSchema.statics.findOneById = function (_id) {
 // Update by id
 reviewSchema.statics.updateById = function (_id, payload) {
   // { new: true }: return the modified document rather than the original. defaults to false
-  return this.findOneAndUpdate(ObjectId(_id), payload, { new: true });
+  return this.findOneAndUpdate({"_id" : _id}, payload, { new: true });
 };
 
 // Delete by id
 reviewSchema.statics.deleteById = function (_id) {
-  return this.remove(ObjectId(_id));
+  return this.remove({"_id" : _id});
 };
 
 // Create Model & Export

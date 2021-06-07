@@ -155,7 +155,8 @@ function ReadReview(props) {
             }
         };
         
-            axios.post('/happyhouse/reviews/update', formData,config).then((res) => {
+            axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', formData,config).then((res) => {
+                console.log(res)
                 alert("거주후기 수정 완료")
                 window.location.href ='/reviews'
             })
@@ -177,8 +178,9 @@ function ReadReview(props) {
                 picture: picture,
             };
 
-            axios.post("/happyhouse/reviews/updateNofile",form)
+            axios.post("https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/updateNofile",form)
             .then((res) => {
+                console.log(res)
                 alert("거주후기 수정 완료");
                 window.location.href ='/reviews'
             }).catch((error) => {
@@ -346,8 +348,8 @@ function ReadReview(props) {
         </InputGroup>
         <br></br>
             <div className="button-container-review">
-        <button id="review-upload" onClick={updateReview}>수정</button>
-        <button id="review-upload" onClick={deleteReview}>삭제</button>
+        <button id="review-upload" onClick={()=>updateReview()}>수정</button>
+        <button id="review-upload" onClick={()=>deleteReview()}>삭제</button>
         </div>
         <div className="button-container-review">
         <button id="review-upload-cancel" onClick = {()=>{window.location.href ='/reviews'}} style={{float: 'left'}}>취소</button>
