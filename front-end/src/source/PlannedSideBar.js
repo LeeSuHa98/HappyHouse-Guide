@@ -60,8 +60,9 @@ const PlannedSideBar = (props) => {
 
                 <div id = "houseInfoSection2">
                       <div class = "test2">주택정보</div>
+                      <div class ="typeGroup">
                       {typeButton(props.plannedDetail.type)}
-
+                      </div>
                           <table class="houseInfoTable2">
                             <tr>
                               <td id = "td1">준공일자</td>
