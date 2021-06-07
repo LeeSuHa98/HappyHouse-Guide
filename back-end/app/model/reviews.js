@@ -35,7 +35,7 @@ reviewSchema.statics.findOrderOfThree = function (danjiCode) {
 
 // 최신순 3개
 reviewSchema.statics.findPictures = function (danjiCode) {
-  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: 0 } });
+  return this.find({ "danjiCode" : danjiCode, 'picture' : { $exists: true, $ne: "https://carrykimsbucket.s3.amazonaws.com/1622914183566.gif" } });
 };
 
 
@@ -66,18 +66,18 @@ reviewSchema.statics.findByUserIdAndHouseId = function (houseId, userId) {
 
 // Find One by id
 reviewSchema.statics.findOneById = function (_id) {
-  return this.findOne(ObjectId(_id));
+  return this.findOne({"_id" : _id});
 };
 
 // Update by id
 reviewSchema.statics.updateById = function (_id, payload) {
   // { new: true }: return the modified document rather than the original. defaults to false
-  return this.findOneAndUpdate(ObjectId(_id), payload, { new: true });
+  return this.findOneAndUpdate({"_id" : _id}, payload, { new: true });
 };
 
 // Delete by id
 reviewSchema.statics.deleteById = function (_id) {
-  return this.remove(ObjectId(_id));
+  return this.remove({"_id" : _id});
 };
 
 // Create Model & Export
