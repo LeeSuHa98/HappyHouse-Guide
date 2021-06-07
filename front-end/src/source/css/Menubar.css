@@ -1,12 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
 @media (max-width: 600px) {
-  .top-header-right {
-    float: right;
-    padding-top: 0.35em;
-    padding-right: 3%;
+  .mobile-header{
+    width:100%;
   }
 
+  .top-header-left {
+    width:30%;
+    height:100%;
+    float: left;
+    color: white;
+    margin-top:.5em;
+    font-size: 0.8em;
+  }
+
+  .top-header-right ul {
+    width:69%;
+    float:right;
+    margin-top:.55em;
+    font-size: 0.8em;
+    padding-right:1em;
+  }
+  
+  .top-header-right ul li {
+    float:right;
+    color: #fff;
+    font-size: 1em;
+  }
   #check {
     top: 80%;
     width: 100%;
@@ -31,6 +51,8 @@
   .menu {
     padding-left: 1rem;
   }
+
+  
 }
 
 @media (min-width: 601px) {
@@ -62,6 +84,35 @@
   .dropdown-menu .show {
     width: 400px;
   }
+
+  
+.top-header {
+  height: 100%;
+  background: #08080b;
+  font-family: "Nanum Barun Gothic";
+  width:100%;
+  float: right;
+}
+
+  .top-header-right {
+    height:100%;
+    width:50%;
+    /* padding-left: 1em; */
+    color: white;
+    padding-top:.5em;
+    font-size:1em; 
+    padding-right:1em;
+  }
+
+  .top-header-right ul {
+    float:right;
+  }
+
+  .top-header-right ul li {
+    display: inline-block;
+    color: #fff;
+    font-size: 0.75em;
+  }
 }
 
 .wrap {
@@ -74,25 +125,6 @@
   z-index: 100;
 }
 
-.top-header {
-  height: 100%;
-  background: #08080b;
-  font-family: "Nanum Barun Gothic";
-}
-
-.top-header-left {
-  /* padding-left: 1em; */
-  padding-top: 0.75em;
-  float: left;
-  color: white;
-  font-size: 0.8em;
-}
-
-.top-header-right ul li {
-  display: inline-block;
-  color: #fff;
-  font-size: 0.75em;
-}
 
 /* .top-header-right ul li  :hover{
 	color:rgb(75, 228, 255);
