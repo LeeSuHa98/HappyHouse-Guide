@@ -66,7 +66,7 @@ reviewSchema.statics.findByUserIdAndHouseId = function (houseId, userId) {
 
 // Find One by id
 reviewSchema.statics.findOneById = function (_id) {
-  return this.findOne(ObjectId(_id));
+  return this.findOne({"_id" : _id});
 };
 
 // Update by id
