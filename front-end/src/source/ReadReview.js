@@ -156,7 +156,6 @@ function ReadReview(props) {
         };
         
             axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/reviews/update', formData,config).then((res) => {
-                console.log(res)
                 alert("거주후기 수정 완료")
                 window.location.href ='/reviews'
             })
