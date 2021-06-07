@@ -30,7 +30,8 @@ userSchema.statics.findByUserId = function (userId) {
   };
 
   userSchema.statics.findUserForLogin = function (userId, password) {
-    return this.find({"userID" : userId, "password" : password});
+    // return this.find({"userID" : userId, "password" : password});
+    return this.find({"userID" : userId});
   };
 
 
