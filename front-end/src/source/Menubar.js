@@ -95,7 +95,7 @@ return (
                     <DropdownItem ><a onClick = {()=>{window.location.href ='/communities'}}>Community</a></DropdownItem>
                 </DropdownMenu>
                 </Dropdown>
-            </div>
+                     </div>
             <div class="top-header-right">
                 <ul>    
                     <li id="hoverTest"></li>
