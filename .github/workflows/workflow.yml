@@ -3,11 +3,7 @@ name: Upload Website
 on:
   push:
     branches: [ feature ]
-    
-defaults:
-  run:
-    working-directory: front-end
-    
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
