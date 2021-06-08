@@ -26,6 +26,10 @@ jobs:
 
       - name: Install Dependencies    # 의존 파일 설치
         run: npm install
+        
+      - name: Install Dependencies of script    # 의존 파일 설치
+        run: npm install react-scripts@3.4.1
+
 
       - name: Build                   # React Build
         run: npm run build
