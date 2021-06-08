@@ -3,12 +3,14 @@ name: Upload Website
 on:
   push:
     branches: [ feature ]
-
+    
+defaults:
+  run:
+    working-directory: /front-end
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./front-end
     steps:
       - name: Checkout source code.   # 레포지토리 체크아웃
         uses: actions/checkout@master
