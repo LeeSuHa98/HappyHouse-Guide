@@ -7,34 +7,26 @@ on:
 defaults:
   run:
     working-directory: front-end
-    
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
     steps:
-      - name: Checkout source code.   # 레포지토리 체크아웃
-        uses: actions/checkout@master
-
-      - name: Cache node modules      # node modules 캐싱
-        uses: actions/cache@v1
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-      - name: Install Dependencies    # 의존 파일 설치
-        run: npm install
-        
-      - name: Install Dependencies    # 의존 파일 설치
-        run: apk update && apk upgrade
-        
-      - name: Install Dependencies    # 의존 파일 설치
-        run: apk add --no-cache git
-
-      - name: Build                   # React Build
-        run: npm run build
-
+          node-version: ${{ matrix.node-version }}
+      - name: Yarn Install
+        run: |
+          yarn install
+      - name: Production Build
+        run: |
+          yarn build
       - name: Deploy                  # S3에 배포하기
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
