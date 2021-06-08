@@ -1,0 +1,82 @@
+@import url('http://www.openhiun.com/hangul/nanumbarungothic.css');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+.login_container{
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    font-size:1em;
+}
+
+#tab{
+    width:50%;
+    text-align: center;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size:1.2em;
+}
+
+.form-group Input{    
+    height:3em;
+}
+
+.form-group Input::placeholder{
+    color:#babec4;
+    font-size:12px;
+}
+
+.form-group Button{
+    height:3em;
+    border-radius: 4px;
+}
+
+.socialLogin{
+    height:52px;
+}
+
+.kakao-login{
+    float:left;
+    width:49%;
+    height:52px;
+    margin-right:2%;
+    border-radius: 7px;
+}
+
+.google-login{
+    float:left;
+    width:49%;    
+    height:52px;   
+    border-radius: 7px;
+}
+
+.kakaoImage{
+    margin-bottom:9px;
+    margin-left:10px;
+}
+
+.googleImage{
+    width:17px;
+    height:17px;
+    margin-right:23px;
+    margin-left:30px;
+}
+
+.GoogleBtn{
+    padding-top:2.5px;
+    width:100%;
+    height:28px;
+    margin-right:2%;
+    border-radius: 4px;
+    color:rgb(29, 29, 29);
+    background-color:rgb(255, 255, 255);
+    font-size:14.5px;
+}
+
+.GoogleBtn::before{
+    padding-top:2.5px;
+    width:100%;
+    height:26.5px;
+    margin-right:2%;
+    border-radius: 4px;
+    color:rgb(29, 29, 29) !important;
+    background-color:rgb(255, 255, 255);
+    font-size:14.5px;
+}
+

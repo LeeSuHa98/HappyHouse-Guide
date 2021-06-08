@@ -3,11 +3,13 @@
 }
 
 .header_container {
-  position:fixed;
-  height: 10%;
+  height: 6%;
+  background: #08080b;
+  position: fixed;
   width: 100%;
-  z-index: 100;
+  z-index: 1;
 }
-.body_container {
-  padding-top: 0px;
+
+.gmnoprint, .gm-control-active.gm-fullscreen-control {
+  display: none;
 }

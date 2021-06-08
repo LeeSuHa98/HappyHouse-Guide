@@ -1,0 +1,25 @@
+version: "3.2"
+
+services:
+  app:
+    build:
+      context: ./app
+    volumes:
+      - log-data:/usr/src/app/config/logs
+    ports:
+      - "8080:8080"
+
+  filebeat:
+    build:
+      context: ./filebeat
+    volumes:
+      - log-data:/var/log/server
+    networks:
+      - elk
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  log-data:
