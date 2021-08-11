@@ -1,2 +1,1 @@
-# Ignore OS artifacts
-**/.DS_Store
+node_modules
