@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const users = require('../model/users');
-
+var bcrypt = require('bcrypt');
 // Find All
 router.get('/', (req, res) => {
     users.findAll()
@@ -23,8 +23,18 @@ router.get('/:id', (req, res) => {
 
 // Create new document
 router.post('/', (req, res) => {
-    user.create(req.body)
-    .then(users => res.send(user))
+    console.log("회원가입")
+    console.log(req.body);
+    
+   const SALT_ROUND =10;  
+   let hasshedPassword = bcrypt.hashSync(req.body.password,SALT_ROUND);
+   console.log("ddd", hasshedPassword);
+  req.body.password= hasshedPassword;
+  
+  console.log(req.body);
+   
+    users.create(req.body)
+    .then(users => res.send(users))
     .catch(err => res.status(500).send(err));
 });
 
@@ -37,7 +47,7 @@ router.put('/:id', (req, res) => {
 
 // Delete by id
 router.delete('/:id', (req, res) => {
-    user.deleteById(req.params.id)
+    users.deleteById(req.params.id)
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).send(err));
 });

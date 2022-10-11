@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 var ObjectId = require('mongoose').Types.ObjectId;
-
+mongoose.set('useCreateIndex', true)
 // Define Schemes
 const communitySchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   userId: { type: String, required: true },
-  groupId: { type: Number, required: true },
+  groupId: { type: String, required: true },
   replyOrder: { type: Number, required: true },
   replyStep: { type: Number, required: true },
   title: { type: String, required: true },
@@ -42,7 +41,7 @@ communitySchema.statics.updateById = function (_id, payload) {
 
 // Delete by id
 communitySchema.statics.deleteById = function (_id) {
-  return this.remove(ObjectId(_id));
+  return this.deleteOne(ObjectId(_id));
 };
 
 // Create Model & Export

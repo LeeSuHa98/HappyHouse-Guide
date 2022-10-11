@@ -3,22 +3,21 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const houseInfoSchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   sidoCode: { type: String, required: true },
   sidoName: { type: String, required: true },
   sigunguCode: { type: String, required: true },
   sigunguName: { type: String, required: true },
-  danjiCode: { type: Number, required: true },
+  danjiCode: { type: String, required: true },
   danjiName: { type: String, required: true },
   address: { type: String, required: true },
-  competeDate: { type: Date, required: true },
-  houseHoldNum: { type: Number, required: true },
+  competeDate: { type: String, required: true },
+  houseHoldNum: { type: String, required: true },
   houseType: { type: String, required: true },
   bassRentDeposit: { type: String, required: true },
-  bassMonthlyRentCharge: { type: Number, required: true },
-  bassConversionDeposit: { type: Number, required: true },
-  suplyPrivateArea: { type: Number, required: true },
-  suplyCommuseArea: { type: Number, required: true },
+  bassMonthlyRentCharge: { type: String, required: true },
+  bassConversionDeposit: { type: String, required: true },
+  suplyPrivateArea: { type: String, required: true },
+  suplyCommuseArea: { type: String, required: true },
   insttName: { type: String, required: true },
 });
 
@@ -47,6 +46,13 @@ houseInfoSchema.statics.findBySidoCode = function (sidoCode) {
   return this.find({"sidoCode" : sidoCode});
 };
 
+houseInfoSchema.statics.findAddress = function () {
+  return this.find({},{_id:1 , lat:1, lng:1 , houseHoldNum:1});
+};
+
+houseInfoSchema.statics.findTest = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode},{_id:0 ,typeName:1 , suplyCommuseArea:1, suplyPrivateArea:1 , bassRentDeposit:1, bassConversionDeposit:1, bassMonthlyRentCharge:1});
+};
 // Find sidoCode and sigunguCode
 houseInfoSchema.statics.findBySidoCodeAndSigunguCode = function (sidoCode, sigunguCode) {
   return this.find({"sidoCode" : sidoCode, "sigunguCode": sigunguCode});
@@ -56,6 +62,16 @@ houseInfoSchema.statics.findBySidoCodeAndSigunguCode = function (sidoCode, sigun
 houseInfoSchema.statics.findBySidoCodeAndSigunguCodeAndDanjiCode = function (sidoCode, sigunguCode, danjiCode) {
   return this.find({"sidoCode" : sidoCode, "sigunguCode": sigunguCode, "danjiCode" : danjiCode});
 };
+// Find danjiCode
+houseInfoSchema.statics.findByDanjiCode = function (danjiCode) {
+  return this.findOne({"danjiCode" : danjiCode});
+};
+
+// Find TypeName
+houseInfoSchema.statics.findTypeName = function (danjiCode) {
+  return this.find({"danjiCode" : danjiCode},{_id:0, typeName:1});
+};
+
 
 // Update by id
 houseInfoSchema.statics.updateById = function (_id, payload) {

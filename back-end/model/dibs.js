@@ -3,9 +3,9 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 // Define Schemes
 const dibsSchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true },
   userId: { type: String, required: true },
-  houseId: { type: String, required: true }
+  danjiCode: { type: String, required: true },
+  danjiName: { type: String, required: true }
 });
 
 // Create new todo document
@@ -27,12 +27,12 @@ dibsSchema.statics.findByUserId = function (userId) {
     return this.find({"userId" : userId});
 };
 
-dibsSchema.statics.findByHouseId = function (houseId) {
-    return this.find({"houseId" : houseId});
+dibsSchema.statics.findByHouseId = function (danjiCode) {
+    return this.find({"danjiCode" : danjiCode});
 };
 
-dibsSchema.statics.findByUserIdAndHouseId = function (userId, houseId) {
-    return this.find({"userId" : userId, "houseId" : houseId});
+dibsSchema.statics.findByUserIdAndHouseId = function (userId, danjiCode) {
+    return this.find({"userId" : userId, "danjiCode" : danjiCode});
 };
 
 // Find One by id
@@ -47,8 +47,8 @@ dibsSchema.statics.updateById = function (_id, payload) {
 };
 
 // Delete by id
-dibsSchema.statics.deleteById = function (_id) {
-  return this.remove(ObjectId(_id));
+dibsSchema.statics.deleteById = function (userId, danjiCode) {
+  return this.remove({"userId" : userId, "danjiCode" : danjiCode});
 };
 
 // Create Model & Export

@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, FormGroup, Input, Button, Form, InputGroup} from 'reactstrap';
 import classnames from 'classnames';
 import axios from 'axios'
+import LoginKakao from './KakaoLogin';
+import GoogleLogin from './GoogleLogin';
+import './css/Menubar.css';
+import './css/Login.css';
 
 const Login = (props) => {
     const [activeTab, setActiveTab] = useState('1');
@@ -43,13 +47,15 @@ const Login = (props) => {
 
     const handLogin = () => {
         var form={
-            _id : id,
+            userID : id,
             password : password
         };
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/login', form).then((res) => {
             if(res.data.token){
                 alert("환영합니다!")
                 localStorage.setItem("userToken", res.data.token)
+                localStorage.setItem("userID", res.data.userID)
+                localStorage.setItem("userName", res.data.name)
                 props.toggle()
             }
         }).catch(function (error){
@@ -64,7 +70,6 @@ const Login = (props) => {
             name : name.toString(),
             phoneNum : phoneNum.toString()
         };
-        console.log(form)
         axios.post('https://joj5opq81m.execute-api.us-east-2.amazonaws.com/happyhouse/users', form).then((res) => {
             if(res.data.userID){
                 alert("회원가입 성공")
@@ -77,8 +82,8 @@ const Login = (props) => {
 
     return (
         <div class ="login_container">
-            <Nav tabs>
-                <NavItem>
+             <Nav tabs >
+                <NavItem id = "tab">
                     <NavLink
                         className={classnames({ active: activeTab === '1' })}
                         onClick={() => { toggle('1'); }}
@@ -87,7 +92,7 @@ const Login = (props) => {
                     </NavLink>
                 </NavItem>
 
-                <NavItem>
+                <NavItem id = "tab">
                     <NavLink
                         className={classnames({ active: activeTab === '2' })}
                         onClick={() => { toggle('2'); }}
@@ -98,25 +103,24 @@ const Login = (props) => {
             </Nav>
 
 
-
             <TabContent activeTab={activeTab}>
 
                 <TabPane tabId="1">
                     <br/>
                     <FormGroup>
-                        <Input type="userId" name="userId" id="userId" placeholder="ID" onChange={handlChangeId}/>
+                        <Input type="userId" name="userId" id="userId" placeholder="아이디" onChange={handlChangeId}/>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={handlChangePw}/>
+                        <Input type="password" name="password" id="examplePassword" placeholder="비밀번호" onChange={handlChangePw}/>
                     </FormGroup>
                     <div className="form-group">
                         <Button color="primary" block="block" onClick = {()=> handLogin()}>로그인</Button>
                     </div>
                     <div className="form-group">
-                        <Button color="warning" block="block">카카오 로그인</Button>
-                    </div>
-                    <div className="form-group">
-                        <Button color="secondary" block="block">Google 로그인</Button>
+                        <div>
+                            <LoginKakao toggle = {props.toggle}/>
+                            <GoogleLogin toggle = {props.toggle}/>
+                        </div>
                     </div>
                 </TabPane>
 
@@ -129,7 +133,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="userId"
-                                placeholder="ID"
+                                placeholder="아이디"
                                 onChange={handlChangeId}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -140,7 +144,7 @@ const Login = (props) => {
                             <Input
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder="비밀번호"
                                 onChange={handlChangePw}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -150,7 +154,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="name"
-                                placeholder="name"
+                                placeholder="이름"
                                 onChange={handlChangeName}
                                 className="form-control"></Input>
                         </InputGroup>
@@ -160,7 +164,7 @@ const Login = (props) => {
                             <Input
                                 type="text"
                                 name="phoneNum"
-                                placeholder="phoneNum"
+                                placeholder="휴대폰번호"
                                 onChange={handlChangePhonNum}
                                 className="form-control"></Input>
                         </InputGroup>

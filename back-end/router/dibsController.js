@@ -65,8 +65,8 @@ router.put('/:id', (req, res) => {
 });
 
 // Delete by id
-router.delete('/:id', (req, res) => {
-    dibs.deleteById(req.params.id)
+router.delete('/', (req, res) => {
+    dibs.deleteById(req.body.userId,req.body.danjiCode)
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).send(err));
 });
